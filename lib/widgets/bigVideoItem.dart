@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:social_app_demo/models/video.dart';
 import 'package:social_app_demo/screens/watching_pages/live_pages/watchFullShortVideo.dart';
 import 'package:social_app_demo/screens/watching_pages/live_pages/watchVideo.dart';
@@ -22,13 +23,19 @@ class _BigVideoItemState extends State<BigVideoItem> {
       padding: const EdgeInsets.all(8.0),
       child: InkWell(
         onTap: () {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => WatchVideo(widget.video)));
+          pushNewScreen(
+            context,
+            screen: WatchVideo(widget.video),
+            withNavBar: false, // OPTIONAL VALUE. True by default.
+            pageTransitionAnimation: PageTransitionAnimation.cupertino,
+          );
+          // Navigator.push(
+          //     context,
+          //     MaterialPageRoute(
+          //         builder: (context) => WatchVideo(widget.video)));
         },
-        child: Hero(
-          tag: 'vedio${widget.video.id}',
+        child: HeroMode(
+          enabled: true,//tag: 'vedio${widget.video.id}',
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -98,21 +105,23 @@ class _BigVideoItemState extends State<BigVideoItem> {
                     children: [
                       Text(
                         '${widget.video.publisher.name}',
-                        style: TextStyle(fontWeight: FontWeight.bold),
+                        style: TextStyle(fontSize:15,fontWeight: FontWeight.bold),
                       ),
                       Text(
                         '${widget.video.name}',
+                        style: TextStyle(fontSize:15,),
                       ),
                     ],
                   ),
                   Spacer(),
                   IconButton(
                       onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    WatchFullShortVideo(widget.video)));
+
+                        // Navigator.push(
+                        //     context,
+                        //     MaterialPageRoute(
+                        //         builder: (context) =>
+                        //             WatchFullShortVideo(widget.video)));
                       },
                       icon: Icon(Icons.more_vert_outlined)),
                 ],
@@ -140,7 +149,7 @@ class _BigVideoItemState extends State<BigVideoItem> {
                           child: Center(
                               child: Text(
                             '${widget.video.category[index]}',
-                            style: TextStyle(color: Colors.white),
+                            style: TextStyle(color: Colors.white,fontSize:10,fontWeight: FontWeight.w100),
                           )),
                         ),
                       );

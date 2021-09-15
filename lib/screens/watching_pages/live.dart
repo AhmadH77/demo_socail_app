@@ -85,11 +85,9 @@ class _LiveState extends State<Live> {
           tabs: categories
               .map((item) => Container(
                     padding: EdgeInsets.all(10),
-                    // margin: EdgeInsets.all(10),
                     decoration: BoxDecoration(
-                        // color: Colors.grey,
                         borderRadius: BorderRadius.all(Radius.circular(20))),
-                    child: Text(item),
+                    child: Text(item , style: TextStyle(fontSize: 18,fontWeight: FontWeight.normal),),
                   ))
               .toList(),
         ),

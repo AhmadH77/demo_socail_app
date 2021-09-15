@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:social_app_demo/models/video.dart';
 import 'package:social_app_demo/screens/watching_pages/live_pages/watchVideo.dart';
 
@@ -13,19 +14,26 @@ class SmallVideoItem extends StatefulWidget {
 class _BigVideoItemState extends State<SmallVideoItem> {
   @override
   Widget build(BuildContext context) {
+    print('vedio${widget.video.id}');
     return  Padding(
       padding: const EdgeInsets.all(8.0),
       child: InkWell(
         onTap: (){
-          Navigator.push(context, MaterialPageRoute(builder: (context) => WatchVideo(widget.video)));
+          pushNewScreen(
+            context,
+            screen: WatchVideo(widget.video),
+            withNavBar: false, // OPTIONAL VALUE. True by default.
+            pageTransitionAnimation: PageTransitionAnimation.cupertino,
+          );
+          // Navigator.push(context, MaterialPageRoute(builder: (context) => WatchVideo(widget.video)));
         },
         child: Card(
           elevation: 4,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20),
           ),
-          child: Hero(
-            tag: 'vedio${widget.video.id}',
+          child: HeroMode(
+            enabled: true,//: 'vedio${widget.video.id}',
             child: Container(
               height: 300,
               width: 120,
@@ -40,31 +48,39 @@ class _BigVideoItemState extends State<SmallVideoItem> {
                 padding: EdgeInsets.only(left: 8.0, right: 8.0, top: 8.0),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Icon(
-                      Icons.circle,
-                      color: Colors.red,
-                      size: 15,
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.circle,
+                          color: Colors.red,
+                          size: 15,
+                        ),
+                        Text(
+                          'Live',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ],
                     ),
-                    Text(
-                      'Live',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    Spacer(),
-                    Icon(
-                      Icons.visibility_outlined,
-                      color: Colors.white,
-                      size: 18,
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(left: 5.0, bottom: 2),
-                      child: Text(
-                        widget.video.watches,
-                        style: TextStyle(
-                            color: Colors.white, fontWeight: FontWeight.bold),
-                      ),
+
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.visibility_outlined,
+                          color: Colors.white,
+                          size: 18,
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(left: 5.0, bottom: 2),
+                          child: Text(
+                            widget.video.watches,
+                            style: TextStyle(
+                                color: Colors.white, fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),

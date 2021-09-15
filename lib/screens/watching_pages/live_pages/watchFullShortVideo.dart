@@ -31,24 +31,27 @@ class _WatchFullShortVideoState extends State<WatchFullShortVideo> {
             backgroundColor: Colors.transparent,
             iconTheme: IconThemeData(color: Colors.black),
             leading: IconButton(
-              icon: Icon(
-                Icons.arrow_back_ios,
-              ),
+              icon: Image.asset('assets/icons/CaretLeft.png'),
+              // Icon(
+              //   Icons.arrow_back_ios,
+              // ),
               onPressed: () {
                 Navigator.pop(context);
               },
             ),
             actions: [
               IconButton(
-                icon: Icon(
-                  Icons.settings_outlined,
-                  size: 30,
-                ),
+                icon:  Image.asset('assets/icons/Nut.png'),
+                // Icon(
+                //   Icons.settings_outlined,
+                //   size: 30,
+                // ),
                 onPressed: () {},
               ),
             ],
           ),
           body: Column(
+            mainAxisSize: MainAxisSize.min,
             children: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -58,61 +61,21 @@ class _WatchFullShortVideoState extends State<WatchFullShortVideo> {
                     Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Icon(Icons.visibility_outlined),
+                        Image.asset('assets/icons/Eye.png'),
+                        // Icon(Icons.visibility_outlined),
                         Text('100 K')
                       ],
                     ),
                     IconButton(
                       onPressed: () {},
-                      icon: Icon(Icons.videocam_outlined),
+                      icon: Image.asset('assets/icons/VideoCamera.png'),
+                      // Icon(Icons.videocam_outlined),
                     )
                   ],
                 ),
               ),
-              Spacer(
-                flex: 2,
-              ),
-              PhysicalModel(
-                color: Colors.transparent,
-                shadowColor: Colors.black,
-                elevation: 8,
-                child: ListTile(
-                  leading: Container(
-                    height: 50,
-                    width: 50,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadiusDirectional.circular(50),
-                        image: DecorationImage(
-                          image: Image.asset(
-                            'assets/images/restaurant-5.jpg',
-                            fit: BoxFit.cover,
-                          ).image,
-                        )),
-                  ),
-                  title: Text(
-                    'James Auther',
-                    style: TextStyle(
-                        color: Colors.white, fontWeight: FontWeight.bold),
-                  ),
-                  subtitle: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Exp;salkdsvkmkm;lm kmlk mk m',
-                        style: TextStyle(color: Colors.white),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Text('started 30 min ago',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 12)),
-                    ],
-                  ),
-                ),
-              ),
+              Spacer(),
+
               comments(),
             ],
           ),
@@ -132,40 +95,74 @@ class _WatchFullShortVideoState extends State<WatchFullShortVideo> {
               padding: const EdgeInsets.only(
                 bottom: 40.0,
               ),
-              child: Container(
-                // color: Colors.white.withOpacity(0.2),
-                child: PhysicalModel(
-                  color: Colors.transparent,
-                  shadowColor: showComments ? Colors.black : Colors.transparent,
-                  elevation: 8,
-                  borderRadius: BorderRadius.circular(20),
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 15.0),
-                    child: Align(
-                      alignment: Alignment.bottomRight,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          showComments
-                              ? Expanded(
-                                  child: Container(
-                                    height: 100,
-                                    child: ListView.builder(
-                                      shrinkWrap: true,
-                                      physics: ScrollPhysics(),
-                                      itemCount: widget.video.comments.length,
-                                      itemBuilder: (context, index) {
-                                        return LiveChatItem(
-                                            widget.video.comments[index], 1);
-                                      },
-                                    ),
-                                  ),
-                                )
-                              : SizedBox(),
-                        ],
+              child: PhysicalModel(
+                color: Colors.transparent,
+                shadowColor: showComments ? Colors.black : Colors.black.withOpacity(0.5),
+                elevation: 8,
+                borderRadius: BorderRadius.circular(20),
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 15.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(bottom: 20.0,left: 10),
+                        child: PhysicalModel(
+                          color: Colors.transparent,
+                          shadowColor: Colors.black,
+                          elevation: 8,
+                          child: Column(
+                            children: [
+                              ListTile(
+                                leading: Container(
+                                  height: 30,
+                                  width: 30,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadiusDirectional.circular(50),
+                                      image: DecorationImage(
+                                        image: Image.asset(
+                                          'assets/images/restaurant-5.jpg',
+                                          fit: BoxFit.cover,
+                                        ).image,
+                                      )),
+                                ),
+                                title: Text(
+                                  'James Auther',
+                                  style: TextStyle(
+                                      color: Colors.white, fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                              Container(
+                                width: MediaQuery.of(context).size.width / 1.5,
+                                child:  Text(
+                                  'Exp;salkdsvkmkm;lm kmlk mk mxzczjxnc kzxjnckjzxnckjzxnckjxznkcjzxnck',
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
                       ),
-                    ),
+
+                      Align(
+                        alignment: Alignment.bottomRight,
+                        child: showComments
+                            ? Container(
+                              height: 100,
+                              child: ListView.builder(
+                                shrinkWrap: true,
+                                reverse: true,
+                                physics: ScrollPhysics(),
+                                itemCount: widget.video.comments.length,
+                                itemBuilder: (context, index) {
+                                  return LiveChatItem(
+                                      widget.video.comments[index], 1);
+                                },
+                              ),
+                            )
+                            : SizedBox(),
+                      ),
+                    ],
                   ),
                 ),
               ),
@@ -174,7 +171,7 @@ class _WatchFullShortVideoState extends State<WatchFullShortVideo> {
           Align(
             alignment: Alignment.centerRight,
             child: Padding(
-              padding: const EdgeInsets.only(bottom: 40.0),
+              padding: const EdgeInsets.only(bottom: 20.0),
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 crossAxisAlignment: CrossAxisAlignment.end,
@@ -193,10 +190,15 @@ class _WatchFullShortVideoState extends State<WatchFullShortVideo> {
                     children: [
                       IconButton(
                           onPressed: () {},
-                          icon: Icon(
-                            Icons.wb_sunny_sharp,
+                          icon:Image.asset(
+                            'assets/icons/Fire.png',
                             color: Colors.white,
-                          )),
+                          )
+                          // Icon(
+                          //   Icons.wb_sunny_sharp,
+                          //   color: Colors.white,
+                          // )
+                      ),
                       SizedBox(
                         width: 5,
                       ),
@@ -216,12 +218,16 @@ class _WatchFullShortVideoState extends State<WatchFullShortVideo> {
                             showComments = !showComments;
                           });
                         },
-                        icon: Icon(
-                          showComments
-                              ? Icons.comment
-                              : Icons.comment_bank_outlined,
+                        icon: showComments
+                          ? Image.asset(
+                          'assets/icons/comments.png',
                           color: Colors.white,
-                        ),
+                        )
+                            :Image.asset(
+                          'assets/icons/noComments.png',
+                          color: Colors.white,
+                        )
+
                       ),
                       SizedBox(
                         width: 5,

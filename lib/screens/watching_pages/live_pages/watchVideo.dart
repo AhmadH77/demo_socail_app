@@ -7,6 +7,7 @@ import 'package:flutter/widgets.dart';
 import 'package:social_app_demo/models/comment.dart';
 import 'package:social_app_demo/models/user.dart';
 import 'package:social_app_demo/models/video.dart';
+import 'package:social_app_demo/screens/watching_pages/live_pages/watchFullShortVideo.dart';
 import 'package:social_app_demo/util/const.dart';
 import 'package:social_app_demo/widgets/bigVideoItem.dart';
 import 'package:social_app_demo/widgets/liveChatItem.dart';
@@ -80,6 +81,7 @@ class _WatchVideoState extends State<WatchVideo> with TickerProviderStateMixin {
     '\$ 350'
   ];
   int currencyTabIndex = 0, selected = 0;
+  bool showDescription = false;
 
   @override
   void initState() {
@@ -90,6 +92,7 @@ class _WatchVideoState extends State<WatchVideo> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    print( 'video${widget.video.id}');
     return Scaffold(
       resizeToAvoidBottomInset: true,
       body: Padding(
@@ -100,8 +103,8 @@ class _WatchVideoState extends State<WatchVideo> with TickerProviderStateMixin {
           mainAxisAlignment: MainAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
-            Hero(
-              tag: 'video${widget.video.id}',
+            HeroMode(
+              enabled: true,//tag: 'video${widget.video.id}',
               child: Container(
                 height: 200,
                 width: MediaQuery.of(context).size.width,
@@ -114,50 +117,76 @@ class _WatchVideoState extends State<WatchVideo> with TickerProviderStateMixin {
                     ? Padding(
                         padding: EdgeInsets.all(8.0),
                         child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
-                            Icon(
-                              Icons.circle,
-                              color: Colors.red,
-                              size: 15,
+                            Row(
+                              children: [
+                                Icon(
+                                  Icons.circle,
+                                  color: Colors.red,
+                                  size: 15,
+                                ),
+                                Text(
+                                  'Live',
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 8.0),
+                                  child: Image.asset('assets/icons/Eye.png',color: Colors.white),
+                                  // Icon(
+                                  //   Icons.visibility_outlined,
+                                  //   color: Colors.white,
+                                  //   size: 18,
+                                  // ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.only(left: 5.0, bottom: 2),
+                                  child: Text(
+                                    '${widget.video.watches} viewers',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                              ],
                             ),
-                            Text(
-                              'Live',
-                              style: TextStyle(color: Colors.white),
+                            // Spacer(),
+                            Row(
+                              children: [
+                                InkWell(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                LandscapeFullVideo(widget.video)));
+                                  },
+                                  child:  Image.asset('assets/icons/ArrowsIn.png',color: Colors.white),
+                                  // Icon(
+                                  //   Icons.fullscreen,
+                                  //   color: Colors.white,
+                                  //   size: 20,
+                                  // ),
+                                ),
+                                InkWell(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                WatchFullShortVideo(widget.video)));
+                                  },
+                                  child:  Image.asset('assets/icons/FrameCorners.png',color: Colors.white),
+                                  // Icon(
+                                  //   Icons.fullscreen,
+                                  //   color: Colors.white,
+                                  //   size: 20,
+                                  // ),
+                                ),
+                              ],
                             ),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 8.0),
-                              child: Icon(
-                                Icons.visibility_outlined,
-                                color: Colors.white,
-                                size: 18,
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(left: 5.0, bottom: 2),
-                              child: Text(
-                                '${widget.video.watches} viewers',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ),
-                            Spacer(),
-                            InkWell(
-                              onTap: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            LandscapeFullVideo(widget.video)));
-                              },
-                              child: Icon(
-                                Icons.fullscreen,
-                                color: Colors.white,
-                                size: 20,
-                              ),
-                            )
+
                           ],
                         ),
                       )
@@ -169,7 +198,7 @@ class _WatchVideoState extends State<WatchVideo> with TickerProviderStateMixin {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(1.0),
                     child: Row(
                       children: [
                         Padding(
@@ -192,6 +221,7 @@ class _WatchVideoState extends State<WatchVideo> with TickerProviderStateMixin {
                             ),
                           ),
                         ),
+                        //
                         Padding(
                           padding: const EdgeInsets.only(left: 8.0),
                           child: Column(
@@ -199,10 +229,11 @@ class _WatchVideoState extends State<WatchVideo> with TickerProviderStateMixin {
                             children: [
                               Text(
                                 '${widget.video.publisher.name}',
-                                style: TextStyle(fontWeight: FontWeight.bold),
+                                style: TextStyle(fontSize:15,fontWeight: FontWeight.bold),
                               ),
                               Text(
                                 '${widget.video.name}',
+                                style: TextStyle(fontSize:14,),
                               ),
                               Container(
                                 padding: EdgeInsets.only(top: 10),
@@ -226,7 +257,7 @@ class _WatchVideoState extends State<WatchVideo> with TickerProviderStateMixin {
                                         child: Center(
                                             child: Text(
                                           '${widget.video.category[index]}',
-                                          style: TextStyle(color: Colors.white),
+                                              style: TextStyle(color: Colors.white,fontSize:10,fontWeight: FontWeight.w100),
                                         )),
                                       ),
                                     );
@@ -236,6 +267,7 @@ class _WatchVideoState extends State<WatchVideo> with TickerProviderStateMixin {
                             ],
                           ),
                         ),
+                        //
                         Spacer(),
                         Column(
                           children: [
@@ -248,10 +280,11 @@ class _WatchVideoState extends State<WatchVideo> with TickerProviderStateMixin {
                               ),
                               child: Row(
                                 children: [
-                                  Icon(
-                                    Icons.flash_on_sharp,
-                                    size: 15,
-                                  ),
+                                  Image.asset('assets/icons/LightningBlack.png',),
+                                  // Icon(
+                                  //   Icons.flash_on_sharp,
+                                  //   size: 15,
+                                  // ),
                                   Text(
                                     'Following',
                                     style: TextStyle(
@@ -265,11 +298,18 @@ class _WatchVideoState extends State<WatchVideo> with TickerProviderStateMixin {
                               padding: const EdgeInsets.all(2.0),
                               child: InkWell(
                                   borderRadius: BorderRadius.circular(50),
-                                  onTap: () {},
+                                  onTap: () {
+                                    setState(() {
+                                      showDescription = !showDescription;
+                                    });
+                                  },
                                   child: Padding(
                                     padding: const EdgeInsets.all(8.0),
-                                    child:
-                                        Icon(Icons.keyboard_arrow_down_rounded),
+                                    child: showDescription
+                                        ? Image.asset('assets/icons/‏‏CaretUp.png')
+                                        : Image.asset('assets/icons/CaretDown.png'),
+
+                                        // Icon(Icons.keyboard_arrow_down_rounded),
                                   )),
                             ),
                           ],
@@ -277,7 +317,29 @@ class _WatchVideoState extends State<WatchVideo> with TickerProviderStateMixin {
                       ],
                     ),
                   ),
-                  Padding(
+
+                  showDescription
+                      ? Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: ListView(
+                    shrinkWrap: true,
+                    physics: ScrollPhysics(),
+                    children: [
+                          Text('Description', style: TextStyle(fontSize: 18,fontWeight: FontWeight.w900),),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text('${widget.video.name}',style: TextStyle(fontSize: 18,),),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text('sss'),
+                          ),
+                    ],
+                  ),
+                        ),
+                      )
+                       : Padding(
                     padding: const EdgeInsets.only(top: 8.0, bottom: 8),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -286,7 +348,8 @@ class _WatchVideoState extends State<WatchVideo> with TickerProviderStateMixin {
                           children: [
                             IconButton(
                               onPressed: () {},
-                              icon: Icon(Icons.thumb_up_alt_outlined),
+                              icon:  Image.asset('assets/icons/ThumbsUp.png',),
+                              // Icon(Icons.thumb_up_alt_outlined),
                             ),
                             Text('${widget.video.likes}')
                           ],
@@ -295,7 +358,8 @@ class _WatchVideoState extends State<WatchVideo> with TickerProviderStateMixin {
                           children: [
                             IconButton(
                               onPressed: () {},
-                              icon: Icon(Icons.thumb_down_alt_outlined),
+                              icon:Image.asset('assets/icons/‏‏ThumbsDown.png',),
+                              // Icon(Icons.thumb_down_alt_outlined),
                             ),
                             Text('${widget.video.dislikes}')
                           ],
@@ -308,9 +372,12 @@ class _WatchVideoState extends State<WatchVideo> with TickerProviderStateMixin {
                                   pageIndex = 1;
                                 });
                               },
-                              icon: Icon(pageIndex == 1
-                                  ? Icons.chat_bubble
-                                  : Icons.chat_bubble_outline),
+                              icon: pageIndex == 1
+                                  ? Image.asset('assets/icons/Chats-1.png',)
+                                  : Image.asset('assets/icons/Chats.png',),
+                              // Icon(pageIndex == 1
+                              //     ? Icons.chat_bubble
+                              //     : Icons.chat_bubble_outline),
                             ),
                             Text('Live Chat')
                           ],
@@ -319,7 +386,8 @@ class _WatchVideoState extends State<WatchVideo> with TickerProviderStateMixin {
                           children: [
                             IconButton(
                               onPressed: () {},
-                              icon: Icon(Icons.report_gmailerrorred_outlined),
+                              icon: Image.asset('assets/icons/Megaphone.png',),
+                              // Icon(Icons.report_gmailerrorred_outlined),
                             ),
                             Text('Report')
                           ],
@@ -328,19 +396,23 @@ class _WatchVideoState extends State<WatchVideo> with TickerProviderStateMixin {
                           children: [
                             IconButton(
                               onPressed: () {},
-                              icon: Icon(Icons.download_outlined),
+                              icon: Image.asset('assets/icons/DownloadSimple.png',),
+                              // Icon(Icons.download_outlined),
                             ),
                             Text('Download')
                           ],
                         ),
                         IconButton(
                           onPressed: () {},
-                          icon: Icon(Icons.more_vert_outlined),
+                          icon:  Image.asset('assets/icons/DotsThreeVertical.png',),
+                          // Icon(Icons.more_vert_outlined),
                         ),
                       ],
                     ),
                   ),
-                  pageIndex == 1 ? comments() : otherVideos(),
+                  !showDescription
+                    ?(pageIndex == 1 ? comments() : otherVideos())
+                  :SizedBox(),
                 ],
               ),
             ),
@@ -447,7 +519,8 @@ class _WatchVideoState extends State<WatchVideo> with TickerProviderStateMixin {
                         ),
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Icon(Icons.celebration_outlined),
+                          child: Image.asset('assets/icons/Crown.png',),
+                          // Icon(Icons.celebration_outlined),
                         ),
                       ),
                     ),
@@ -463,7 +536,8 @@ class _WatchVideoState extends State<WatchVideo> with TickerProviderStateMixin {
                         ),
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Icon(Icons.mood),
+                          child:  Image.asset('assets/icons/Smiley.png',),
+                          // Icon(Icons.mood),
                         ),
                       ),
                     ),
@@ -524,6 +598,7 @@ class _WatchVideoState extends State<WatchVideo> with TickerProviderStateMixin {
                                   tabController.index = 0;
                                   currencyTabIndex = 0;
                                 });
+                                refreshScreen();
                               },
                               child: Container(
                                 decoration: BoxDecoration(
@@ -552,11 +627,14 @@ class _WatchVideoState extends State<WatchVideo> with TickerProviderStateMixin {
                           Tab(
                               child: InkWell(
                             onTap: () {
-                              print('tttttt  $currencyTabIndex');
-                              tabController.index = 1;
-                              currencyTabIndex = 0;
-                              print('tttttt  $currencyTabIndex');
-                              setState;
+                              refreshScreen();
+                              setState.call((){
+                                print('tttttt  $currencyTabIndex');
+                                tabController.index = 1;
+                                currencyTabIndex = 0;
+                                print('tttttt  $currencyTabIndex');
+                              });
+                              refreshScreen();
                             },
                             child: Container(
                               decoration: BoxDecoration(
@@ -695,6 +773,12 @@ class _WatchVideoState extends State<WatchVideo> with TickerProviderStateMixin {
             },
           );
         });
+  }
+
+
+  refreshScreen(){
+    setState(() {
+    });
   }
 
 }
