@@ -111,7 +111,7 @@ class _WatchState extends State<Watching> with TickerProviderStateMixin {
                       children: [
                         !_isVisible
                             ? AnimatedContainer(
-                                duration: Duration(milliseconds: 400),
+                                duration: Duration(milliseconds: 10),
                                 width: animation.value,
                                 height: animation.value <= 150
                                     ? 150
