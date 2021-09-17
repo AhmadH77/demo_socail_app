@@ -49,12 +49,9 @@ class _HomePageState extends State<HomePage>
                     children: [
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: thirtyDp),
-                        child: IconButton(
-                          onPressed: () {},
-                          icon: Icon(
-                            Icons.person_outline,
-                            size: fortyDp,
-                          ),
+                        child: CircleAvatar(
+                          radius: 30,
+                          backgroundImage: AssetImage('assets/images/a.jpg'),
                         ),
                       ),
                       Padding(
