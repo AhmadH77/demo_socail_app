@@ -19,36 +19,16 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Row(
-            children: [
-              buildYourStory(),
-              buildBuildDiscoverCreators(),
-              buildStories(Colors.lightBlue, 'jonasnaah'),
-              buildStories(Colors.deepPurpleAccent, 'tweetasm'),
-              buildStories(Colors.deepPurpleAccent, 'jonasnaah'),
-              buildStories(Colors.deepPurpleAccent, 'tweetasm'),
-              buildStories(Colors.deepPurpleAccent, 'jonasnaah'),
-              buildStories(Colors.deepPurpleAccent, 'tweetasm'),
-            ],
-          ),
-        ),
-        Expanded(
-            child: ListView.builder(
-              physics: ClampingScrollPhysics(),
-          primary: true,
-          padding: EdgeInsets.all(0),
-          itemBuilder: (context, index) {
-            Posts posts = postList[index];
-            return buildPost(posts);
-          },
-          itemCount: postList.length,
-          shrinkWrap: true,
-        ))
-      ],
+    return ListView.builder(
+      physics: ClampingScrollPhysics(),
+      primary: false,
+      padding: EdgeInsets.all(0),
+      itemBuilder: (context, index) {
+        Posts posts = postList[index];
+        return buildPost(posts);
+      },
+      itemCount: postList.length,
+      shrinkWrap: true,
     );
   }
 
