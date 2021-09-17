@@ -29,16 +29,16 @@ class _WatchState extends State<Watching> with TickerProviderStateMixin {
   int index = 0;
   GlobalKey _bottomNavigationKey = GlobalKey();
   List titles = [feed, trending, explore];
-  late ScrollController controller = ScrollController(initialScrollOffset: 0,);
-  var _isVisible = true , isScrolling = false, firstScroll= true;
+  late ScrollController controller = ScrollController(
+    initialScrollOffset: 0,
+  );
+  var _isVisible = true, isScrolling = false, firstScroll = true;
 
   @override
   void initState() {
     super.initState();
 
     controller.addListener(() {
-
-
       setState(() {
         isScrolling = true;
         firstScroll = false;
@@ -51,8 +51,6 @@ class _WatchState extends State<Watching> with TickerProviderStateMixin {
             // widget.set_state(_isVisible);
           });
         }
-
-
       } else {
         if (controller.position.userScrollDirection ==
             ScrollDirection.forward) {
@@ -63,9 +61,8 @@ class _WatchState extends State<Watching> with TickerProviderStateMixin {
             });
           }
         }
-
       }
-      if(controller.position.atEdge)
+      if (controller.position.atEdge)
         setState(() {
           isScrolling = false;
         });
@@ -91,20 +88,22 @@ class _WatchState extends State<Watching> with TickerProviderStateMixin {
     super.dispose();
   }
 
+  //todo add padding to title
+
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       body: NestedScrollView(
         controller: controller,
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return <Widget>[
             SliverAppBar(
-              expandedHeight: 200.0,
+              expandedHeight: 300.0,
               floating: false,
               pinned: true,
               flexibleSpace: FlexibleSpaceBar(
                 centerTitle: true,
-                title:  Padding(
+                title: Padding(
                   padding: const EdgeInsets.only(bottom: 0.0),
                   child: Container(
                     // color: Constants.orangeLight,
@@ -112,56 +111,57 @@ class _WatchState extends State<Watching> with TickerProviderStateMixin {
                       children: [
                         !_isVisible
                             ? AnimatedContainer(
-                          duration: Duration(milliseconds: 400),
-                          width: animation.value,
-                          height: animation.value <= 150 ? 150 : animation.value,
-                          decoration: BoxDecoration(
-                            color: Constants.orangeLight,//Colors.teal,
-                          ),
-                        )
-                            : SizedBox(),
-                        !_isVisible
-                            ? Align(
-                          alignment: Alignment.bottomRight,
-                          child: RotationTransition(
-                            turns: AlwaysStoppedAnimation(0 / 360),
-                            child: ClipPath(
-                              clipper: LeftRoundedClipper(flip: true),
-                              child: AnimatedContainer(
                                 duration: Duration(milliseconds: 400),
-                                width: animation2.value - 10,
-                                height: animation2.value *
-                                    MediaQuery.of(context)
-                                        .size
-                                        .height, //<= 150 ? 200 :animation.value,
+                                width: animation.value,
+                                height: animation.value <= 150
+                                    ? 150
+                                    : animation.value,
                                 decoration: BoxDecoration(
-                                    color:Constants.orangeLight,// Colors.teal,
-                                    gradient: LinearGradient(
-                                      colors: [
-                                        Colors.lightGreen.withGreen(10),
-                                        Colors.greenAccent,
-                                        Colors.greenAccent
-                                      ],
-                                    )),
-                              ),
-                            ),
-                          ),
-                        )
+                                  color: Constants.orangeLight, //Colors.teal,
+                                ),
+                              )
                             : SizedBox(),
-
                         !_isVisible
                             ? Align(
-                            alignment: Alignment.centerLeft,
-                            child: Padding(
-                              padding: const EdgeInsets.all(20.0),
-                              child: Text(
-                                titles[index],
-                                style: TextStyle(
-                                    fontSize: 30,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white),
-                              ),
-                            ))
+                                alignment: Alignment.bottomRight,
+                                child: RotationTransition(
+                                  turns: AlwaysStoppedAnimation(0 / 360),
+                                  child: ClipPath(
+                                    clipper: LeftRoundedClipper(flip: true),
+                                    child: AnimatedContainer(
+                                      duration: Duration(milliseconds: 400),
+                                      width: animation2.value - 10,
+                                      height: animation2.value *
+                                          MediaQuery.of(context).size.height,
+                                      //<= 150 ? 200 :animation.value,
+                                      decoration: BoxDecoration(
+                                          color: Constants.orangeLight,
+                                          // Colors.teal,
+                                          gradient: LinearGradient(
+                                            colors: [
+                                              Colors.lightGreen.withGreen(10),
+                                              Colors.greenAccent,
+                                              Colors.greenAccent
+                                            ],
+                                          )),
+                                    ),
+                                  ),
+                                ),
+                              )
+                            : SizedBox(),
+                        !_isVisible
+                            ? Align(
+                                alignment: Alignment.centerLeft,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(20.0),
+                                  child: Text(
+                                    titles[index],
+                                    style: TextStyle(
+                                        fontSize: 30,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white),
+                                  ),
+                                ))
                             : SizedBox(),
                       ],
                     ),
@@ -171,13 +171,12 @@ class _WatchState extends State<Watching> with TickerProviderStateMixin {
                   color: Constants.orangeLight,
                   child: Stack(
                     children: [
-
                       AnimatedContainer(
                         duration: Duration(milliseconds: 400),
                         width: animation.value,
                         height: animation.value <= 150 ? 150 : animation.value,
                         decoration: BoxDecoration(
-                          color: Constants.orangeLight,//Colors.teal,
+                          color: Constants.orangeLight, //Colors.teal,
                         ),
                       ),
                       Align(
@@ -206,15 +205,12 @@ class _WatchState extends State<Watching> with TickerProviderStateMixin {
                           ),
                         ),
                       ),
-
                     ],
                   ),
                 ),
-
-
               ),
               bottom: PreferredSize(
-                preferredSize: Size(MediaQuery.of(context).size.width , 60),
+                preferredSize: Size(MediaQuery.of(context).size.width, 60),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,
@@ -224,59 +220,90 @@ class _WatchState extends State<Watching> with TickerProviderStateMixin {
                       children: [
                         _isVisible
                             ? Align(
-                            alignment: Alignment.bottomLeft,
-                            child: Padding(
-                              padding:
-                              isScrolling ? EdgeInsets.only(top: 0, left: tenDp):EdgeInsets.only(top: 30, left: tenDp),
-                              child: ListTile(
-                                  title: Text(
+                                alignment: Alignment.bottomLeft,
+                                child: Padding(
+                                  padding: isScrolling
+                                      ? EdgeInsets.only(top: 10, left: tenDp)
+                                      : EdgeInsets.only(
+                                          top: oneFiftyDp, left: tenDp),
+                                  child: ListTile(
+                                      title: Text(
                                     titles[index],
                                     style: TextStyle(
-                                        fontSize: !firstScroll ? (controller.offset > 0.0 ? 30 : fiftyDp):fiftyDp,
+                                        fontSize: !firstScroll
+                                            ? (controller.offset > 0.0
+                                                ? 30
+                                                : fiftyDp)
+                                            : fiftyDp,
                                         fontWeight: FontWeight.bold,
                                         color: Colors.white),
                                   )),
-                            ))
+                                ))
                             : SizedBox(),
                         Align(
                           alignment: Alignment.topLeft,
                           child: Padding(
-                            padding: !isScrolling && !firstScroll ? (controller.offset == 0.0 ? EdgeInsets.only(bottom: 70.0,left: 3 , right: 3):EdgeInsets.only(bottom: 10.0,left: 8 , right: 8)):EdgeInsets.only(bottom: 10.0,left: 8 , right: 8),
+                            padding: !isScrolling && !firstScroll
+                                ? (controller.offset == 0.0
+                                    ? EdgeInsets.only(
+                                        bottom: 200, left: 3, right: 3)
+                                    : EdgeInsets.only(
+                                        bottom: 10.0, left: 8, right: 8))
+                                : EdgeInsets.only(
+                                    bottom: 10.0, left: 8, right: 8),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 index == 0
                                     ? (firstScroll
-                                    ? ShowIcon(
-                                  iconName:
-                                  'assets/icons/User.png',
-                                  onIconTap: () {},
-                                )
-                                    : (controller.offset == 0.0
-                                    ? ShowIcon(
-                                  iconName:
-                                  'assets/icons/User.png',
-                                  onIconTap: () {},
-                                )
-                                    : SizedBox()))
+                                        ? Container(
+                                            margin: EdgeInsets.symmetric(
+                                                vertical: 20, horizontal: 20),
+                                            child: CircleAvatar(
+                                              radius: 20,
+                                              backgroundImage: AssetImage(
+                                                  'assets/images/a.jpg'),
+                                            ))
+                                        : (controller.offset == 0.0
+                                            ? Container(
+                                                margin: EdgeInsets.symmetric(
+                                                    horizontal: 20),
+                                                child: CircleAvatar(
+                                                  radius: 20,
+                                                  backgroundImage: AssetImage(
+                                                      'assets/images/a.jpg'),
+                                                ),
+                                              )
+                                            : Container(
+                                                margin: EdgeInsets.symmetric(
+                                                    horizontal: tenDp),
+                                                child: CircleAvatar(
+                                                  radius: 20,
+                                                  backgroundImage: AssetImage(
+                                                      'assets/images/a.jpg'),
+                                                ),
+                                              )))
                                     : SizedBox(),
                                 Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 25),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 25),
                                   child: Row(
                                     children: [
                                       Padding(
-                                        padding:
-                                        const EdgeInsets.only(right: fourteenDp),
+                                        padding: const EdgeInsets.only(
+                                            right: fourteenDp),
                                         child: ShowIcon(
-                                          iconName: 'assets/icons/MagnifyingGlass.png',
+                                          iconName:
+                                              'assets/icons/MagnifyingGlass.png',
                                           onIconTap: () {},
                                         ),
                                       ),
                                       Padding(
-                                        padding:
-                                        const EdgeInsets.only(right: fourteenDp),
+                                        padding: const EdgeInsets.only(
+                                            right: fourteenDp),
                                         child: ShowIcon(
-                                          iconName: 'assets/icons/BellRinging.png',
+                                          iconName:
+                                              'assets/icons/BellRinging.png',
                                           onIconTap: () {},
                                         ),
                                       ),
@@ -298,7 +325,7 @@ class _WatchState extends State<Watching> with TickerProviderStateMixin {
                       alignment: Alignment.bottomCenter,
                       child: CurvedNavigationBar(
                         key: _bottomNavigationKey,
-                        height:  50,
+                        height: 50,
                         color: Colors.white,
                         buttonBackgroundColor: Colors.transparent,
                         backgroundColor: Colors.transparent,
@@ -308,7 +335,7 @@ class _WatchState extends State<Watching> with TickerProviderStateMixin {
                         onTap: (value) {
                           switch (value) {
                             case 0:
-                            /*    animation = Tween<double>(begin: 125, end: 0)
+                              /*    animation = Tween<double>(begin: 125, end: 0)
                             .animate(_controller);*/
                               animation2 = Tween<double>(begin: 125, end: 500)
                                   .animate(_controller);
@@ -337,37 +364,36 @@ class _WatchState extends State<Watching> with TickerProviderStateMixin {
                             Main,
                             style: index == 0
                                 ? TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold)
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold)
                                 : TextStyle(color: Colors.black54),
                           ),
                           Text(
                             trending,
                             style: index == 1
                                 ? TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold)
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold)
                                 : TextStyle(color: Colors.black54),
                           ),
                           Text(
                             explore,
                             style: index == 2
                                 ? TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold)
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold)
                                 : TextStyle(color: Colors.black54),
                           ),
                         ],
                       ),
                     ),
-
                   ],
                 ),
               ),
             ),
           ];
         },
-        body:  pages[index],
+        body: pages[index],
       ),
     );
     return Scaffold(
@@ -455,24 +481,21 @@ class _WatchState extends State<Watching> with TickerProviderStateMixin {
                       Main,
                       style: index == 0
                           ? TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold)
+                              color: Colors.white, fontWeight: FontWeight.bold)
                           : TextStyle(color: Colors.black54),
                     ),
                     Text(
                       trending,
                       style: index == 1
                           ? TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold)
+                              color: Colors.white, fontWeight: FontWeight.bold)
                           : TextStyle(color: Colors.black54),
                     ),
                     Text(
                       explore,
                       style: index == 2
                           ? TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold)
+                              color: Colors.white, fontWeight: FontWeight.bold)
                           : TextStyle(color: Colors.black54),
                     ),
                   ],
@@ -495,8 +518,7 @@ class _WatchState extends State<Watching> with TickerProviderStateMixin {
               Align(
                 alignment: Alignment.topLeft,
                 child: Padding(
-                  padding:
-                      const EdgeInsets.only(top: fiftyDp, left: twentyDp),
+                  padding: const EdgeInsets.only(top: fiftyDp, left: twentyDp),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -511,16 +533,14 @@ class _WatchState extends State<Watching> with TickerProviderStateMixin {
                         child: Row(
                           children: [
                             Padding(
-                              padding:
-                                  const EdgeInsets.only(right: fourteenDp),
+                              padding: const EdgeInsets.only(right: fourteenDp),
                               child: ShowIcon(
                                 iconName: 'assets/icons/MagnifyingGlass.png',
                                 onIconTap: () {},
                               ),
                             ),
                             Padding(
-                              padding:
-                                  const EdgeInsets.only(right: fourteenDp),
+                              padding: const EdgeInsets.only(right: fourteenDp),
                               child: ShowIcon(
                                 iconName: 'assets/icons/BellRinging.png',
                                 onIconTap: () {},
