@@ -103,9 +103,9 @@ class _WatchState extends State<Watching> with TickerProviderStateMixin {
           controller: controller,
           headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
             return <Widget>[
-              SliverPadding(
+            /*  SliverPadding(
                 padding: EdgeInsets.symmetric(vertical: sixteenDp),
-              ),
+              ),*/
               SliverAppBar(
                 expandedHeight: 300.0,
                 //  leadingWidth: 100,
@@ -179,15 +179,9 @@ class _WatchState extends State<Watching> with TickerProviderStateMixin {
                                             MediaQuery.of(context).size.height,
                                         //<= 150 ? 200 :animation.value,
                                         decoration: BoxDecoration(
-                                            color: Constants.orangeLight,
-                                            // Colors.teal,
-                                            gradient: LinearGradient(
-                                              colors: [
-                                                Colors.lightGreen.withGreen(10),
-                                                Colors.greenAccent,
-                                                Colors.greenAccent
-                                              ],
-                                            )),
+                                            color: Constants.orangeDark,
+                                          )
+                                          // Colors.teal,
                                       ),
                                     ),
                                   ),
