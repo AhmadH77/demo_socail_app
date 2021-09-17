@@ -1,8 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:social_app_demo/constants/dimens.dart';
 import 'package:social_app_demo/constants/strings.dart';
 import 'package:social_app_demo/constants/theme_color.dart';
 import 'package:social_app_demo/widget/show_icons.dart';
+import 'package:social_app_demo/widget/show_svg_icon.dart';
 
 class MainPage extends StatefulWidget {
   final set_state;
@@ -196,12 +198,12 @@ class _MainPageState extends State<MainPage> {
               ),
               Row(
                 children: [
-                  ShowIcon(
-                    iconName: 'assets/icons/BookmarkSimple.png',
+                  ShowSvgIcon(
+                    iconName: 'assets/svg/BookmarkSimple.svg',color: CupertinoColors.black,
                     onIconTap: () {},
                   ),
-                  ShowIcon(
-                    iconName: 'assets/icons/DotsThreeVertical.png',
+                  ShowSvgIcon(
+                    iconName: 'assets/svg/DotsThreeVertical.svg',color: CupertinoColors.black,
                     onIconTap: () {},
                   ),
                 ],
@@ -314,28 +316,28 @@ class _MainPageState extends State<MainPage> {
           children: [
             Padding(
               padding: const EdgeInsets.all(sixDp),
-              child: ShowIcon(
-                iconName: 'assets/icons/Fire.png',
+              child: ShowSvgIcon(
+                iconName: 'assets/svg/Fire.svg',color: CupertinoColors.black,
                 onIconTap: () {},
               ),
             ),
-            ShowIcon(
-              iconName: 'assets/icons/ChatDots.png',
+            ShowSvgIcon(
+              iconName: 'assets/svg/ChatDots.svg',color: CupertinoColors.black,
               onIconTap: () {},
             ),
             Padding(
               padding: const EdgeInsets.all(sixDp),
-              child: ShowIcon(
+              child: ShowSvgIcon(
                 onIconTap: () {},
-                iconName: 'assets/icons/PaperPlaneRight.png',
+                iconName: 'assets/svg/PaperPlaneRight.svg',color: CupertinoColors.black,
               ),
             ),
           ],
         ),
         Padding(
           padding: const EdgeInsets.all(sixDp),
-          child: ShowIcon(
-            iconName: 'assets/icons/Trophy.png',
+          child: ShowSvgIcon(
+            iconName: 'assets/svg/Trophy.svg',color: CupertinoColors.black,
             onIconTap: () {},
           ),
         ),

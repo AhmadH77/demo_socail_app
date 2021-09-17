@@ -33,6 +33,7 @@ dependencies:
   curved_navigation_bar: any
   bubble_tab_indicator: any
   persistent_bottom_nav_bar: ^4.0.2
+  flutter_svg: ^0.22.0
 
 dev_dependencies:
   flutter_test:
@@ -53,6 +54,7 @@ flutter:
   assets:
     - assets/images/
     - assets/icons/
+    - assets/svg/
 
   fonts:
     - family: semi
