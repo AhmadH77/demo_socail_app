@@ -23,9 +23,8 @@ class _LiveChatItemState extends State<LiveChatItem> {
           borderRadius: BorderRadiusDirectional.circular(50),
           image: widget.comments.user != null
               ? DecorationImage(
-              image: Image.asset(widget.comments.user.image).image,
-            fit: BoxFit.cover
-          ): null,
+              image: Image.asset(widget.comments.user!.image).image,
+                  fit: BoxFit.cover): null,
           color: Colors.red,
         ),
       ),

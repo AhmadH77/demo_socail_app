@@ -1,8 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
+import 'package:flutter/rendering.dart';
 import 'package:social_app_demo/constants/dimens.dart';
 import 'package:social_app_demo/constants/strings.dart';
-import 'package:social_app_demo/constants/theme_color.dart';
-import 'package:social_app_demo/widget/show_icons.dart';
+import 'package:social_app_demo/models/posts.dart';
+import 'package:social_app_demo/widget/show_svg_icon.dart';
 
 class MainPage extends StatefulWidget {
   final set_state;
@@ -16,35 +19,16 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Row(
-            children: [
-              buildYourStory(),
-              buildBuildDiscoverCreators(),
-              buildStories(Colors.lightBlue, 'jonasnaah'),
-              buildStories(Colors.deepPurpleAccent, 'tweetasm'),
-              buildStories(Colors.deepPurpleAccent, 'jonasnaah'),
-              buildStories(Colors.deepPurpleAccent, 'tweetasm'),
-              buildStories(Colors.deepPurpleAccent, 'jonasnaah'),
-              buildStories(Colors.deepPurpleAccent, 'tweetasm'),
-            ],
-          ),
-        ),
-        Expanded(
-            child: ListView.builder(
-          physics: ClampingScrollPhysics(),
-          primary: true,
-          padding: EdgeInsets.all(0),
-          itemBuilder: (context, index) {
-            return buildContent();
-          },
-          itemCount: 10000,
-          shrinkWrap: true,
-        ))
-      ],
+    return ListView.builder(
+      physics: ClampingScrollPhysics(),
+      primary: false,
+      padding: EdgeInsets.all(0),
+      itemBuilder: (context, index) {
+        Posts posts = postList[index];
+        return buildPost(posts);
+      },
+      itemCount: postList.length,
+      shrinkWrap: true,
     );
   }
 
@@ -152,7 +136,7 @@ class _MainPageState extends State<MainPage> {
   }
 
   //contains user name , images and menus
-  Widget buildContent() {
+  Widget buildPost(Posts posts) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 20),
       child: Column(
@@ -170,9 +154,11 @@ class _MainPageState extends State<MainPage> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
-                      '@redbullracing',
+                      '@${posts.publisher.name}',
                       style: TextStyle(
-                          fontSize: twentyDp, fontWeight: FontWeight.w500),
+                          fontSize: twentyDp,
+                          fontWeight: FontWeight.w500,
+                          fontFamily: 'semi'),
                     ),
                   ),
                   /*Column(
@@ -196,12 +182,14 @@ class _MainPageState extends State<MainPage> {
               ),
               Row(
                 children: [
-                  ShowIcon(
-                    iconName: 'assets/icons/BookmarkSimple.png',
+                  ShowSvgIcon(
+                    iconName: 'assets/svg/BookmarkSimple.svg',
+                    color: CupertinoColors.black,
                     onIconTap: () {},
                   ),
-                  ShowIcon(
-                    iconName: 'assets/icons/DotsThreeVertical.png',
+                  ShowSvgIcon(
+                    iconName: 'assets/svg/DotsThreeVertical.svg',
+                    color: CupertinoColors.black,
                     onIconTap: () {},
                   ),
                 ],
@@ -210,7 +198,7 @@ class _MainPageState extends State<MainPage> {
           ),
 
           //Second row
-          buildSecondRow(),
+          buildSecondRow(posts),
 
           //third row
           buildMenu(),
@@ -219,29 +207,34 @@ class _MainPageState extends State<MainPage> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Container(
-                width: seventyDp,
+                // width: seventyDp,
                 margin: EdgeInsets.only(left: tenDp),
-                child: Stack(
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     //stacked images
 
-                    Positioned(
-                        child: buildImage('assets/images/b.jpg'), left: 36),
-                    Positioned(
-                        child: buildImage('assets/images/a.jpg'), left: 26),
-                    Positioned(
-                        child: buildImage('assets/images/b.jpg'), left: 14),
-                    buildImage('assets/images/a.jpg'),
+                    buildLikedUsersImage('assets/images/b.jpg', 10, Colors.red),
+                    buildLikedUsersImage(
+                        'assets/images/a.jpg', 10, Colors.amber),
+                    buildLikedUsersImage('assets/images/b.jpg', 10, Colors.red),
+                    buildLikedUsersImage('assets/images/b.jpg', 10, Colors.red),
+                    buildLikedUsersImage(
+                        'assets/images/b.jpg', 10, Colors.amber),
+                    buildLikedUsersImage('assets/images/a.jpg', 10, Colors.red),
                   ],
                 ),
+              ),
+              SizedBox(
+                width: tenDp,
               ),
               Text.rich(
                 TextSpan(
                   style: TextStyle(fontSize: fourteenDp),
-                  text: likedBy,
+                  text: '+',
                   children: [
                     TextSpan(
-                        text: ' 10,223,355',
+                        text: ' 52k others',
                         style: TextStyle(fontWeight: FontWeight.bold)),
                     TextSpan(
                       text: ' $others',
@@ -255,23 +248,100 @@ class _MainPageState extends State<MainPage> {
             height: fourDp,
           ),
           //fifth row
+          posts.postImage!.isEmpty
+              ? Container()
+              : Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: tenDp),
+                  child: Text(
+                    "${posts.postTitle}",
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                        fontSize: eighteenDp, fontWeight: FontWeight.w700),
+                  ),
+                ),
+          posts.postImage!.isEmpty
+              ? Container()
+              : SizedBox(
+                  height: eightDp,
+                ),
+          //sixth row
+          posts.postImage!.isEmpty
+              ? Container()
+              : Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: tenDp),
+                  child: Text(
+                    '${posts.postDescription}',
+                    maxLines: 2,
+                    textScaleFactor: 1.5,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(fontSize: tenDp, fontFamily: 'Semibold'),
+                  ),
+                ),
+
+          //view all
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: tenDp),
-            child: Text(
-              dummy,
-              style:
-              TextStyle(fontSize: eighteenDp, fontWeight: FontWeight.bold),
+            padding: const EdgeInsets.only(left: eightDp, top: tenDp),
+            child: Text.rich(
+              TextSpan(
+                style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w300,
+                    color: Colors.grey),
+                text: 'View all',
+                children: [
+                  TextSpan(text: ' 10.5k comments ', style: TextStyle()),
+                ],
+              ),
+              overflow: TextOverflow.ellipsis,
             ),
           ),
-          SizedBox(
-            height: eightDp,
-          ),
-          //sixth row
+          //at owned by
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: tenDp),
-            child: Text(
-              dummyDes,
-              style: TextStyle(fontSize: twentyDp, color: ThemeColors.black),
+            padding: const EdgeInsets.only(left: eightDp, top: fourDp),
+            child: Text.rich(
+              TextSpan(
+                style: TextStyle(
+                    fontSize: sixteenDp,
+                    fontWeight: FontWeight.w700,
+                    color: Colors.black),
+                text: '@${posts.ownedBy}',
+                children: [
+                  TextSpan(
+                    text: ' looking forward for Italian grand prix ',
+                    style: TextStyle(
+                        fontSize: sixteenDp,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.black),
+                  ),
+                ],
+              ),
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(
+              left: eightDp,
+              top: fourDp,
+            ),
+            child: Text.rich(
+              TextSpan(
+                style: TextStyle(
+                    fontSize: sixteenDp,
+                    fontWeight: FontWeight.w700,
+                    color: Colors.black),
+                text: 'Pune.',
+                children: [
+                  TextSpan(
+                    text: ' 25 mins ago',
+                    style: TextStyle(
+                        fontSize: sixteenDp,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.black),
+                  ),
+                ],
+              ),
+              overflow: TextOverflow.ellipsis,
             ),
           ),
         ],
@@ -279,11 +349,26 @@ class _MainPageState extends State<MainPage> {
     );
   }
 
-  Widget buildImage(image) {
+  Widget buildImage(image, double radius) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 4),
       child: CircleAvatar(
-        radius: 14,
+        radius: radius,
+        backgroundImage: AssetImage(
+          image,
+        ),
+      ),
+    );
+  }
+
+  Widget buildLikedUsersImage(image, double radius, Color color) {
+    return Container(
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(twentyDp),
+          border: Border.all(color: color, width: 3)),
+      margin: EdgeInsets.symmetric(horizontal: 0.9),
+      child: CircleAvatar(
+        radius: radius,
         backgroundImage: AssetImage(
           image,
         ),
@@ -306,55 +391,111 @@ class _MainPageState extends State<MainPage> {
   }
 
   Widget buildMenu() {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Row(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(sixDp),
-              child: ShowIcon(
-                iconName: 'assets/icons/Fire.png',
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: tenDp),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Row(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(sixDp),
+                child: ShowSvgIcon(
+                  iconName: 'assets/svg/Fire.svg',
+                  color: CupertinoColors.black,
+                  onIconTap: () {},
+                ),
+              ),
+              ShowSvgIcon(
+                iconName: 'assets/svg/ChatDots.svg',
+                color: CupertinoColors.black,
                 onIconTap: () {},
               ),
-            ),
-            ShowIcon(
-              iconName: 'assets/icons/ChatDots.png',
-              onIconTap: () {},
-            ),
-            Padding(
-              padding: const EdgeInsets.all(sixDp),
-              child: ShowIcon(
-                onIconTap: () {},
-                iconName: 'assets/icons/PaperPlaneRight.png',
+              Padding(
+                padding: const EdgeInsets.all(sixDp),
+                child: ShowSvgIcon(
+                  onIconTap: () {},
+                  iconName: 'assets/svg/PaperPlaneRight.svg',
+                  color: CupertinoColors.black,
+                ),
               ),
-            ),
-          ],
-        ),
-        Padding(
-          padding: const EdgeInsets.all(sixDp),
-          child: ShowIcon(
-            iconName: 'assets/icons/Trophy.png',
-            onIconTap: () {},
+            ],
           ),
-        ),
-      ],
+          Row(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(sixDp),
+                child: ShowSvgIcon(
+                  iconName: 'assets/svg/Trophy.svg',
+                  color: CupertinoColors.black,
+                  onIconTap: () {},
+                ),
+              ),
+              buildLikedUsersImage(
+                  'assets/images/b.jpg', 10, Colors.transparent),
+              buildLikedUsersImage(
+                  'assets/images/a.jpg', 10, Colors.transparent),
+              buildLikedUsersImage('', 10, Colors.transparent),
+              SizedBox(
+                width: tenDp,
+              )
+            ],
+          ),
+        ],
+      ),
     );
   }
 
-  Widget buildSecondRow() {
+
+  Widget buildSecondRow(Posts posts) {
     return Stack(
       children: [
-        Container(
-          margin: EdgeInsets.only(top: tenDp),
-          child: Image.asset(
-            'assets/images/b.jpg',
-            // height: fourFourteenDp,
-            // width: MediaQuery.of(context).size.width,
-            fit: BoxFit.fitHeight,
-          ),
-        ),
+        //switch between image and post description
+        posts.postImage!.isEmpty
+            ? Container(
+                margin: EdgeInsets.only(top: sixteenDp),
+                //  height: 200,
+                decoration:
+                    BoxDecoration(color: Colors.amberAccent.withOpacity(0.09)),
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: sixteenDp, vertical: tenDp),
+                      child: Text('${posts.postTitle}',
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black)),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(
+                        left: sixteenDp,
+                        right: sixteenDp,
+                        bottom: sixteenDp,
+                      ),
+                      child: Text('${posts.postDescription}',
+                          maxLines: 4,
+                          textScaleFactor: 1.5,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                              fontSize: tenDp, fontFamily: 'Semibold')),
+                    ),
+                  ],
+                ),
+              )
+            : Container(
+                margin: EdgeInsets.only(top: tenDp),
+                child: Image.asset(
+                  '${posts.postImage}',
+                  // height: fourFourteenDp,
+                  // width: MediaQuery.of(context).size.width,
+                  fit: BoxFit.fitHeight,
+                ),
+              ),
         PositionedDirectional(
           start: oneTwentyDp,
           end: oneTwentyDp,
@@ -382,15 +523,17 @@ class _MainPageState extends State<MainPage> {
                         text: ownedBy,
                         children: [
                           TextSpan(
-                              text: ' @abbcd ',
-                              style: TextStyle(fontWeight: FontWeight.bold)),
+                              text: ' @${posts.ownedBy} ',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black)),
                         ],
                       ),
                       overflow: TextOverflow.ellipsis,
                     ),
                   ),
                 ),
-                buildImage('assets/images/a.jpg'),
+                buildImage('${posts.publisher.image}', 14),
               ],
             ),
           ),
