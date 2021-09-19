@@ -1,16 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:social_app_demo/screens/watching_page.dart';
 import 'package:social_app_demo/ui/home/home_page/watching_page.dart' as watch;
+import 'package:social_app_demo/ui/home/home_page/watching_page_new.dart';
 
 import 'home.dart';
 
 class MainScreen extends StatefulWidget {
-  static const routeName = '/mainScreen';
-
   const MainScreen({Key? key}) : super(key: key);
 
   @override
@@ -33,7 +31,7 @@ class _MainScreenState extends State<MainScreen> {
           });
           print('${_controller.index}');
         },
-        icon: _controller.index == 0 ? SvgPicture.asset('assets/icons/House.svg') : SvgPicture.asset('assets/icons/HouseOff.svg'),
+        icon: Icon(CupertinoIcons.home),
         activeColorPrimary: CupertinoColors.black,
         inactiveColorPrimary: CupertinoColors.systemGrey,
       ),
@@ -44,7 +42,7 @@ class _MainScreenState extends State<MainScreen> {
           });
           print('${_controller.index}');
         },
-        icon: _controller.index != 1 ? SvgPicture.asset('assets/icons/MonitorPlayOff.svg'): SvgPicture.asset('assets/icons/MonitorPlay.svg'),
+        icon: Icon(Icons.ondemand_video_outlined,),
         activeColorPrimary: CupertinoColors.black,
         inactiveColorPrimary: CupertinoColors.systemGrey,
       ),
@@ -55,8 +53,8 @@ class _MainScreenState extends State<MainScreen> {
           });
           print('${_controller.index}');
         },
-        icon: SvgPicture.asset('assets/icons/Plus.svg'),
-        activeColorPrimary: CupertinoColors.black,
+        icon: Icon(CupertinoIcons.plus, color: Colors.black,),
+        activeColorPrimary: CupertinoColors.white,
         inactiveColorPrimary: CupertinoColors.systemGrey,
       ),
       PersistentBottomNavBarItem(
@@ -97,7 +95,7 @@ class _MainScreenState extends State<MainScreen> {
     _controller = PersistentTabController(initialIndex: 0);
     pages = [
       watch.Watching(false),
-      Watching(),
+      Watching(setVisible),
       Home(setVisible),
       Home(setVisible),
       Home(setVisible),

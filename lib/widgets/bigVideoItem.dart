@@ -1,8 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:social_app_demo/models/video.dart';
+import 'package:social_app_demo/screens/watching_pages/live_pages/watchFullShortVideo.dart';
 import 'package:social_app_demo/screens/watching_pages/live_pages/watchVideo.dart';
 
 class BigVideoItem extends StatefulWidget {
@@ -21,7 +21,7 @@ class _BigVideoItemState extends State<BigVideoItem> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 8.0,),
+      padding: const EdgeInsets.all(8.0),
       child: InkWell(
         onTap: () {
           pushNewScreen(
@@ -60,7 +60,7 @@ class _BigVideoItemState extends State<BigVideoItem> {
                     ),
                     Text(
                       'Live',
-                      style: TextStyle(color: Colors.white,fontSize: 15,fontFamily: 'regular'),
+                      style: TextStyle(color: Colors.white,),
                     ),
                     Spacer(),
                     SvgPicture.asset(
@@ -70,22 +70,24 @@ class _BigVideoItemState extends State<BigVideoItem> {
                     ),
 
                     Padding(
-                      padding: EdgeInsets.only(left: 5.0),
+                      padding: EdgeInsets.only(left: 5.0, bottom: 2),
                       child: Text(
                         '${widget.video.watches}',
                         style: TextStyle(
-                            color: Colors.white, fontFamily: 'light'),
+                            color: Colors.white, fontWeight: FontWeight.bold),
                       ),
                     ),
                   ],
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(top: 8.0,bottom: 8),
-                child: Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(top: 0.0, right: 8),
+              Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(top: 12.0, left: 8, right: 8),
+                    child: PhysicalModel(
+                      elevation: 10,
+                      color: Colors.transparent,
+                      borderRadius: BorderRadius.circular(50),
                       child: Container(
                         width: 50,
                         height: 50,
@@ -98,65 +100,65 @@ class _BigVideoItemState extends State<BigVideoItem> {
                             )),
                       ),
                     ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          '${widget.video.publisher.name}',
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(fontSize:15,fontWeight: FontWeight.w600, )
-                              // fontFamily: 'semipop'),
-                        ),
-                        Container(
-                          width: MediaQuery.of(context).size.width /1.3,
-                          child: Text(
-                            '${widget.video.name}',
-                              maxLines: 2,
-                            style: TextStyle(fontSize:15,fontWeight: FontWeight.w400)//fontFamily: 'regular'),
-                          ),
-                        ),
-                        Container(
-                          height: 18,
-                          child: ListView.builder(
-                            shrinkWrap: true,
-                            scrollDirection: Axis.horizontal,
-                            physics: ScrollPhysics(),
-                            itemCount: widget.video.category.length,
-                            itemBuilder: (context, index) {
-                              return Padding(
-                                padding: const EdgeInsets.only(right: 8.0),
-                                child: Container(
-                                  padding: EdgeInsets.only(right: 8, left: 8),
-                                  // width: 50,
-                                  height: 20,
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(20),
-                                      color: Colors.grey),
-                                  child: Center(
-                                      child: Text(
-                                        '\#${widget.video.category[index]}',
-                                        style: TextStyle(color: Colors.white,fontSize:10,fontFamily: 'light'),
-                                      )),
-                                ),
-                              );
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
-                    Spacer(),
-
-                    InkWell(
-                      onTap: (){},
-                      child: SvgPicture.asset(
-                        'assets/icons/DotsThreeVertical.svg',
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        '${widget.video.publisher.name}',
+                        style: TextStyle(fontSize:15,fontFamily: 'semipop'),
                       ),
-                    ),
-                  ],
+                      Text(
+                        '${widget.video.name}',
+                        style: TextStyle(fontSize:15,fontFamily: 'regular'),
+                      ),
+                    ],
+                  ),
+                  Spacer(),
+                  IconButton(
+                      onPressed: () {
+
+                        // Navigator.push(
+                        //     context,
+                        //     MaterialPageRoute(
+                        //         builder: (context) =>
+                        //             WatchFullShortVideo(widget.video)));
+                      },
+                      icon: Icon(Icons.more_vert_outlined)),
+                ],
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 50.0),
+                child: Container(
+                  height: 35,
+                  padding: EdgeInsets.all(8),
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    scrollDirection: Axis.horizontal,
+                    physics: ScrollPhysics(),
+                    itemCount: widget.video.category.length,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.only(right: 8.0),
+                        child: Container(
+                          padding: EdgeInsets.only(right: 8, left: 8),
+                          // width: 50,
+                          height: 20,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: Colors.grey),
+                          child: Center(
+                              child: Text(
+                            '${widget.video.category[index]}',
+                            style: TextStyle(color: Colors.white,fontSize:10,fontFamily: 'light'),
+                          )),
+                        ),
+                      );
+                    },
+                  ),
                 ),
               ),
-
             ],
           ),
         ),

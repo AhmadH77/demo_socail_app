@@ -14,8 +14,9 @@ class SmallVideoItem extends StatefulWidget {
 class _BigVideoItemState extends State<SmallVideoItem> {
   @override
   Widget build(BuildContext context) {
+    print('vedio${widget.video.id}');
     return  Padding(
-      padding: const EdgeInsets.only(bottom: 5),
+      padding: const EdgeInsets.only(top: 8.0,bottom: 8,left: 5),
       child: InkWell(
         onTap: (){
           pushNewScreen(
@@ -27,9 +28,9 @@ class _BigVideoItemState extends State<SmallVideoItem> {
           // Navigator.push(context, MaterialPageRoute(builder: (context) => WatchVideo(widget.video)));
         },
         child: Card(
-          elevation: 0,
+          elevation: 4,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15),
+            borderRadius: BorderRadius.circular(20),
           ),
           child: HeroMode(
             enabled: true,//: 'vedio${widget.video.id}',
@@ -37,7 +38,7 @@ class _BigVideoItemState extends State<SmallVideoItem> {
               height: 300,
               width: 120,
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
+                  borderRadius: BorderRadius.circular(20),
                   image: DecorationImage(
                     image: Image.asset(widget.video.image).image,
                     fit: BoxFit.cover,
@@ -59,7 +60,7 @@ class _BigVideoItemState extends State<SmallVideoItem> {
                         ),
                         Text(
                           'Live',
-                          style: TextStyle(color: Colors.white,fontFamily: 'light',fontSize: 11),
+                          style: TextStyle(color: Colors.white),
                         ),
                       ],
                     ),
@@ -69,14 +70,14 @@ class _BigVideoItemState extends State<SmallVideoItem> {
                         Icon(
                           Icons.visibility_outlined,
                           color: Colors.white,
-                          size: 12,
+                          size: 18,
                         ),
                         Padding(
                           padding: EdgeInsets.only(left: 5.0, bottom: 2),
                           child: Text(
                             widget.video.watches,
                             style: TextStyle(
-                                color: Colors.white, fontFamily: 'light',fontSize: 11),
+                                color: Colors.white, fontWeight: FontWeight.bold),
                           ),
                         ),
                       ],

@@ -30,7 +30,6 @@ class _WatchFullShortVideoState extends State<WatchFullShortVideo> {
           backgroundColor: Colors.transparent,
           appBar: AppBar(
             elevation: 0,
-            titleSpacing: 0,
             backgroundColor: Colors.transparent,
             iconTheme: IconThemeData(color: Colors.black),
             leading: IconButton(
@@ -60,7 +59,7 @@ class _WatchFullShortVideoState extends State<WatchFullShortVideo> {
             alignment: Alignment.bottomCenter,
             child: Padding(
               padding: const EdgeInsets.only(
-                bottom: 50.0,
+                bottom: 40.0,
               ),
               child: PhysicalModel(
                 color: Colors.transparent,
@@ -74,46 +73,46 @@ class _WatchFullShortVideoState extends State<WatchFullShortVideo> {
                     mainAxisSize: MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      // Padding(
-                      //   padding: EdgeInsets.only(bottom: 20.0, left: 10),
-                      //   child: PhysicalModel(
-                      //     color: Colors.transparent,
-                      //     shadowColor: Colors.black,
-                      //     elevation: 8,
-                      //     child: Column(
-                      //       children: [
-                      //         ListTile(
-                      //           leading: Container(
-                      //             height: 30,
-                      //             width: 30,
-                      //             decoration: BoxDecoration(
-                      //                 borderRadius:
-                      //                     BorderRadiusDirectional.circular(50),
-                      //                 image: DecorationImage(
-                      //                   image: Image.asset(
-                      //                     'assets/images/restaurant-5.jpg',
-                      //                     fit: BoxFit.cover,
-                      //                   ).image,
-                      //                 )),
-                      //           ),
-                      //           title: Text(
-                      //             'James Auther',
-                      //             style: TextStyle(
-                      //                 color: Colors.white,
-                      //                 fontWeight: FontWeight.bold),
-                      //           ),
-                      //         ),
-                      //         Container(
-                      //           width: MediaQuery.of(context).size.width / 1.5,
-                      //           child: Text(
-                      //             'Exp;salkdsvkmkm;lm kmlk mk mxzczjxnc kzxjnckjzxnckjzxnckjxznkcjzxnck',
-                      //             style: TextStyle(color: Colors.white),
-                      //           ),
-                      //         ),
-                      //       ],
-                      //     ),
-                      //   ),
-                      // ),
+                      Padding(
+                        padding: EdgeInsets.only(bottom: 20.0, left: 10),
+                        child: PhysicalModel(
+                          color: Colors.transparent,
+                          shadowColor: Colors.black,
+                          elevation: 8,
+                          child: Column(
+                            children: [
+                              ListTile(
+                                leading: Container(
+                                  height: 30,
+                                  width: 30,
+                                  decoration: BoxDecoration(
+                                      borderRadius:
+                                          BorderRadiusDirectional.circular(50),
+                                      image: DecorationImage(
+                                        image: Image.asset(
+                                          'assets/images/restaurant-5.jpg',
+                                          fit: BoxFit.cover,
+                                        ).image,
+                                      )),
+                                ),
+                                title: Text(
+                                  'James Auther',
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                              Container(
+                                width: MediaQuery.of(context).size.width / 1.5,
+                                child: Text(
+                                  'Exp;salkdsvkmkm;lm kmlk mk mxzczjxnc kzxjnckjzxnckjzxnckjxznkcjzxnck',
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
                       Align(
                         alignment: Alignment.bottomLeft,
                         child: showComments
@@ -151,11 +150,30 @@ class _WatchFullShortVideoState extends State<WatchFullShortVideo> {
                   IconButton(
                     onPressed: () {},
                     icon: SvgPicture.asset(
-                      'assets/icons/Trophy.svg',
+                      'assets/icons/DownloadSimple.svg',
                       color: Colors.white,
                     ),
                   ),
-
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    textDirection: TextDirection.rtl,
+                    children: [
+                      IconButton(
+                        onPressed: () {},
+                        icon: SvgPicture.asset(
+                          'assets/icons/ThumbsUp.svg',
+                          color: Colors.white,
+                        ),
+                      ),
+                      SizedBox(
+                        width: 5,
+                      ),
+                      Text(
+                        '500 K',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ],
+                  ),
                   Row(
                     textDirection: TextDirection.rtl,
                     mainAxisSize: MainAxisSize.min,
@@ -184,27 +202,7 @@ class _WatchFullShortVideoState extends State<WatchFullShortVideo> {
                         style: TextStyle(color: Colors.white),
                       ),
                     ],
-                  ),
-                  Row(
-                    mainAxisSize: MainAxisSize.min,
-                    textDirection: TextDirection.rtl,
-                    children: [
-                      IconButton(
-                        onPressed: () {},
-                        icon: SvgPicture.asset(
-                          'assets/icons/PaperPlaneRight.svg',
-                          color: Colors.white,
-                        ),
-                      ),
-                      // SizedBox(
-                      //   width: 5,
-                      // ),
-                      // Text(
-                      //   '500 K',
-                      //   style: TextStyle(color: Colors.white),
-                      // ),
-                    ],
-                  ),
+                  )
                 ],
               ),
             ),
@@ -214,7 +212,6 @@ class _WatchFullShortVideoState extends State<WatchFullShortVideo> {
                   alignment: Alignment.bottomCenter,
                   child: Container(
                     height: 40,
-                    margin: EdgeInsets.all( 10),
                     child: Row(
                       children: [
                         Expanded(

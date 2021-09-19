@@ -2,18 +2,17 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:social_app_demo/constants/dimens.dart';
 import 'package:social_app_demo/constants/strings.dart';
-import 'package:social_app_demo/constants/theme_color.dart';
 import 'package:social_app_demo/ui/home/explore_page/explore_page.dart';
 import 'package:social_app_demo/ui/home/home_page/roundedClipper.dart';
 import 'package:social_app_demo/ui/home/main_page/main_page.dart';
 import 'package:social_app_demo/ui/home/trending_page/trending_page.dart';
-import 'package:social_app_demo/ui/market_place/market_place.dart';
-import 'package:social_app_demo/widget/show_svg_icon.dart';
+import 'package:social_app_demo/util/const.dart';
+import 'package:social_app_demo/widget/show_icons.dart';
 import 'package:social_app_demo/widget/story_header.dart';
 import 'package:social_app_demo/widgets/homeleftRoundedClipper.dart';
+import 'package:social_app_demo/widgets/homeroundedClipper.dart';
 
 import 'leftRoundedClipper.dart';
 
@@ -33,7 +32,7 @@ class _WatchState extends State<Watching> with TickerProviderStateMixin {
   List pages = [];
   int index = 0;
   GlobalKey _bottomNavigationKey = GlobalKey();
-  List titles = [feed, trending, explore, ""];
+  List titles = [feed, trending, explore];
   late ScrollController controller = ScrollController(
     initialScrollOffset: 0,
   );
@@ -78,8 +77,7 @@ class _WatchState extends State<Watching> with TickerProviderStateMixin {
         set_state: widget.set_state,
       ),
       TrendingPage(set_state: widget.set_state),
-      ExplorePage(),
-      Container(),
+      ExplorePage()
     ];
     _controller =
         AnimationController(vsync: this, duration: Duration(seconds: 5));
@@ -103,33 +101,69 @@ class _WatchState extends State<Watching> with TickerProviderStateMixin {
       body: DefaultTabController(
         length: 1,
         child: NestedScrollView(
+          // floatHeaderSlivers: false,
           controller: controller,
           headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
             return <Widget>[
+            /*  SliverPadding(
+                padding: EdgeInsets.symmetric(vertical: sixteenDp),
+              ),*/
               SliverAppBar(
                 expandedHeight: 300.0,
+                //  leadingWidth: 100,
+                // toolbarHeight: 100,
                 floating: false,
                 pinned: true,
+                // leading: Container(
+                //   //  height: 60,width: 60,
+                //   padding: EdgeInsets.only(left: 20, top: 16),
+                //   child: CircleAvatar(
+                //     radius: 80,
+                //     backgroundImage: AssetImage('assets/images/a.jpg'),
+                //   ),
+                // ),
+                // actions: [
+                //   Padding(
+                //     padding: const EdgeInsets.only(
+                //       right: fourteenDp,
+                //     ),
+                //     child: ShowIcon(
+                //       iconName: 'assets/icons/MagnifyingGlass.png',
+                //       onIconTap: () {},
+                //     ),
+                //   ),
+                //   Padding(
+                //     padding: const EdgeInsets.only(right: fourteenDp),
+                //     child: ShowIcon(
+                //       iconName: 'assets/icons/BellRinging.png',
+                //       onIconTap: () {},
+                //     ),
+                //   ),
+                //   Padding(
+                //     padding: const EdgeInsets.only(right: fourteenDp),
+                //     child: ShowIcon(
+                //       iconName: 'assets/icons/MagnifyingGlass.png',
+                //       onIconTap: () {},
+                //     ),
+                //   ),
+                // ],
                 flexibleSpace: FlexibleSpaceBar(
                   centerTitle: true,
                   title: Padding(
                     padding: const EdgeInsets.only(bottom: 0.0),
                     child: Container(
+                      // color: Constants.orangeLight,
                       child: Stack(
                         children: [
                           !_isVisible
-                              ? ClipPath(
-                                  clipper: RoundedClipper(),
-                                  child: AnimatedContainer(
-                                    duration: Duration(milliseconds: 400),
-                                    width: animation.value,
-                                    height: animation.value <= 150
-                                        ? 150
-                                        : animation.value,
-                                    decoration: BoxDecoration(
-                                      color:
-                                          ThemeColors.topCurve, //Colors.teal,
-                                    ),
+                              ? AnimatedContainer(
+                                  duration: Duration(milliseconds: 10),
+                                  width: animation.value,
+                                  height: animation.value <= 150
+                                      ? 150
+                                      : animation.value,
+                                  decoration: BoxDecoration(
+                                    color: Constants.orangeLight, //Colors.teal,
                                   ),
                                 )
                               : SizedBox(),
@@ -141,20 +175,16 @@ class _WatchState extends State<Watching> with TickerProviderStateMixin {
                                     child: ClipPath(
                                       clipper: LeftRoundedClipper(flip: true),
                                       child: AnimatedContainer(
-                                          duration: Duration(milliseconds: 400),
-                                          width: animation2.value - 10,
-                                          height: animation2
-                                              .value /**
-                                          MediaQuery.of(context)
-                                          .size
-                                          .height,*/
-                                          ,
-                                          //<= 150 ? 200 :animation.value,
-                                          decoration: BoxDecoration(
-                                            color: ThemeColors.topCurve,
+                                        duration: Duration(milliseconds: 400),
+                                        width: animation2.value - 10,
+                                        height: animation2.value *
+                                            MediaQuery.of(context).size.height,
+                                        //<= 150 ? 200 :animation.value,
+                                        decoration: BoxDecoration(
+                                            color: Constants.orangeDark,
                                           )
                                           // Colors.teal,
-                                          ),
+                                      ),
                                     ),
                                   ),
                                 )
@@ -167,25 +197,21 @@ class _WatchState extends State<Watching> with TickerProviderStateMixin {
                                     child: Row(
                                       children: [
                                         Container(
-                                          height: 30,
-                                          width: 30,
+                                           height: 30,width: 30,
                                           decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(50),
+                                              borderRadius: BorderRadius.circular(50),
                                               image: DecorationImage(
-                                                  image: Image.asset(
-                                                          'assets/images/a.jpg')
-                                                      .image)),
+                                                  image: Image.asset('assets/images/a.jpg').image
+                                              )
+                                          ),
                                         ),
                                         Padding(
-                                          padding:
-                                              const EdgeInsets.only(left: 8.0),
+                                          padding: const EdgeInsets.only(left: 8.0),
                                           child: Text(
-                                            titles[index],
+                                            titles[index] ,
                                             style: TextStyle(
                                                 fontSize: 30,
                                                 fontWeight: FontWeight.bold,
-                                                fontFamily: 'semipop',
                                                 color: Colors.white),
                                           ),
                                         ),
@@ -198,22 +224,22 @@ class _WatchState extends State<Watching> with TickerProviderStateMixin {
                     ),
                   ),
                   background: Container(
-                    color: ThemeColors.middleCURVE,
+                    color: Constants.orangeLight,
                     child: Stack(
                       children: [
-                        ClipPath(
-                          clipper: RoundedClipper(),
-                          child: AnimatedContainer(
-                            duration: Duration(milliseconds: 400),
-                            width: animation.value,
-                            height:
-                                animation.value <= 150 ? 150 : animation.value,
-                            decoration: BoxDecoration(
-                              color: ThemeColors.topCurve,
-                            ),
-                          ),
-                          // Container(width:100,height:150,color: Constants.orangeDark,),
-                        ),
+                        // ClipPath(
+                        //   clipper: HomeRoundedClipper(),
+                        //   child: AnimatedContainer(
+                        //     duration: Duration(milliseconds: 400),
+                        //     width: animation.value,
+                        //     height:
+                        //         animation.value <= 150 ? 150 : animation.value,
+                        //     decoration: BoxDecoration(
+                        //       color: Colors.black,//Constants.orangeDark,
+                        //     ),
+                        //   ),
+                        //   // Container(width:100,height:150,color: Constants.orangeDark,),
+                        // ),
                         Align(
                           alignment: Alignment.bottomRight,
                           child: RotationTransition(
@@ -227,7 +253,7 @@ class _WatchState extends State<Watching> with TickerProviderStateMixin {
                                 height: animation2.value,
                                 //<= 150 ? 200 :animation.value,
                                 decoration: BoxDecoration(
-                                  color: ThemeColors.topCurve,
+                                  color: Constants.orangeDark,
                                 ),
                               ),
                             ),
@@ -235,57 +261,99 @@ class _WatchState extends State<Watching> with TickerProviderStateMixin {
                         ),
                         _isVisible
                             ? Align(
-                                alignment: Alignment.topLeft,
-                                child: SafeArea(
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(5.0),
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 10),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Container(
-                                            width: 50,
-                                            height: 50,
-                                            decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(50),
-                                                image: DecorationImage(
-                                                    image: Image.asset(
-                                                            'assets/images/a.jpg')
-                                                        .image)),
-                                          ),
-                                          Row(
-                                            children: [
-                                              ShowSvgIcon(
-                                                color: Colors.white,
-                                                iconName:
-                                                    'assets/svg/MagnifyingGlass.svg',
-                                                onIconTap: () {},
-                                              ),
-                                              ShowSvgIcon(
-                                                color: Colors.white,
-                                                iconName:
-                                                    'assets/svg/BellRinging.svg',
-                                                onIconTap: () {},
-                                              ),
-                                              ShowSvgIcon(
-                                                color: Colors.white,
-                                                iconName:
-                                                    'assets/svg/PaperPlane.svg',
-                                                onIconTap: () {},
-                                              ),
-                                            ],
-                                          ),
-                                        ],
+                          alignment: Alignment.topLeft,
+                          child: SafeArea(
+
+                            child: Padding(
+                              padding: const EdgeInsets.all(5.0),
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 20),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Container(
+                                      width: 50,
+                                      height: 50,
+                                      decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(50),
+                                          image: DecorationImage(
+                                              image: Image.asset('assets/images/a.jpg').image
+                                          )
                                       ),
                                     ),
-                                  ),
+                                    Row(
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                            right: fourteenDp,
+                                          ),
+                                          child: ShowIcon(
+                                            iconName: 'assets/icons/MagnifyingGlass.png',
+                                            onIconTap: () {},
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.only(right: fourteenDp),
+                                          child: ShowIcon(
+                                            iconName: 'assets/icons/BellRinging.png',
+                                            onIconTap: () {},
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.only(right: fourteenDp),
+                                          child: ShowIcon(
+                                            iconName: 'assets/icons/PaperPlane.png',
+                                            onIconTap: () {},
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+
+
+                                  ],
                                 ),
-                              )
+                              ),
+                            ),
+                          ),
+                        )
                             : SizedBox(),
+
+                        // _isVisible
+                        // ? Align(
+                        //   alignment: Alignment.centerLeft,
+                        //   child: Padding(
+                        //     padding: _isVisible ? EdgeInsets.only(top: 30.0) : EdgeInsets.only(bottom: 0.0),
+                        //     child: Row(
+                        //       children: [
+                        //         index == 0
+                        //             ? Padding(
+                        //           padding: const EdgeInsets.only(left: 8.0),
+                        //           child: Icon(
+                        //             Icons.circle,
+                        //             color: Colors.red,
+                        //             size: _isVisible ? 20 : 15,
+                        //           ),
+                        //         )
+                        //             :SizedBox(),
+                        //         Padding(
+                        //           padding: const EdgeInsets.only(left: 10.0),
+                        //           child: Text(
+                        //             titles[index],
+                        //             style: TextStyle(
+                        //               color: Colors.white,
+                        //                 fontSize: _isVisible? 50 : 30, fontWeight: FontWeight.bold),
+                        //           ),
+                        //         ),
+                        //
+                        //
+                        //         // Spacer(),
+                        //
+                        //       ],
+                        //     ),
+                        //   ),
+                        // )
+                        // : SizedBox(),
                       ],
                     ),
                   ),
@@ -299,55 +367,50 @@ class _WatchState extends State<Watching> with TickerProviderStateMixin {
                       Stack(
                         fit: StackFit.loose,
                         children: [
-                          !_isVisible ||
-                                  (_isVisible &&
-                                      !firstScroll &&
-                                      controller.offset > 75)
+                          !_isVisible || (_isVisible && !firstScroll && controller.offset > 75 )
                               ? Align(
-                            alignment: Alignment.centerLeft,
-                                  child: Padding(
-                                      padding: !isScrolling && !firstScroll
-                                          ? (controller.offset == 0.0
-                                              ? EdgeInsets.only(
-                                                  bottom: 60.0,
-                                                  left: 3,
-                                                  right: 3)
-                                              : EdgeInsets.only(
-                                                  bottom: 10.0,
-                                                  left: 8,
-                                                  right: 8))
-                                          : EdgeInsets.only(
-                                              bottom: 30.0, left: 8, right: 8),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.end,
-                                        children: [
-                                          ShowSvgIcon(
-                                            iconName:
-                                                'assets/svg/MagnifyingGlass.svg',
-                                            onIconTap: () {},
-                                            color: Colors.white,
-                                          ),
-                                          ShowSvgIcon(
-                                            color: Colors.white,
-                                            iconName:
-                                                'assets/svg/BellRinging.svg',
-                                            onIconTap: () {},
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.only(
-                                                right: tenDp),
-                                            child: ShowSvgIcon(
-                                              color: Colors.white,
-                                              iconName:
-                                                  'assets/svg/PaperPlane.svg',
-                                              onIconTap: () {},
-                                            ),
-                                          ),
-                                        ],
-                                      )),
+                            alignment: Alignment.topLeft,
+                            child: Padding(
+                                padding: !isScrolling && !firstScroll
+                                    ? (controller.offset == 0.0
+                                    ? EdgeInsets.only(
+                                    bottom: 60.0, left: 3, right: 3)
+                                    : EdgeInsets.only(
+                                    bottom: 10.0, left: 8, right: 8))
+                                    : EdgeInsets.only(
+                                    bottom: 10.0, left: 8, right: 8),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                        right: fourteenDp,
+                                      ),
+                                      child: ShowIcon(
+                                        iconName: 'assets/icons/MagnifyingGlass.png',
+                                        onIconTap: () {},
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(right: fourteenDp),
+                                      child: ShowIcon(
+                                        iconName: 'assets/icons/BellRinging.png',
+                                        onIconTap: () {},
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(right: fourteenDp),
+                                      child: ShowIcon(
+                                        iconName: 'assets/icons/PaperPlane.png',
+                                        onIconTap: () {},
+                                      ),
+                                    ),
+
+                                  ],
                                 )
-                              : SizedBox(),
+                            ),
+                          )
+                              :SizedBox(),
                           _isVisible
                               ? Align(
                                   alignment: Alignment.bottomLeft,
@@ -370,6 +433,85 @@ class _WatchState extends State<Watching> with TickerProviderStateMixin {
                                     )),
                                   ))
                               : SizedBox(),
+                          /* Align(
+                            alignment: Alignment.topLeft,
+                            child: Padding(
+                              padding: !isScrolling && !firstScroll
+                                  ? (controller.offset == 0.0
+                                      ? EdgeInsets.only(
+                                          bottom: 200, left: 3, right: 3)
+                                      : EdgeInsets.only(
+                                          bottom: 10.0, left: 8, right: 8))
+                                  : EdgeInsets.only(
+                                      bottom: 10.0, left: 8, right: 8),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  index == 0
+                                      ? (firstScroll
+                                          ? Container(
+                                              margin: EdgeInsets.symmetric(
+                                                  vertical: 20, horizontal: 20),
+                                              child: CircleAvatar(
+                                                radius: 20,
+                                                backgroundImage: AssetImage(
+                                                    'assets/images/a.jpg'),
+                                              ))
+                                          : (controller.offset == 0.0
+                                              ? Container(
+                                                  margin: EdgeInsets.symmetric(
+                                                      horizontal: 20),
+                                                  child: CircleAvatar(
+                                                    radius: 20,
+                                                    backgroundImage: AssetImage(
+                                                        'assets/images/a.jpg'),
+                                                  ),
+                                                )
+                                              : Container(
+                                                  margin: EdgeInsets.symmetric(
+                                                      horizontal: tenDp),
+                                                  child: CircleAvatar(
+                                                    radius: 20,
+                                                    backgroundImage: AssetImage(
+                                                        'assets/images/a.jpg'),
+                                                  ),
+                                                )))
+                                      : SizedBox(),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 25),
+                                    child: Row(
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                              right: fourteenDp),
+                                          child: ShowIcon(
+                                            iconName:
+                                                'assets/icons/MagnifyingGlass.png',
+                                            onIconTap: () {},
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                              right: fourteenDp),
+                                          child: ShowIcon(
+                                            iconName:
+                                                'assets/icons/BellRinging.png',
+                                            onIconTap: () {},
+                                          ),
+                                        ),
+                                        ShowIcon(
+                                          iconName: 'assets/icons/PaperPlane.png',
+                                          onIconTap: () {},
+                                        ),
+                                      ],
+                                    ),
+                                  )
+                                  //  Spacer(),
+                                ],
+                              ),
+                            ),
+                          )*/
                         ],
                       ),
                       Align(
@@ -381,10 +523,9 @@ class _WatchState extends State<Watching> with TickerProviderStateMixin {
                           buttonBackgroundColor: Colors.transparent,
                           backgroundColor: Colors.transparent,
                           animationCurve: Curves.easeInOut,
-                          animationDuration: Duration(milliseconds: 200),
+                          animationDuration: Duration(milliseconds: 600),
                           index: 0,
                           onTap: (value) {
-                            print("value $value");
                             switch (value) {
                               case 0:
                                 animation = Tween<double>(begin: 125, end: 125)
@@ -403,11 +544,6 @@ class _WatchState extends State<Watching> with TickerProviderStateMixin {
                                 animation2 = Tween<double>(begin: 150, end: 200)
                                     .animate(_controller);
                                 break;
-                              case 3:
-                                Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => MarketPlace(),
-                                ));
-                                break;
                             }
                             setState(() {
                               index = value;
@@ -419,49 +555,24 @@ class _WatchState extends State<Watching> with TickerProviderStateMixin {
                               style: index == 0
                                   ? TextStyle(
                                       color: Colors.white,
-                                      fontSize: 13,
-                                      fontFamily: 'semipop',
                                       fontWeight: FontWeight.bold)
-                                  : TextStyle(
-                                      color: Colors.black54,
-                                      fontSize: 13,
-                                      fontFamily: 'regular'),
+                                  : TextStyle(color: Colors.black54),
                             ),
                             Text(
                               trending,
                               style: index == 1
                                   ? TextStyle(
                                       color: Colors.white,
-                                      fontSize: 13,
-                                      fontFamily: 'semipop',
                                       fontWeight: FontWeight.bold)
-                                  : TextStyle(
-                                      color: Colors.black54,
-                                      fontSize: 13,
-                                      fontFamily: 'regular'),
+                                  : TextStyle(color: Colors.black54),
                             ),
                             Text(
                               explore,
                               style: index == 2
                                   ? TextStyle(
                                       color: Colors.white,
-                                      fontSize: 13,
-                                      fontFamily: 'semipop')
-                                  : TextStyle(
-                                      color: Colors.black54,
-                                      fontSize: 13,
-                                      fontFamily: 'regular'),
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => MarketPlace(),
-                                ));
-                              },
-                              child: SvgPicture.asset(
-                                'assets/svg/fader.svg',
-                                color: Colors.grey,
-                              ),
+                                      fontWeight: FontWeight.bold)
+                                  : TextStyle(color: Colors.black54),
                             ),
                           ],
                         ),
@@ -471,23 +582,21 @@ class _WatchState extends State<Watching> with TickerProviderStateMixin {
                 ),
               ),
               //header
-              titles[index] == feed
-                  ? SliverPersistentHeader(
-                      floating: false,
-                      delegate: _SliverContainerDelegate(
-                        TabBar(
-                          indicatorColor: Colors.transparent,
-                          tabs: [
-                            Tab(
-                              child: StoryHeader(),
-                              height: 130,
-                            ),
-                          ],
-                        ),
+              SliverPersistentHeader(
+                floating: false,
+                delegate: _SliverContainerDelegate(
+                  TabBar(
+                    indicatorColor: Colors.transparent,
+                    tabs: [
+                      Tab(
+                        child: StoryHeader(),
+                        height: 135,
                       ),
-                      pinned: false,
-                    )
-                  : SliverPadding(padding: EdgeInsets.symmetric()),
+                    ],
+                  ),
+                ),
+                pinned: false,
+              ),
             ];
           },
           body: pages[index],

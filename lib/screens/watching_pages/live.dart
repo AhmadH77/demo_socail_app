@@ -1,3 +1,5 @@
+
+import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -9,104 +11,40 @@ import 'package:social_app_demo/widgets/bigVideoItem.dart';
 import 'package:social_app_demo/widgets/smallVideoItem.dart';
 // import 'package:social_app_demo/widgets/tabBar.dart' as tab;
 
+
 class Live extends StatefulWidget {
-  const Live({Key? key}) : super(key: key);
+  final set_state;
+
+  const Live(this.set_state, {Key? key}) : super(key: key);
 
   @override
   _LiveState createState() => _LiveState();
 }
 
 class _LiveState extends State<Live> {
-  List categories = [
-    'Music',
-    'Gaming',
-    'Now',
-    'Music Now',
-    'Gaming',
-  ];
+  List categories = ['Music', 'Gaming', 'Now','Music', 'Gaming', ];
   List<Video> videos = [
-    Video(
-        3,
-        '10 K',
-        'Göra Frihetsgudinnan i Minecraft | LIVE',
-        'test Video',
-        true,
-        'assets/images/cover.jpg',
-        ['Live', 'Music'],
-        UserModel(0, 'Zombie_500', 'assets/images/rick.jpg'),
-        '1 K',
-        '200',
-        [
-          Comment(
-              'Jag målar inte drömmar eller mardrömmar, jag målar min egen verklighet',
-              user: UserModel(0, 'user1', 'assets/images/restaurant-5.jpg'))
-        ]),
-    Video(
-        0,
-        '5 K',
-        'Liquid vs NIP | ESL Pro League | LIVE ',
-        "Everyday brings new opportunitites, so in esports. Here with the best teams will fight for their survivals in the tournament. ",
-        true,
-        'assets/images/live1.jpg',
-        ['Live', 'Music'],
-        UserModel(1, 'ESL_CSGO', 'assets/images/restaurant-5.jpg'),
-        '1 K',
-        '200',
-        [
-          Comment(
-              'En målning för mig är i första hand ett verb, inte ett substantiv, en händelse först och bara i andra hand en bild',
-              user: UserModel(0, 'user1', 'assets/images/rick.jpg')),
-          Comment(
-              'Jag målar inte drömmar eller mardrömmar, jag målar min egen verklighet',
-              user: UserModel(1, 'user1', 'assets/images/restaurant-5.jpg')),
-          Comment('comment',
-              user: UserModel(0, 'user1', 'assets/images/restaurant-5.jpg')),
-        ]),
-    Video(
-        1,
-        '3 K',
-        'Video2',
-        'test Video',
-        true,
-        'assets/images/live2.jpg',
-        ['Live', 'Music'],
-        UserModel(2, 'publisher2', 'assets/images/rick.jpg'),
-        '1 K',
-        '200',
-        [
-          Comment('comment',
-              user: UserModel(0, 'user1', 'assets/images/restaurant-5.jpg'))
-        ]),
-    Video(
-        2,
-        '9 K',
-        'Video3',
-        'test Video',
-        true,
-        'assets/images/live3.jpg',
-        ['Live', 'Music'],
-        UserModel(3, 'publisher3', 'assets/images/restaurant-5.jpg'),
-        '1 K',
-        '200',
-        [
-          Comment('comment',
-              user: UserModel(0, 'user1', 'assets/images/restaurant-5.jpg'))
-        ]),
-    Video(
-        4,
-        '9 K',
-        'Video3',
-        'test Video',
-        true,
-        'assets/images/live3.jpg',
-        ['Live', 'Music'],
-        UserModel(3, 'publisher3', 'assets/images/restaurant-5.jpg'),
-        '1 K',
-        '200',
-        [
-          Comment('comment',
-              user: UserModel(0, 'user1', 'assets/images/restaurant-5.jpg'))
-        ]),
+    Video(3, '10 K','Video3', 'test Video', true, 'assets/images/cover.jpg',['Live','Music'],
+        User(0, 'publisher3', 'assets/images/rick.jpg'), '1 K' , '200',
+        [Comment('comment')]
+    ),
+    Video(0, '5 K', 'Video1', 'test Video', true, 'assets/images/live1.jpg',['Live','Music'],
+        User(1, 'publisher1', 'assets/images/restaurant-5.jpg'), '1 K' , '200',
+        [Comment('comment',user: User(0,'user1' , 'assets/images/rick.jpg')),Comment('comment',user: User(1,'user1' , 'assets/images/restaurant-5.jpg')),Comment('comment'),]
+    ),
+    Video(1, '3 K', 'Video2', 'test Video', true, 'assets/images/live2.jpg',['Live','Music'],
+        User(2, 'publisher2', 'assets/images/rick.jpg'), '1 K' , '200',
+        [Comment('comment')]
+    ),
+    Video(2, '9 K', 'Video3', 'test Video', true, 'assets/images/live3.jpg',['Live','Music'],
+        User(3, 'publisher3', 'assets/images/restaurant-5.jpg'), '1 K' , '200',
+        [Comment('comment')]
+    ),
+    Video(4, '9 K', 'Video3', 'test Video', true, 'assets/images/live3.jpg',['Live','Music'],
+        User(3, 'publisher3', 'assets/images/restaurant-5.jpg'), '1 K' , '200',
+        [Comment('comment')]
+    ),
+
   ];
   ScrollController controller = ScrollController();
   var _isVisible;
@@ -122,6 +60,7 @@ class _LiveState extends State<Live> {
         if (_isVisible == true) {
           setState(() {
             _isVisible = false;
+            widget.set_state(_isVisible);
           });
         }
       } else {
@@ -130,6 +69,7 @@ class _LiveState extends State<Live> {
           if (_isVisible == false) {
             setState(() {
               _isVisible = true;
+              widget.set_state(_isVisible);
             });
           }
         }
@@ -139,45 +79,30 @@ class _LiveState extends State<Live> {
 
   @override
   Widget build(BuildContext context) {
-    print('live');
     return DefaultTabController(
       length: 5,
       child: Scaffold(
         appBar: TabBar(
+
           isScrollable: true,
-          indicator: BoxDecoration(color: Colors.transparent),
+
+          indicator: BoxDecoration(
+            color: Colors.transparent
+          ),
           tabs: categories
-              .map((item) => Padding(
-                    padding: EdgeInsets.only(
-                        left: item == categories[0] ? 8 : 0, right: 12),
-                    child: Container(
-                      // width: 72,
-                      height: 30,
-                      padding: EdgeInsets.only(
-                          left: 10, right: 10, top: 5, bottom: 5),
-                      decoration: BoxDecoration(
-                          color: Colors.grey.shade400,
-                          borderRadius: BorderRadius.all(Radius.circular(20))),
-                      child: Center(
-                          child: Text(
-                        item,
-                        style: TextStyle(
-                            fontSize: 15,
-                            color: Colors.black,
-                            fontFamily: 'regular'),
-                      )),
-                    ),
+              .map((item) => Container(
+            width: 154,
+                    height: 37,
+                    // padding: EdgeInsets.only(top: 10,bottom: 10,left: 20,right: 20),
+                    decoration: BoxDecoration(
+                      color: Colors.grey,
+                        borderRadius: BorderRadius.all(Radius.circular(20))),
+                    child: Center(child: Text(item , style: TextStyle(fontSize: 18,color:Colors.black,fontFamily: 'regular'),)),
                   ))
               .toList(),
         ),
         body: TabBarView(children: [
           musicPage(),
-          // Container(
-          //   height: 100,
-          //   child: Center(
-          //     child: Text(categories[1]),
-          //   ),
-          // ),
           Container(
             height: 100,
             child: Center(
@@ -208,12 +133,11 @@ class _LiveState extends State<Live> {
   }
 
   musicPage() {
-    print('live1');
-
     return SingleChildScrollView(
       child: Column(
         children: [
           BigVideoItem(videos[0]),
+
           Container(
             height: MediaQuery.of(context).size.height / 3,
             child: ListView.builder(
@@ -232,10 +156,58 @@ class _LiveState extends State<Live> {
             itemCount: videos.length,
             itemBuilder: (context, index) {
               return BigVideoItem(videos[index]);
-            },
-          )
+            },)
         ],
       ),
     );
+    return CustomScrollView(
+      shrinkWrap: true,
+      physics: ScrollPhysics(),
+      controller: controller,
+      slivers: [
+        SliverPadding(
+          padding: const EdgeInsets.all(2.0),
+          sliver: SliverList(
+            delegate: SliverChildListDelegate(
+                [
+                  BigVideoItem(videos[0]),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      top: 8.0,
+                      bottom: 8.0,
+                      left: 15,
+                      right: 15,
+                    ),
+                    child: Text(
+                      'hydraflick',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  Container(
+                    height: MediaQuery.of(context).size.height / 3.6,
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      physics: ScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount: videos.length - 1,
+                      itemBuilder: (context, index) {
+                        return SmallVideoItem(videos[index + 1]);
+                      },
+                    ),
+                  ),
+                  ListView.builder(
+                    shrinkWrap: true,
+                    physics: ClampingScrollPhysics(),
+                    itemCount: videos.length,
+                    itemBuilder: (context, index) {
+                      return BigVideoItem(videos[index]);
+                    },)
+            ],
+            ),
+          ),
+        )
+      ],
+    );
   }
+
 }

@@ -2,19 +2,19 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:social_app_demo/provider/currentPage.dart';
 import 'package:social_app_demo/screens/watching_pages/explorer.dart';
 import 'package:social_app_demo/screens/watching_pages/live.dart';
-import 'package:social_app_demo/widgets/curved_nav_bar/curvedNavigationBar.dart' as curvedBar;
+import 'package:social_app_demo/screens/watching_pages/trending.dart';
 import 'package:social_app_demo/util/const.dart';
-import 'package:provider/provider.dart';
+import 'package:social_app_demo/widget/show_icons.dart';
 import 'package:social_app_demo/widgets/leftRoundedClipper.dart';
 import 'package:social_app_demo/widgets/roundedClipper.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class Watching extends StatefulWidget {
+  final set_state;
 
-  const Watching( {Key? key}) : super(key: key);
+  const Watching(this.set_state, {Key? key}) : super(key: key);
 
   @override
   _WatchState createState() => _WatchState();
@@ -29,14 +29,14 @@ class _WatchState extends State<Watching> with TickerProviderStateMixin {
   final double startingHeight = 20.0;
   List pages = [];
   int index = 0;
-  GlobalKey<CurvedNavigationBarState> _bottomNavigationKey = GlobalKey();
+  GlobalKey _bottomNavigationKey = GlobalKey();
   List titles = ['Live', 'Trending', 'Explorer'];
   var _isVisible = true, isScrolling = false, firstScroll = true;
 
   @override
   void initState() {
     super.initState();
-    pages = [Live(), Explorer(), Explorer()];//Trending(widget.set_state)
+    pages = [Live(widget.set_state), Trending(widget.set_state), Explorer()];
     _controller =
         AnimationController(vsync: this, duration: Duration(seconds: 5));
     animation = Tween<double>(begin: 125, end: 150).animate(_controller);
@@ -53,6 +53,7 @@ class _WatchState extends State<Watching> with TickerProviderStateMixin {
         if (_isVisible == true) {
           setState(() {
             _isVisible = false;
+            widget.set_state(_isVisible);
           });
         }
       } else {
@@ -61,6 +62,7 @@ class _WatchState extends State<Watching> with TickerProviderStateMixin {
           if (_isVisible == false) {
             setState(() {
               _isVisible = true;
+              widget.set_state(_isVisible);
             });
           }
         }
@@ -152,7 +154,7 @@ class _WatchState extends State<Watching> with TickerProviderStateMixin {
                                             )
                                         ),
                                       ),
-                                      context.watch<CurrentPage>().index == 0
+                                      index == 0
                                           ? Padding(
                                               padding: const EdgeInsets.only(
                                                   left: 8.0),
@@ -167,7 +169,7 @@ class _WatchState extends State<Watching> with TickerProviderStateMixin {
                                         padding:
                                             const EdgeInsets.only(left: 10.0,right: 5),
                                         child: Text(
-                                          titles[context.watch<CurrentPage>().index] ,
+                                          titles[index],
                                           style: TextStyle(
                                               color: Colors.white,
                                               fontSize: !firstScroll
@@ -178,12 +180,11 @@ class _WatchState extends State<Watching> with TickerProviderStateMixin {
                                               fontFamily: 'semipop'),
                                         ),
                                       ),
-                                      context.watch<CurrentPage>().index == 0
-                                      ? SvgPicture.asset(
+                                    SvgPicture.asset(
                                         'assets/icons/VideoCamera.svg',
-                                      height: 15,width: 15,
+                                      height: 20,width: 20,
                                       color: Colors.black,
-                                    ) : SizedBox(),
+                                    ),
                                       // Image.asset('assets/icons/VideoCamera.png',width: 20,height: 20,),
 
                                       // Spacer(),
@@ -237,47 +238,51 @@ class _WatchState extends State<Watching> with TickerProviderStateMixin {
                         child: SafeArea(
 
                           child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Container(
-                                  width: 50,
-                                  height: 50,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(50),
-                                    image: DecorationImage(
-                                      image: Image.asset('assets/images/rick.jpg').image
-                                    )
+                            padding: const EdgeInsets.all(5.0),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 25),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Container(
+                                    width: 50,
+                                    height: 50,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(50),
+                                      image: DecorationImage(
+                                        image: Image.asset('assets/images/rick.jpg').image
+                                      )
+                                    ),
                                   ),
-                                ),
-                                Row(
-                                  children: [
-                                    Padding(
-                                      padding:
-                                      const EdgeInsets.only(right: 14,),
-                                      child: SvgPicture.asset(
-                                        'assets/icons/MagnifyingGlass.svg',
+                                  Row(
+                                    children: [
+                                      Padding(
+                                        padding:
+                                        const EdgeInsets.only(right: 14),
+                                        child: SvgPicture.asset(
+                                          'assets/icons/MagnifyingGlass.svg',
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding:
+                                        const EdgeInsets.only(right: 14),
+                                        child: SvgPicture.asset(
+                                          'assets/icons/BellRinging.svg',
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      SvgPicture.asset(
+                                        'assets/icons/PaperPlane.svg',
                                         color: Colors.white,
                                       ),
-                                    ),
-                                    Padding(
-                                      padding:
-                                      const EdgeInsets.only(right: 14),
-                                      child: SvgPicture.asset(
-                                        'assets/icons/BellRinging.svg',
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                    SvgPicture.asset(
-                                      'assets/icons/PaperPlane.svg',
-                                      color: Colors.white,
-                                    ),
-                                  ],
-                                ),
+                                    ],
+                                  ),
 
 
-                              ],
+                                ],
+                              ),
                             ),
                           ),
                         ),
@@ -307,7 +312,7 @@ class _WatchState extends State<Watching> with TickerProviderStateMixin {
                                   child: Row(
                                     children: [
 
-                                      context.watch<CurrentPage>().index == 0
+                                      index == 0
                                           ? Padding(
                                               padding: const EdgeInsets.only(
                                                   left: 8.0, right: 5),
@@ -322,7 +327,7 @@ class _WatchState extends State<Watching> with TickerProviderStateMixin {
                                         padding:
                                             const EdgeInsets.only(left: 10.0),
                                         child: Text(
-                                          titles[context.watch<CurrentPage>().index] ,
+                                          titles[index],
                                           style: TextStyle(
                                               color: Colors.white,
                                               fontSize: !firstScroll
@@ -333,12 +338,11 @@ class _WatchState extends State<Watching> with TickerProviderStateMixin {
                                               fontWeight: FontWeight.bold),
                                         ),
                                       ),
-                                      context.watch<CurrentPage>().index == 0
-                                      ?SvgPicture.asset(
+                                      SvgPicture.asset(
                                         'assets/icons/VideoCamera.svg',
                                         height: 20,width: 20,
                                         color: Colors.black,
-                                      ):SizedBox(),
+                                      ),
                                       // Spacer(),
                                     ],
                                   ),
@@ -352,7 +356,7 @@ class _WatchState extends State<Watching> with TickerProviderStateMixin {
                             padding: !isScrolling && !firstScroll
                                 ? (controller.offset == 0.0
                                     ? EdgeInsets.only(
-                                        bottom: 60.0, left: 8, right: 8)
+                                        bottom: 60.0, left: 3, right: 3)
                                     : EdgeInsets.only(
                                         bottom: 10.0, left: 8, right: 8))
                                 : EdgeInsets.only(
@@ -390,106 +394,80 @@ class _WatchState extends State<Watching> with TickerProviderStateMixin {
                     ),
                     Align(
                       alignment: Alignment.bottomCenter,
-                      child:
-                      curvedBar.CurvedNavigationBar(
+                      child: CurvedNavigationBar(
                         key: _bottomNavigationKey,
-                        height: 37,
+                        height: 50,
                         color: Colors.white,
                         buttonBackgroundColor: Colors.transparent,
                         backgroundColor: Colors.transparent,
-                        animationCurve: Curves.decelerate,//elasticOut,//fastOutSlowIn,
-                        animationDuration: Duration(milliseconds: 400),
-                        index: context.watch<CurrentPage>().index,
-                       onTap: (value) {
-                         print('test $value');
-                         context.read<CurrentPage>().increment(value);
+                        animationCurve: Curves.easeInOut,
+                        animationDuration: Duration(milliseconds: 200),
+                        index: 0,
+                        onTap: (value) {
+                          print('test $value');
+                          switch (value) {
+                            case 0:
+                              animation = Tween<double>(begin: 125, end: 125)
+                                  .animate(_controller);
+                              animation2 = Tween<double>(begin: 125, end: 125)
+                                  .animate(_controller);
+                              break;
+                            case 1:
+                              animation = Tween<double>(begin: 125, end: 150)
+                                  .animate(_controller);
+                              break;
+                            case 2:
+                              animation = Tween<double>(begin: 150, end: 175)
+                                  .animate(_controller);
 
-                         switch (value) {
-                           case 0:
-                             animation = Tween<double>(begin: 125, end: 125)
-                                 .animate(_controller);
-                             animation2 = Tween<double>(begin: 125, end: 125)
-                                 .animate(_controller);
-                             break;
-                           case 1:
-                             animation = Tween<double>(begin: 125, end: 150)
-                                 .animate(_controller);
-                             break;
-                           case 2:
-                             animation = Tween<double>(begin: 150, end: 175)
-                                 .animate(_controller);
-
-                             animation2 = Tween<double>(begin: 150, end: 200)
-                                 .animate(_controller);
-                             break;
-                         }
-                          // _bottomNavigationKey.currentState!.setState(() {
-                         //   index = value;
-                         // });
-                       },
+                              animation2 = Tween<double>(begin: 150, end: 200)
+                                  .animate(_controller);
+                              break;
+                          }
+                          setState(() {
+                            index = value;
+                          });
+                        },
                         items: [
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 8.0),
-                            child: Text(
-                              'Live',
-                              style: context.watch<CurrentPage>().index == 0
-                                  ? TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 17,
-                                      fontFamily: 'semipop')
-                                  : TextStyle(
-                                      color: Colors.black54,
-                                      fontSize: 14,
-                                      fontFamily: 'regular'),
-                            ),
+                          Text(
+                            'Live',
+                            style: index == 0
+                                ? TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 13,
+                                    fontFamily: 'semipop')
+                                : TextStyle(
+                                    color: Colors.black54,
+                                    fontSize: 13,
+                                    fontFamily: 'regular'),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 8.0),
-                            child: Text(
-                              'Trending',
-                              style: context.watch<CurrentPage>().index == 1
-                                  ? TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 17,
-                                  fontFamily: 'semipop')
-                                  : TextStyle(
-                                      color: Colors.black54,
-                                      fontSize: 14,
-                                  fontFamily: 'regular'),
-                            ),
+                          Text(
+                            'Trending',
+                            style: index == 1
+                                ? TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 13,
+                                fontFamily: 'semipop')
+                                : TextStyle(
+                                    color: Colors.black54,
+                                    fontSize: 13,
+                                fontFamily: 'regular'),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 8.0,right: 10),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 5.0),
-                                  child: Text(
-                                    'Explorer',
-                                    style: context.watch<CurrentPage>().index == 2
-                                        ? TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 17,
-                                        fontFamily: 'semipop')
-                                        : TextStyle(
-                                            color: Colors.black54,
-                                            fontSize: 14,
-                                        fontFamily: 'regular'),
-                                  ),
-                                ),
-                                InkWell(
-                                  onTap: (){},
-                                    child: SvgPicture.asset('assets/icons/Faders.svg',width: 20,))
-                              ],
-                            ),
+                          Text(
+                            'Explorer',
+                            style: index == 2
+                                ? TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 13,
+                                fontFamily: 'semipop')
+                                : TextStyle(
+                                    color: Colors.black54,
+                                    fontSize: 13,
+                                fontFamily: 'regular'),
                           ),
-
-
                         ],
                       ),
                     ),
-
                   ],
                 ),
               ),
@@ -505,7 +483,7 @@ class _WatchState extends State<Watching> with TickerProviderStateMixin {
                   right: 0,
                 )
               : EdgeInsets.only(top: 10, left: 0, right: 0),
-          child: pages[context.watch<CurrentPage>().index],
+          child: pages[index],
         ),
       ),
     );

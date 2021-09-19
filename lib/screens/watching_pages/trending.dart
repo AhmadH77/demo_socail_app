@@ -20,48 +20,15 @@ class Trending extends StatefulWidget {
 class _LiveState extends State<Trending> with TickerProviderStateMixin {
   List categories = ['Trend', 'PSG', 'News'];
   List<Video> videos = [
-    Video(
-        0,
-        '-',
-        'Vido1',
-        'test Video',
-        false,
-        'assets/images/live1.jpg',
-        ['Trending', 'Trend'],
-        UserModel(0, 'publisher3', 'assets/images/rick.jpg'),
-        '1 K',
-        '200',
-        [Comment('comment')]),
-    Video(
-        1,
-        '-',
-        'Vido2',
-        'test Video',
-        false,
-        'assets/images/live2.jpg',
-        ['Trending', 'Trend'],
-        UserModel(1, 'publisher1', 'assets/images/restaurant-5.jpg'),
-        '1 K',
-        '200',
+    Video(0, '-', 'Vido1', 'test Video', false, 'assets/images/live1.jpg',['Trending','Trend'],User(0, 'publisher3', 'assets/images/rick.jpg'), '1 K' , '200', [Comment('comment')]),
+    Video(1, '-', 'Vido2', 'test Video', false, 'assets/images/live2.jpg',['Trending','Trend'],User(1, 'publisher1', 'assets/images/restaurant-5.jpg'), '1 K' , '200',
         [
           Comment('comment'),
           Comment('comment'),
           Comment('comment'),
-          Comment('comment',
-              user: UserModel(0, 'user1', 'assets/images/rick.jpg')),
+          Comment('comment',user: User(0,'user1' , 'assets/images/rick.jpg')),
         ]),
-    Video(
-        2,
-        '-',
-        'Vido3',
-        'test Video',
-        false,
-        'assets/images/live3.jpg',
-        ['Trending', 'Trend'],
-        UserModel(2, 'publisher2', 'assets/images/rick.jpg'),
-        '1 K',
-        '200',
-        [Comment('test')]),
+    Video(2, '-', 'Vido3', 'test Video', false, 'assets/images/live3.jpg',['Trending','Trend'],User(2, 'publisher2', 'assets/images/rick.jpg'), '1 K' , '200',[Comment('test')]),
   ];
   late TabController tabController;
   ScrollController controller = ScrollController();
