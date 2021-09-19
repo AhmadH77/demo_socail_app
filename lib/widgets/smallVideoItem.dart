@@ -16,7 +16,7 @@ class _BigVideoItemState extends State<SmallVideoItem> {
   Widget build(BuildContext context) {
     print('vedio${widget.video.id}');
     return  Padding(
-      padding: const EdgeInsets.only(bottom: 5),
+      padding: const EdgeInsets.only(top: 8.0,bottom: 8,left: 5),
       child: InkWell(
         onTap: (){
           pushNewScreen(
@@ -30,7 +30,7 @@ class _BigVideoItemState extends State<SmallVideoItem> {
         child: Card(
           elevation: 4,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15),
+            borderRadius: BorderRadius.circular(20),
           ),
           child: HeroMode(
             enabled: true,//: 'vedio${widget.video.id}',
@@ -38,7 +38,7 @@ class _BigVideoItemState extends State<SmallVideoItem> {
               height: 300,
               width: 120,
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
+                  borderRadius: BorderRadius.circular(20),
                   image: DecorationImage(
                     image: Image.asset(widget.video.image).image,
                     fit: BoxFit.cover,

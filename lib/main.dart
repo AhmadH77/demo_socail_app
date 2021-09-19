@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Social App Demo',
       theme: ThemeData(
-        fontFamily: 'regular0',
+        fontFamily: 'semipop',
         primarySwatch: createMaterialColor(Constants.orangeLight),
       ),
       home: MainScreen(),

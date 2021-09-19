@@ -28,7 +28,7 @@ class _LiveChatItemState extends State<LiveChatItem> {
           color: Colors.red,
         ),
       ),
-      title: Text(widget.comments.content , style: TextStyle(color: widget.source == 1 ? Colors.white: Colors.black,fontFamily: 'regular'),),
+      title: Text(widget.comments.content , style: TextStyle(color: widget.source == 1 ? Colors.white: Colors.black),),
     );
   }
 }

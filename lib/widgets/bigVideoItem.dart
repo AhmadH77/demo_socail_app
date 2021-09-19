@@ -21,7 +21,7 @@ class _BigVideoItemState extends State<BigVideoItem> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 8.0,left: 8,right: 8),
+      padding: const EdgeInsets.all(8.0),
       child: InkWell(
         onTap: () {
           pushNewScreen(
@@ -125,10 +125,7 @@ class _BigVideoItemState extends State<BigVideoItem> {
                         //         builder: (context) =>
                         //             WatchFullShortVideo(widget.video)));
                       },
-                      icon:  SvgPicture.asset(
-                        'assets/icons/DotsThreeVertical.svg',
-                      ),
-                  ),
+                      icon: Icon(Icons.more_vert_outlined)),
                 ],
               ),
               Padding(
