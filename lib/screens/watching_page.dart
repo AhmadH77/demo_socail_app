@@ -9,6 +9,7 @@ import 'package:social_app_demo/util/const.dart';
 import 'package:social_app_demo/widget/show_icons.dart';
 import 'package:social_app_demo/widgets/leftRoundedClipper.dart';
 import 'package:social_app_demo/widgets/roundedClipper.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class Watching extends StatefulWidget {
   final set_state;
@@ -81,7 +82,7 @@ class _WatchState extends State<Watching> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    print('$firstScroll');
+    print('$firstScroll ----  $_isVisible  ');
     return Scaffold(
       body: NestedScrollView(
         controller: controller,
@@ -135,6 +136,7 @@ class _WatchState extends State<Watching> with TickerProviderStateMixin {
                                 ),
                               )
                             : SizedBox(),
+
                         !_isVisible
                             ? Align(
                                 alignment: Alignment.centerLeft,
@@ -142,6 +144,16 @@ class _WatchState extends State<Watching> with TickerProviderStateMixin {
                                   padding: const EdgeInsets.all(10.0),
                                   child: Row(
                                     children: [
+                                      Container(
+                                        width: 30,
+                                        height: 30,
+                                        decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(50),
+                                            image: DecorationImage(
+                                                image: Image.asset('assets/images/rick.jpg').image
+                                            )
+                                        ),
+                                      ),
                                       index == 0
                                           ? Padding(
                                               padding: const EdgeInsets.only(
@@ -155,7 +167,7 @@ class _WatchState extends State<Watching> with TickerProviderStateMixin {
                                           : SizedBox(),
                                       Padding(
                                         padding:
-                                            const EdgeInsets.only(left: 10.0),
+                                            const EdgeInsets.only(left: 10.0,right: 5),
                                         child: Text(
                                           titles[index],
                                           style: TextStyle(
@@ -165,9 +177,15 @@ class _WatchState extends State<Watching> with TickerProviderStateMixin {
                                                       ? 30
                                                       : 50)
                                                   : 50,
-                                              fontWeight: FontWeight.bold),
+                                              fontFamily: 'semipop'),
                                         ),
                                       ),
+                                    SvgPicture.asset(
+                                        'assets/icons/VideoCamera.svg',
+                                      height: 20,width: 20,
+                                      color: Colors.black,
+                                    ),
+                                      // Image.asset('assets/icons/VideoCamera.png',width: 20,height: 20,),
 
                                       // Spacer(),
                                     ],
@@ -214,41 +232,63 @@ class _WatchState extends State<Watching> with TickerProviderStateMixin {
                           ),
                         ),
                       ),
-                      // _isVisible
-                      // ? Align(
-                      //   alignment: Alignment.centerLeft,
-                      //   child: Padding(
-                      //     padding: _isVisible ? EdgeInsets.only(top: 30.0) : EdgeInsets.only(bottom: 0.0),
-                      //     child: Row(
-                      //       children: [
-                      //         index == 0
-                      //             ? Padding(
-                      //           padding: const EdgeInsets.only(left: 8.0),
-                      //           child: Icon(
-                      //             Icons.circle,
-                      //             color: Colors.red,
-                      //             size: _isVisible ? 20 : 15,
-                      //           ),
-                      //         )
-                      //             :SizedBox(),
-                      //         Padding(
-                      //           padding: const EdgeInsets.only(left: 10.0),
-                      //           child: Text(
-                      //             titles[index],
-                      //             style: TextStyle(
-                      //               color: Colors.white,
-                      //                 fontSize: _isVisible? 50 : 30, fontWeight: FontWeight.bold),
-                      //           ),
-                      //         ),
-                      //
-                      //
-                      //         // Spacer(),
-                      //
-                      //       ],
-                      //     ),
-                      //   ),
-                      // )
-                      // : SizedBox(),
+                      _isVisible
+                          ? Align(
+                        alignment: Alignment.topLeft,
+                        child: SafeArea(
+
+                          child: Padding(
+                            padding: const EdgeInsets.all(5.0),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 25),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Container(
+                                    width: 50,
+                                    height: 50,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(50),
+                                      image: DecorationImage(
+                                        image: Image.asset('assets/images/rick.jpg').image
+                                      )
+                                    ),
+                                  ),
+                                  Row(
+                                    children: [
+                                      Padding(
+                                        padding:
+                                        const EdgeInsets.only(right: 14),
+                                        child: SvgPicture.asset(
+                                          'assets/icons/MagnifyingGlass.svg',
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding:
+                                        const EdgeInsets.only(right: 14),
+                                        child: SvgPicture.asset(
+                                          'assets/icons/BellRinging.svg',
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      SvgPicture.asset(
+                                        'assets/icons/PaperPlane.svg',
+                                        color: Colors.white,
+                                      ),
+                                    ],
+                                  ),
+
+
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      )
+                          : SizedBox(),
+
                     ],
                   ),
                 ),
@@ -271,10 +311,11 @@ class _WatchState extends State<Watching> with TickerProviderStateMixin {
                                       : EdgeInsets.only(top: 30, left: 10),
                                   child: Row(
                                     children: [
+
                                       index == 0
                                           ? Padding(
                                               padding: const EdgeInsets.only(
-                                                  left: 8.0),
+                                                  left: 8.0, right: 5),
                                               child: Icon(
                                                 Icons.circle,
                                                 color: Colors.red,
@@ -297,14 +338,19 @@ class _WatchState extends State<Watching> with TickerProviderStateMixin {
                                               fontWeight: FontWeight.bold),
                                         ),
                                       ),
-
+                                      SvgPicture.asset(
+                                        'assets/icons/VideoCamera.svg',
+                                        height: 20,width: 20,
+                                        color: Colors.black,
+                                      ),
                                       // Spacer(),
                                     ],
                                   ),
                                 ),
                               )
                             : SizedBox(),
-                        Align(
+                        !_isVisible || (_isVisible && !firstScroll && controller.offset > 75 )
+                            ? Align(
                           alignment: Alignment.topLeft,
                           child: Padding(
                             padding: !isScrolling && !firstScroll
@@ -316,86 +362,34 @@ class _WatchState extends State<Watching> with TickerProviderStateMixin {
                                 : EdgeInsets.only(
                                     bottom: 10.0, left: 8, right: 8),
                             child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              mainAxisAlignment: MainAxisAlignment.end,
                               children: [
-                                index == 0
-                                    ? (firstScroll
-                                        ? ShowIcon(
-                                            iconName:
-                                                'assets/icons/VideoCamera.png',
-                                            onIconTap: () {},
-                                          )
-                                        : (controller.offset == 0.0
-                                            ? ShowIcon(
-                                                iconName:
-                                                    'assets/icons/VideoCamera.png',
-                                                onIconTap: () {},
-                                              )
-                                            : SizedBox()))
-                                    : SizedBox(),
                                 Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 25),
-                                  child: Row(
-                                    children: [
-                                      Padding(
-                                        padding:
-                                            const EdgeInsets.only(right: 14),
-                                        child: ShowIcon(
-                                          iconName:
-                                              'assets/icons/MagnifyingGlass.png',
-                                          onIconTap: () {},
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding:
-                                            const EdgeInsets.only(right: 14),
-                                        child: ShowIcon(
-                                          iconName:
-                                              'assets/icons/BellRinging.png',
-                                          onIconTap: () {},
-                                        ),
-                                      ),
-                                      ShowIcon(
-                                        iconName: 'assets/icons/PaperPlane.png',
-                                        onIconTap: () {},
-                                      ),
-                                    ],
+                                  padding:
+                                  const EdgeInsets.only(right: 14),
+                                  child: SvgPicture.asset(
+                                    'assets/icons/MagnifyingGlass.svg',
+                                    color: Colors.white,
                                   ),
-                                )
-                                //  Spacer(),
+                                ),
+                                Padding(
+                                  padding:
+                                  const EdgeInsets.only(right: 14),
+                                  child: SvgPicture.asset(
+                                    'assets/icons/BellRinging.svg',
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                SvgPicture.asset(
+                                  'assets/icons/PaperPlane.svg',
+                                  color: Colors.white,
+                                ),
+
                               ],
-                            ),
+                            )
                           ),
                         )
-                        // Align(
-                        //   alignment: Alignment.topRight,
-                        //   child: Row(
-                        //     mainAxisAlignment: MainAxisAlignment.end,
-                        //     children: [
-                        //       Padding(
-                        //         padding: !isScrolling ? (_isVisible ? EdgeInsets.only(bottom: 62.0,left: 3 , right: 3):EdgeInsets.all( 3.0)):EdgeInsets.only(bottom: 3.0,left: 8 , right: 8),
-                        //         child: IconButton(onPressed: () {},
-                        //           icon: Image.asset('assets/icons/MagnifyingGlass.png', width: 20),//Icon(Icons.search,)
-                        //         ),
-                        //       ),
-                        //       Padding(
-                        //         padding: !isScrolling ? (_isVisible ? EdgeInsets.only(bottom: 62.0,left: 3 , right: 3):EdgeInsets.all( 3.0)):EdgeInsets.only(bottom: 3.0,left: 8 , right: 8),
-                        //         child: IconButton(
-                        //           onPressed: () {},
-                        //           icon: Image.asset('assets/icons/BellRinging.png', width: 20,),//Icon(Icons.notifications_active,)
-                        //         ),
-                        //       ),
-                        //       Padding(
-                        //         padding: !isScrolling ? (_isVisible ? EdgeInsets.only(bottom: 62.0,left: 3 , right: 3):EdgeInsets.all( 3.0)):EdgeInsets.only(bottom: 3.0,left: 8 , right: 8),
-                        //         child: IconButton(
-                        //           onPressed: () {},
-                        //           icon: Image.asset('assets/icons/User.png', width: 20),//Icon(Icons.person_outline)
-                        //         ),
-                        //       ),
-                        //     ],
-                        //   ),
-                        // ),
+                            :SizedBox()
                       ],
                     ),
                     Align(
@@ -407,7 +401,7 @@ class _WatchState extends State<Watching> with TickerProviderStateMixin {
                         buttonBackgroundColor: Colors.transparent,
                         backgroundColor: Colors.transparent,
                         animationCurve: Curves.easeInOut,
-                        animationDuration: Duration(milliseconds: 600),
+                        animationDuration: Duration(milliseconds: 200),
                         index: 0,
                         onTap: (value) {
                           print('test $value');
@@ -441,11 +435,11 @@ class _WatchState extends State<Watching> with TickerProviderStateMixin {
                                 ? TextStyle(
                                     color: Colors.white,
                                     fontSize: 13,
-                                    fontWeight: FontWeight.bold)
+                                    fontFamily: 'semipop')
                                 : TextStyle(
                                     color: Colors.black54,
                                     fontSize: 13,
-                                    fontWeight: FontWeight.normal),
+                                    fontFamily: 'regular'),
                           ),
                           Text(
                             'Trending',
@@ -453,11 +447,11 @@ class _WatchState extends State<Watching> with TickerProviderStateMixin {
                                 ? TextStyle(
                                     color: Colors.white,
                                     fontSize: 13,
-                                    fontWeight: FontWeight.bold)
+                                fontFamily: 'semipop')
                                 : TextStyle(
                                     color: Colors.black54,
                                     fontSize: 13,
-                                    fontWeight: FontWeight.normal),
+                                fontFamily: 'regular'),
                           ),
                           Text(
                             'Explorer',
@@ -465,11 +459,11 @@ class _WatchState extends State<Watching> with TickerProviderStateMixin {
                                 ? TextStyle(
                                     color: Colors.white,
                                     fontSize: 13,
-                                    fontWeight: FontWeight.bold)
+                                fontFamily: 'semipop')
                                 : TextStyle(
                                     color: Colors.black54,
                                     fontSize: 13,
-                                    fontWeight: FontWeight.normal),
+                                fontFamily: 'regular'),
                           ),
                         ],
                       ),

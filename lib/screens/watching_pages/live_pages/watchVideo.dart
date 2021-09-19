@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:social_app_demo/models/comment.dart';
 import 'package:social_app_demo/models/user.dart';
 import 'package:social_app_demo/models/video.dart';
@@ -95,10 +96,7 @@ class _WatchVideoState extends State<WatchVideo> with TickerProviderStateMixin {
     print( 'video${widget.video.id}');
     return Scaffold(
       resizeToAvoidBottomInset: true,
-      body: Padding(
-        padding: EdgeInsets.only(
-          top: 30.0,
-        ),
+      body: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
@@ -107,6 +105,7 @@ class _WatchVideoState extends State<WatchVideo> with TickerProviderStateMixin {
               enabled: true,//tag: 'video${widget.video.id}',
               child: Container(
                 height: 200,
+                margin: EdgeInsets.only(bottom: 8),
                 width: MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(
                     image: DecorationImage(
@@ -133,12 +132,12 @@ class _WatchVideoState extends State<WatchVideo> with TickerProviderStateMixin {
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.only(left: 8.0),
-                                  child: Image.asset('assets/icons/Eye.png',color: Colors.white),
-                                  // Icon(
-                                  //   Icons.visibility_outlined,
-                                  //   color: Colors.white,
-                                  //   size: 18,
-                                  // ),
+                                  child:  SvgPicture.asset(
+                                    'assets/icons/Eye.svg',
+                                    height: 20,width: 20,
+                                    color: Colors.white,
+                                  ),
+
                                 ),
                                 Padding(
                                   padding: EdgeInsets.only(left: 5.0, bottom: 2),
@@ -162,12 +161,12 @@ class _WatchVideoState extends State<WatchVideo> with TickerProviderStateMixin {
                                             builder: (context) =>
                                                 LandscapeFullVideo(widget.video)));
                                   },
-                                  child:  Image.asset('assets/icons/ArrowsIn.png',color: Colors.white),
-                                  // Icon(
-                                  //   Icons.fullscreen,
-                                  //   color: Colors.white,
-                                  //   size: 20,
-                                  // ),
+                                  child:  SvgPicture.asset(
+                                    'assets/icons/ArrowsIn.svg',
+                                    height: 20,width: 20,
+                                    color: Colors.white,
+                                  ),
+
                                 ),
                                 InkWell(
                                   onTap: () {
@@ -177,12 +176,13 @@ class _WatchVideoState extends State<WatchVideo> with TickerProviderStateMixin {
                                             builder: (context) =>
                                                 WatchFullShortVideo(widget.video)));
                                   },
-                                  child:  Image.asset('assets/icons/FrameCorners.png',color: Colors.white),
-                                  // Icon(
-                                  //   Icons.fullscreen,
-                                  //   color: Colors.white,
-                                  //   size: 20,
-                                  // ),
+                                  child:  SvgPicture.asset(
+                                    'assets/icons/FrameCorners.svg',
+                                    height: 20,width: 20,
+                                    color: Colors.white,
+                                  ),
+
+
                                 ),
                               ],
                             ),
@@ -229,11 +229,11 @@ class _WatchVideoState extends State<WatchVideo> with TickerProviderStateMixin {
                             children: [
                               Text(
                                 '${widget.video.publisher.name}',
-                                style: TextStyle(fontSize:15,fontWeight: FontWeight.bold),
+                                style: TextStyle(fontSize:15,fontWeight: FontWeight.bold,fontFamily: 'semipop'),
                               ),
                               Text(
                                 '${widget.video.name}',
-                                style: TextStyle(fontSize:14,),
+                                style: TextStyle(fontSize:15,fontFamily: 'regular'),
                               ),
                               Container(
                                 padding: EdgeInsets.only(top: 10),
@@ -257,7 +257,7 @@ class _WatchVideoState extends State<WatchVideo> with TickerProviderStateMixin {
                                         child: Center(
                                             child: Text(
                                           '${widget.video.category[index]}',
-                                              style: TextStyle(color: Colors.white,fontSize:10,fontWeight: FontWeight.w100),
+                                              style: TextStyle(color: Colors.white,fontSize:10,fontFamily: 'light'),
                                         )),
                                       ),
                                     );
@@ -276,15 +276,13 @@ class _WatchVideoState extends State<WatchVideo> with TickerProviderStateMixin {
                                   right: 8, left: 8, top: 3, bottom: 3),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(20),
-                                color: Colors.pinkAccent,
+                                color: Constants.orangeDark,
                               ),
                               child: Row(
                                 children: [
-                                  Image.asset('assets/icons/LightningBlack.png',),
-                                  // Icon(
-                                  //   Icons.flash_on_sharp,
-                                  //   size: 15,
-                                  // ),
+                                  SvgPicture.asset(
+                                    'assets/icons/LightningBlack.svg',
+                                  ),
                                   Text(
                                     'Following',
                                     style: TextStyle(
@@ -306,8 +304,12 @@ class _WatchVideoState extends State<WatchVideo> with TickerProviderStateMixin {
                                   child: Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: showDescription
-                                        ? Image.asset('assets/icons/‏‏CaretUp.png')
-                                        : Image.asset('assets/icons/CaretDown.png'),
+                                        ?   SvgPicture.asset(
+                                      'assets/icons/‏‏CaretUp.svg',
+                                    )
+                                        : SvgPicture.asset(
+                                      'assets/icons/CaretDown.svg',
+                                    )
 
                                         // Icon(Icons.keyboard_arrow_down_rounded),
                                   )),
@@ -319,97 +321,8 @@ class _WatchVideoState extends State<WatchVideo> with TickerProviderStateMixin {
                   ),
 
                   showDescription
-                      ? Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: ListView(
-                    shrinkWrap: true,
-                    physics: ScrollPhysics(),
-                    children: [
-                          Text('Description', style: TextStyle(fontSize: 18,fontWeight: FontWeight.w900),),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text('${widget.video.name}',style: TextStyle(fontSize: 18,),),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text('sss'),
-                          ),
-                    ],
-                  ),
-                        ),
-                      )
-                       : Padding(
-                    padding: const EdgeInsets.only(top: 8.0, bottom: 8),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Column(
-                          children: [
-                            IconButton(
-                              onPressed: () {},
-                              icon:  Image.asset('assets/icons/ThumbsUp.png',),
-                              // Icon(Icons.thumb_up_alt_outlined),
-                            ),
-                            Text('${widget.video.likes}')
-                          ],
-                        ),
-                        Column(
-                          children: [
-                            IconButton(
-                              onPressed: () {},
-                              icon:Image.asset('assets/icons/‏‏ThumbsDown.png',),
-                              // Icon(Icons.thumb_down_alt_outlined),
-                            ),
-                            Text('${widget.video.dislikes}')
-                          ],
-                        ),
-                        Column(
-                          children: [
-                            IconButton(
-                              onPressed: () {
-                                setState(() {
-                                  pageIndex = 1;
-                                });
-                              },
-                              icon: pageIndex == 1
-                                  ? Image.asset('assets/icons/Chats-1.png',)
-                                  : Image.asset('assets/icons/Chats.png',),
-                              // Icon(pageIndex == 1
-                              //     ? Icons.chat_bubble
-                              //     : Icons.chat_bubble_outline),
-                            ),
-                            Text('Live Chat')
-                          ],
-                        ),
-                        Column(
-                          children: [
-                            IconButton(
-                              onPressed: () {},
-                              icon: Image.asset('assets/icons/Megaphone.png',),
-                              // Icon(Icons.report_gmailerrorred_outlined),
-                            ),
-                            Text('Report')
-                          ],
-                        ),
-                        Column(
-                          children: [
-                            IconButton(
-                              onPressed: () {},
-                              icon: Image.asset('assets/icons/DownloadSimple.png',),
-                              // Icon(Icons.download_outlined),
-                            ),
-                            Text('Download')
-                          ],
-                        ),
-                        IconButton(
-                          onPressed: () {},
-                          icon:  Image.asset('assets/icons/DotsThreeVertical.png',),
-                          // Icon(Icons.more_vert_outlined),
-                        ),
-                      ],
-                    ),
-                  ),
+                      ? description()
+                       : videoOptions(),
                   !showDescription
                     ?(pageIndex == 1 ? comments() : otherVideos())
                   :SizedBox(),
@@ -470,82 +383,7 @@ class _WatchVideoState extends State<WatchVideo> with TickerProviderStateMixin {
               ),
             ),
           ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Container(
-              height: 40,
-              child: Row(
-                children: [
-                  Expanded(
-                    child: TextFormField(
-                      cursorColor: Colors.white,
-                      textAlignVertical: TextAlignVertical.bottom,
-                      decoration: InputDecoration(
-                          hintText: 'Send a message',
-                          hintStyle: TextStyle(color: Colors.grey.shade500),
-                          fillColor: Colors.grey.shade300,
-                          filled: true,
-                          focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(30),
-                              borderSide: BorderSide(
-                                  color: Colors.grey,
-                                  style: BorderStyle.solid,
-                                  width: 1)),
-                          enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(30),
-                              borderSide: BorderSide(
-                                  color: Colors.grey,
-                                  style: BorderStyle.solid,
-                                  width: 1)),
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(30),
-                              borderSide: BorderSide(
-                                  color: Colors.grey,
-                                  style: BorderStyle.solid,
-                                  width: 1))),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 8.0),
-                    child: InkWell(
-                      onTap: () {
-                        showRewardDialog();
-                      },
-                      borderRadius: BorderRadius.circular(50),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.yellow,
-                          borderRadius: BorderRadius.circular(50),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Image.asset('assets/icons/Crown.png',),
-                          // Icon(Icons.celebration_outlined),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 8.0),
-                    child: InkWell(
-                      borderRadius: BorderRadius.circular(50),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.green,
-                          borderRadius: BorderRadius.circular(50),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child:  Image.asset('assets/icons/Smiley.png',),
-                          // Icon(Icons.mood),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          )
+          commentText()
         ],
       ),
     );
@@ -615,8 +453,14 @@ class _WatchVideoState extends State<WatchVideo> with TickerProviderStateMixin {
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: [
-                                        Icon(Icons.money),
-                                        Text('Currency')
+                                        SvgPicture.asset(
+                                          'assets/icons/Money.svg',
+
+                                          color: Colors.grey,
+                                        ),
+                                        SizedBox(width: 5,),
+                                        Text('Currency',
+                                          style: TextStyle(color: Colors.grey),)
                                       ],
                                     ),
                                   ],
@@ -650,8 +494,13 @@ class _WatchVideoState extends State<WatchVideo> with TickerProviderStateMixin {
                                     mainAxisSize: MainAxisSize.max,
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Icon(Icons.fast_rewind),
-                                      Text('Rewards')
+                                      SvgPicture.asset(
+                                        'assets/icons/Trophy.svg',
+
+                                        color: Colors.grey,
+                                      ),
+                                      SizedBox(width: 5,),
+                                      Text('Rewards',style: TextStyle(color: Colors.grey),)
                                     ],
                                   ),
                                 ],
@@ -779,6 +628,192 @@ class _WatchVideoState extends State<WatchVideo> with TickerProviderStateMixin {
   refreshScreen(){
     setState(() {
     });
+  }
+
+  videoOptions() {
+    return  Padding(
+      padding: const EdgeInsets.only(top: 8.0, bottom: 8),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Row(
+            children: [
+              Padding(
+                padding:  EdgeInsets.only(left: 10.0,right: 10),
+                child: Column(
+                  children: [
+                    IconButton(
+                        onPressed: () {},
+                        icon:SvgPicture.asset(
+                          'assets/svg/Fire.svg',
+                          color: Colors.black,
+                        )
+                      // Icon(Icons.thumb_down_alt_outlined),
+                    ),
+                    Text('${widget.video.likes}',style: TextStyle(fontFamily: 'regular'))
+                  ],
+                ),
+              ),
+              Padding(
+                padding:  EdgeInsets.only(left: 10.0,right: 10),
+                child: Column(
+                  children: [
+                    IconButton(
+                        onPressed: () {
+                          setState(() {
+                            pageIndex = 1;
+                          });
+                        },
+                        icon: pageIndex == 1
+                            ?  SvgPicture.asset(
+                          'assets/icons/Chats-1.svg',
+                          color: Colors.black,
+                        )
+                            : SvgPicture.asset(
+                          'assets/icons/Chats.svg',
+                          color: Colors.black,
+                        )
+
+                    ),
+                    Text('Live Chat',style: TextStyle(fontFamily: 'regular'))
+                  ],
+                ),
+              ),
+              Padding(
+                padding:  EdgeInsets.only(left: 10.0,right: 10),
+                child: Column(
+                  children: [
+                    IconButton(
+                      onPressed: () {},
+                      icon: SvgPicture.asset(
+                        'assets/icons/Megaphone.svg',
+                        color: Colors.black,
+                      ),
+
+                    ),
+                    Text('Report',style: TextStyle(fontFamily: 'regular'),)
+                  ],
+                ),
+              ),
+            ],
+          ),
+          IconButton(
+            onPressed: () {},
+            icon: SvgPicture.asset(
+              'assets/icons/DotsThreeVertical.svg',
+              color: Colors.black,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  commentText() {
+    return Align(
+      alignment: Alignment.bottomCenter,
+      child: Container(
+        margin: EdgeInsets.all(8),
+        height: 40,
+        child: Row(
+          children: [
+            Expanded(
+              child: TextFormField(
+                cursorColor: Colors.white,
+                textAlignVertical: TextAlignVertical.bottom,
+                decoration: InputDecoration(
+                    hintText: 'Send a message',
+                    hintStyle: TextStyle(color: Colors.grey.shade500),
+                    fillColor: Colors.grey.shade300,
+                    filled: true,
+                    focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(30),
+                        borderSide: BorderSide(
+                            color: Colors.grey,
+                            style: BorderStyle.solid,
+                            width: 1)),
+                    enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(30),
+                        borderSide: BorderSide(
+                            color: Colors.grey,
+                            style: BorderStyle.solid,
+                            width: 1)),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(30),
+                        borderSide: BorderSide(
+                            color: Colors.grey,
+                            style: BorderStyle.solid,
+                            width: 1))),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 8.0),
+              child: InkWell(
+                onTap: () {
+                  showRewardDialog();
+                },
+                borderRadius: BorderRadius.circular(50),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.yellow,
+                    borderRadius: BorderRadius.circular(50),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: SvgPicture.asset(
+                      'assets/icons/Crown.svg',
+                      color: Colors.black,
+                    ),
+
+                  ),
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 8.0),
+              child: InkWell(
+                borderRadius: BorderRadius.circular(50),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.green,
+                    borderRadius: BorderRadius.circular(50),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: SvgPicture.asset(
+                      'assets/icons/Smiley.svg',
+                      color: Colors.black,
+                    ),
+
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  description() {
+    return Expanded(
+      child: Padding(
+        padding: const EdgeInsets.all(15.0),
+        child: ListView(
+          shrinkWrap: true,
+          physics: ScrollPhysics(),
+          children: [
+            Text('Description', style: TextStyle(fontSize: 18,),),
+            SizedBox(height: 10,),
+            Text('${widget.video.name}',style: TextStyle(fontSize: 15,fontFamily: 'semipop')),
+            SizedBox(height: 5,),
+            Text('10 September 2021',style: TextStyle(fontFamily: 'light')),
+            SizedBox(height: 15,),
+            Text('Description Description Description',style: TextStyle(fontFamily: 'regular'),),
+          ],
+        ),
+      ),
+    );
   }
 
 }

@@ -25,6 +25,7 @@ class _MainPageState extends State<MainPage> {
       padding: EdgeInsets.all(0),
       itemBuilder: (context, index) {
         Posts posts = postList[index];
+
         return buildPost(posts);
       },
       itemCount: postList.length,
@@ -349,7 +350,7 @@ class _MainPageState extends State<MainPage> {
     );
   }
 
-  Widget buildImage(image, double radius) {
+  Widget buildImage (image, double radius) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 4),
       child: CircleAvatar(
@@ -385,7 +386,7 @@ class _MainPageState extends State<MainPage> {
           borderRadius: BorderRadius.circular(thirtyDp),
           image: DecorationImage(
             fit: BoxFit.cover,
-            image: AssetImage('$image'),
+            image: AssetImage(image),
           )),
     );
   }
@@ -490,7 +491,7 @@ class _MainPageState extends State<MainPage> {
             : Container(
                 margin: EdgeInsets.only(top: tenDp),
                 child: Image.asset(
-                  '${posts.postImage}',
+                  posts.postImage!,
                   // height: fourFourteenDp,
                   // width: MediaQuery.of(context).size.width,
                   fit: BoxFit.fitHeight,
@@ -533,7 +534,7 @@ class _MainPageState extends State<MainPage> {
                     ),
                   ),
                 ),
-                buildImage('${posts.publisher.image}', 14),
+                buildImage(posts.publisher.image, 14),
               ],
             ),
           ),

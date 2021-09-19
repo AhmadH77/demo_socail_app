@@ -33,7 +33,7 @@ List<Posts> postList = [
     publisher: User('id', 'Daniz', 'assets/images/a.jpg'),
     likedBy: ['assets/images/a.jpg', 'assets/images/b.jpg'],
     postTitle: dummy,
-    postImage: '',
+    postImage: 'assets/images/a.jpg',
     postDescription: dummyDes,
     ownedBy: 'ccda',
   ),

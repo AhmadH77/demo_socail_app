@@ -11,6 +11,8 @@ import 'package:social_app_demo/ui/home/trending_page/trending_page.dart';
 import 'package:social_app_demo/util/const.dart';
 import 'package:social_app_demo/widget/show_icons.dart';
 import 'package:social_app_demo/widget/story_header.dart';
+import 'package:social_app_demo/widgets/homeleftRoundedClipper.dart';
+import 'package:social_app_demo/widgets/homeroundedClipper.dart';
 
 import 'leftRoundedClipper.dart';
 
@@ -112,39 +114,39 @@ class _WatchState extends State<Watching> with TickerProviderStateMixin {
                 // toolbarHeight: 100,
                 floating: false,
                 pinned: true,
-                leading: Container(
-                  //  height: 60,width: 60,
-                  padding: EdgeInsets.only(left: 20, top: 16),
-                  child: CircleAvatar(
-                    radius: 80,
-                    backgroundImage: AssetImage('assets/images/a.jpg'),
-                  ),
-                ),
-                actions: [
-                  Padding(
-                    padding: const EdgeInsets.only(
-                      right: fourteenDp,
-                    ),
-                    child: ShowIcon(
-                      iconName: 'assets/icons/MagnifyingGlass.png',
-                      onIconTap: () {},
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(right: fourteenDp),
-                    child: ShowIcon(
-                      iconName: 'assets/icons/BellRinging.png',
-                      onIconTap: () {},
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(right: fourteenDp),
-                    child: ShowIcon(
-                      iconName: 'assets/icons/MagnifyingGlass.png',
-                      onIconTap: () {},
-                    ),
-                  ),
-                ],
+                // leading: Container(
+                //   //  height: 60,width: 60,
+                //   padding: EdgeInsets.only(left: 20, top: 16),
+                //   child: CircleAvatar(
+                //     radius: 80,
+                //     backgroundImage: AssetImage('assets/images/a.jpg'),
+                //   ),
+                // ),
+                // actions: [
+                //   Padding(
+                //     padding: const EdgeInsets.only(
+                //       right: fourteenDp,
+                //     ),
+                //     child: ShowIcon(
+                //       iconName: 'assets/icons/MagnifyingGlass.png',
+                //       onIconTap: () {},
+                //     ),
+                //   ),
+                //   Padding(
+                //     padding: const EdgeInsets.only(right: fourteenDp),
+                //     child: ShowIcon(
+                //       iconName: 'assets/icons/BellRinging.png',
+                //       onIconTap: () {},
+                //     ),
+                //   ),
+                //   Padding(
+                //     padding: const EdgeInsets.only(right: fourteenDp),
+                //     child: ShowIcon(
+                //       iconName: 'assets/icons/MagnifyingGlass.png',
+                //       onIconTap: () {},
+                //     ),
+                //   ),
+                // ],
                 flexibleSpace: FlexibleSpaceBar(
                   centerTitle: true,
                   title: Padding(
@@ -192,12 +194,28 @@ class _WatchState extends State<Watching> with TickerProviderStateMixin {
                                   alignment: Alignment.centerLeft,
                                   child: Padding(
                                     padding: const EdgeInsets.all(20.0),
-                                    child: Text(
-                                      titles[index],
-                                      style: TextStyle(
-                                          fontSize: 30,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.white),
+                                    child: Row(
+                                      children: [
+                                        Container(
+                                           height: 30,width: 30,
+                                          decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.circular(50),
+                                              image: DecorationImage(
+                                                  image: Image.asset('assets/images/a.jpg').image
+                                              )
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.only(left: 8.0),
+                                          child: Text(
+                                            titles[index] ,
+                                            style: TextStyle(
+                                                fontSize: 30,
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.white),
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ))
                               : SizedBox(),
@@ -209,25 +227,25 @@ class _WatchState extends State<Watching> with TickerProviderStateMixin {
                     color: Constants.orangeLight,
                     child: Stack(
                       children: [
-                        ClipPath(
-                          clipper: RoundedClipper(),
-                          child: AnimatedContainer(
-                            duration: Duration(milliseconds: 400),
-                            width: animation.value,
-                            height:
-                                animation.value <= 150 ? 150 : animation.value,
-                            decoration: BoxDecoration(
-                              color: Constants.orangeDark,
-                            ),
-                          ),
-                          // Container(width:100,height:150,color: Constants.orangeDark,),
-                        ),
+                        // ClipPath(
+                        //   clipper: HomeRoundedClipper(),
+                        //   child: AnimatedContainer(
+                        //     duration: Duration(milliseconds: 400),
+                        //     width: animation.value,
+                        //     height:
+                        //         animation.value <= 150 ? 150 : animation.value,
+                        //     decoration: BoxDecoration(
+                        //       color: Colors.black,//Constants.orangeDark,
+                        //     ),
+                        //   ),
+                        //   // Container(width:100,height:150,color: Constants.orangeDark,),
+                        // ),
                         Align(
                           alignment: Alignment.bottomRight,
                           child: RotationTransition(
                             turns: AlwaysStoppedAnimation(0 / 360),
                             child: ClipPath(
-                              clipper: LeftRoundedClipper(flip: true),
+                              clipper: HomeLeftRoundedClipper(flip: true),
                               //LeftRoundedClipper(),//LeftRoundedClipper(),
                               child: AnimatedContainer(
                                 duration: Duration(milliseconds: 400),
@@ -241,6 +259,66 @@ class _WatchState extends State<Watching> with TickerProviderStateMixin {
                             ),
                           ),
                         ),
+                        _isVisible
+                            ? Align(
+                          alignment: Alignment.topLeft,
+                          child: SafeArea(
+
+                            child: Padding(
+                              padding: const EdgeInsets.all(5.0),
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 20),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Container(
+                                      width: 50,
+                                      height: 50,
+                                      decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(50),
+                                          image: DecorationImage(
+                                              image: Image.asset('assets/images/a.jpg').image
+                                          )
+                                      ),
+                                    ),
+                                    Row(
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                            right: fourteenDp,
+                                          ),
+                                          child: ShowIcon(
+                                            iconName: 'assets/icons/MagnifyingGlass.png',
+                                            onIconTap: () {},
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.only(right: fourteenDp),
+                                          child: ShowIcon(
+                                            iconName: 'assets/icons/BellRinging.png',
+                                            onIconTap: () {},
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.only(right: fourteenDp),
+                                          child: ShowIcon(
+                                            iconName: 'assets/icons/PaperPlane.png',
+                                            onIconTap: () {},
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+
+
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        )
+                            : SizedBox(),
+
                         // _isVisible
                         // ? Align(
                         //   alignment: Alignment.centerLeft,
@@ -289,6 +367,50 @@ class _WatchState extends State<Watching> with TickerProviderStateMixin {
                       Stack(
                         fit: StackFit.loose,
                         children: [
+                          !_isVisible || (_isVisible && !firstScroll && controller.offset > 75 )
+                              ? Align(
+                            alignment: Alignment.topLeft,
+                            child: Padding(
+                                padding: !isScrolling && !firstScroll
+                                    ? (controller.offset == 0.0
+                                    ? EdgeInsets.only(
+                                    bottom: 60.0, left: 3, right: 3)
+                                    : EdgeInsets.only(
+                                    bottom: 10.0, left: 8, right: 8))
+                                    : EdgeInsets.only(
+                                    bottom: 10.0, left: 8, right: 8),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                        right: fourteenDp,
+                                      ),
+                                      child: ShowIcon(
+                                        iconName: 'assets/icons/MagnifyingGlass.png',
+                                        onIconTap: () {},
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(right: fourteenDp),
+                                      child: ShowIcon(
+                                        iconName: 'assets/icons/BellRinging.png',
+                                        onIconTap: () {},
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(right: fourteenDp),
+                                      child: ShowIcon(
+                                        iconName: 'assets/icons/PaperPlane.png',
+                                        onIconTap: () {},
+                                      ),
+                                    ),
+
+                                  ],
+                                )
+                            ),
+                          )
+                              :SizedBox(),
                           _isVisible
                               ? Align(
                                   alignment: Alignment.bottomLeft,

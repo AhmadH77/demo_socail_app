@@ -133,8 +133,7 @@ class _MainScreenState extends State<MainScreen> {
           curve: Curves.ease,
           duration: Duration(milliseconds: 200),
         ),
-        navBarStyle: NavBarStyle.style15, // Choose the nav bar style with this property.
-        hideNavigationBar: !_isVisible,
+        navBarStyle: NavBarStyle.style2, // Choose the nav bar style with this property.
       ),
     );
 

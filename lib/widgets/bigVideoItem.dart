@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:social_app_demo/models/video.dart';
 import 'package:social_app_demo/screens/watching_pages/live_pages/watchFullShortVideo.dart';
@@ -20,7 +21,7 @@ class _BigVideoItemState extends State<BigVideoItem> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.only(top: 8.0,left: 8,right: 8),
       child: InkWell(
         onTap: () {
           pushNewScreen(
@@ -59,14 +60,15 @@ class _BigVideoItemState extends State<BigVideoItem> {
                     ),
                     Text(
                       'Live',
-                      style: TextStyle(color: Colors.white),
+                      style: TextStyle(color: Colors.white,),
                     ),
                     Spacer(),
-                    Icon(
-                      Icons.visibility_outlined,
+                    SvgPicture.asset(
+                      'assets/icons/Eye.svg',
+                      height: 20,width: 20,
                       color: Colors.white,
-                      size: 18,
                     ),
+
                     Padding(
                       padding: EdgeInsets.only(left: 5.0, bottom: 2),
                       child: Text(
@@ -81,7 +83,7 @@ class _BigVideoItemState extends State<BigVideoItem> {
               Row(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(top: 8.0, left: 8, right: 8),
+                    padding: const EdgeInsets.only(top: 12.0, left: 8, right: 8),
                     child: PhysicalModel(
                       elevation: 10,
                       color: Colors.transparent,
@@ -105,11 +107,11 @@ class _BigVideoItemState extends State<BigVideoItem> {
                     children: [
                       Text(
                         '${widget.video.publisher.name}',
-                        style: TextStyle(fontSize:15,fontWeight: FontWeight.bold),
+                        style: TextStyle(fontSize:15,fontFamily: 'semipop'),
                       ),
                       Text(
                         '${widget.video.name}',
-                        style: TextStyle(fontSize:15,),
+                        style: TextStyle(fontSize:15,fontFamily: 'regular'),
                       ),
                     ],
                   ),
@@ -123,7 +125,10 @@ class _BigVideoItemState extends State<BigVideoItem> {
                         //         builder: (context) =>
                         //             WatchFullShortVideo(widget.video)));
                       },
-                      icon: Icon(Icons.more_vert_outlined)),
+                      icon:  SvgPicture.asset(
+                        'assets/icons/DotsThreeVertical.svg',
+                      ),
+                  ),
                 ],
               ),
               Padding(
@@ -149,7 +154,7 @@ class _BigVideoItemState extends State<BigVideoItem> {
                           child: Center(
                               child: Text(
                             '${widget.video.category[index]}',
-                            style: TextStyle(color: Colors.white,fontSize:10,fontWeight: FontWeight.w100),
+                            style: TextStyle(color: Colors.white,fontSize:10,fontFamily: 'light'),
                           )),
                         ),
                       );
