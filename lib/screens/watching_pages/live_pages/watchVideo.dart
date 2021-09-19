@@ -276,7 +276,7 @@ class _WatchVideoState extends State<WatchVideo> with TickerProviderStateMixin {
                                   right: 8, left: 8, top: 3, bottom: 3),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(20),
-                                color: Colors.pinkAccent,
+                                color: Constants.orangeDark,
                               ),
                               child: Row(
                                 children: [
@@ -321,115 +321,8 @@ class _WatchVideoState extends State<WatchVideo> with TickerProviderStateMixin {
                   ),
 
                   showDescription
-                      ? Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: ListView(
-                    shrinkWrap: true,
-                    physics: ScrollPhysics(),
-                    children: [
-                          Text('Description', style: TextStyle(fontSize: 18,fontWeight: FontWeight.w900),),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text('${widget.video.name}',style: TextStyle(fontSize: 18,),),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text('sss'),
-                          ),
-                    ],
-                  ),
-                        ),
-                      )
-                       : Padding(
-                    padding: const EdgeInsets.only(top: 8.0, bottom: 8),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
-                          children: [
-                            IconButton(
-                              onPressed: () {},
-                              icon: SvgPicture.asset(
-                                'assets/icons/ThumbsUp.svg',
-                                color: Colors.black,
-                              )
-                              // Icon(Icons.thumb_up_alt_outlined),
-                            ),
-                            Text('${widget.video.likes}')
-                          ],
-                        ),
-                        Column(
-                          children: [
-                            IconButton(
-                              onPressed: () {},
-                              icon:SvgPicture.asset(
-                                'assets/icons/ThumbsDown.svg',
-                                color: Colors.black,
-                              )
-                              // Icon(Icons.thumb_down_alt_outlined),
-                            ),
-                            Text('${widget.video.dislikes}')
-                          ],
-                        ),
-                        Column(
-                          children: [
-                            IconButton(
-                              onPressed: () {
-                                setState(() {
-                                  pageIndex = 1;
-                                });
-                              },
-                              icon: pageIndex == 1
-                                  ?  SvgPicture.asset(
-                                'assets/icons/Chats-1.svg',
-                                color: Colors.black,
-                              )
-                                  : SvgPicture.asset(
-                                'assets/icons/Chats.svg',
-                                color: Colors.black,
-                              )
-
-                            ),
-                            Text('Live Chat')
-                          ],
-                        ),
-                        Column(
-                          children: [
-                            IconButton(
-                              onPressed: () {},
-                              icon: SvgPicture.asset(
-                                'assets/icons/Megaphone.svg',
-                                color: Colors.black,
-                              ),
-
-                            ),
-                            Text('Report')
-                          ],
-                        ),
-                        Column(
-                          children: [
-                            IconButton(
-                              onPressed: () {},
-                              icon: SvgPicture.asset(
-                                'assets/icons/DownloadSimple.svg',
-                                color: Colors.black,
-                              ),
-
-                            ),
-                            Text('Download')
-                          ],
-                        ),
-                        IconButton(
-                          onPressed: () {},
-                          icon: SvgPicture.asset(
-                            'assets/icons/DotsThreeVertical.svg',
-                            color: Colors.black,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                      ? description()
+                       : videoOptions(),
                   !showDescription
                     ?(pageIndex == 1 ? comments() : otherVideos())
                   :SizedBox(),
@@ -490,88 +383,7 @@ class _WatchVideoState extends State<WatchVideo> with TickerProviderStateMixin {
               ),
             ),
           ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Container(
-              height: 40,
-              child: Row(
-                children: [
-                  Expanded(
-                    child: TextFormField(
-                      cursorColor: Colors.white,
-                      textAlignVertical: TextAlignVertical.bottom,
-                      decoration: InputDecoration(
-                          hintText: 'Send a message',
-                          hintStyle: TextStyle(color: Colors.grey.shade500),
-                          fillColor: Colors.grey.shade300,
-                          filled: true,
-                          focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(30),
-                              borderSide: BorderSide(
-                                  color: Colors.grey,
-                                  style: BorderStyle.solid,
-                                  width: 1)),
-                          enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(30),
-                              borderSide: BorderSide(
-                                  color: Colors.grey,
-                                  style: BorderStyle.solid,
-                                  width: 1)),
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(30),
-                              borderSide: BorderSide(
-                                  color: Colors.grey,
-                                  style: BorderStyle.solid,
-                                  width: 1))),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 8.0),
-                    child: InkWell(
-                      onTap: () {
-                        showRewardDialog();
-                      },
-                      borderRadius: BorderRadius.circular(50),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.yellow,
-                          borderRadius: BorderRadius.circular(50),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(4.0),
-                          child: SvgPicture.asset(
-                            'assets/icons/Crown.svg',
-                            color: Colors.black,
-                          ),
-
-                        ),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 8.0),
-                    child: InkWell(
-                      borderRadius: BorderRadius.circular(50),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.green,
-                          borderRadius: BorderRadius.circular(50),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(4.0),
-                          child: SvgPicture.asset(
-                            'assets/icons/Smiley.svg',
-                            color: Colors.black,
-                          ),
-
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          )
+          commentText()
         ],
       ),
     );
@@ -816,6 +628,192 @@ class _WatchVideoState extends State<WatchVideo> with TickerProviderStateMixin {
   refreshScreen(){
     setState(() {
     });
+  }
+
+  videoOptions() {
+    return  Padding(
+      padding: const EdgeInsets.only(top: 8.0, bottom: 8),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Row(
+            children: [
+              Padding(
+                padding:  EdgeInsets.only(left: 10.0,right: 10),
+                child: Column(
+                  children: [
+                    IconButton(
+                        onPressed: () {},
+                        icon:SvgPicture.asset(
+                          'assets/svg/Fire.svg',
+                          color: Colors.black,
+                        )
+                      // Icon(Icons.thumb_down_alt_outlined),
+                    ),
+                    Text('${widget.video.likes}',style: TextStyle(fontFamily: 'regular'))
+                  ],
+                ),
+              ),
+              Padding(
+                padding:  EdgeInsets.only(left: 10.0,right: 10),
+                child: Column(
+                  children: [
+                    IconButton(
+                        onPressed: () {
+                          setState(() {
+                            pageIndex = 1;
+                          });
+                        },
+                        icon: pageIndex == 1
+                            ?  SvgPicture.asset(
+                          'assets/icons/Chats-1.svg',
+                          color: Colors.black,
+                        )
+                            : SvgPicture.asset(
+                          'assets/icons/Chats.svg',
+                          color: Colors.black,
+                        )
+
+                    ),
+                    Text('Live Chat',style: TextStyle(fontFamily: 'regular'))
+                  ],
+                ),
+              ),
+              Padding(
+                padding:  EdgeInsets.only(left: 10.0,right: 10),
+                child: Column(
+                  children: [
+                    IconButton(
+                      onPressed: () {},
+                      icon: SvgPicture.asset(
+                        'assets/icons/Megaphone.svg',
+                        color: Colors.black,
+                      ),
+
+                    ),
+                    Text('Report',style: TextStyle(fontFamily: 'regular'),)
+                  ],
+                ),
+              ),
+            ],
+          ),
+          IconButton(
+            onPressed: () {},
+            icon: SvgPicture.asset(
+              'assets/icons/DotsThreeVertical.svg',
+              color: Colors.black,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  commentText() {
+    return Align(
+      alignment: Alignment.bottomCenter,
+      child: Container(
+        margin: EdgeInsets.all(8),
+        height: 40,
+        child: Row(
+          children: [
+            Expanded(
+              child: TextFormField(
+                cursorColor: Colors.white,
+                textAlignVertical: TextAlignVertical.bottom,
+                decoration: InputDecoration(
+                    hintText: 'Send a message',
+                    hintStyle: TextStyle(color: Colors.grey.shade500),
+                    fillColor: Colors.grey.shade300,
+                    filled: true,
+                    focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(30),
+                        borderSide: BorderSide(
+                            color: Colors.grey,
+                            style: BorderStyle.solid,
+                            width: 1)),
+                    enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(30),
+                        borderSide: BorderSide(
+                            color: Colors.grey,
+                            style: BorderStyle.solid,
+                            width: 1)),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(30),
+                        borderSide: BorderSide(
+                            color: Colors.grey,
+                            style: BorderStyle.solid,
+                            width: 1))),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 8.0),
+              child: InkWell(
+                onTap: () {
+                  showRewardDialog();
+                },
+                borderRadius: BorderRadius.circular(50),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.yellow,
+                    borderRadius: BorderRadius.circular(50),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: SvgPicture.asset(
+                      'assets/icons/Crown.svg',
+                      color: Colors.black,
+                    ),
+
+                  ),
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 8.0),
+              child: InkWell(
+                borderRadius: BorderRadius.circular(50),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.green,
+                    borderRadius: BorderRadius.circular(50),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: SvgPicture.asset(
+                      'assets/icons/Smiley.svg',
+                      color: Colors.black,
+                    ),
+
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  description() {
+    return Expanded(
+      child: Padding(
+        padding: const EdgeInsets.all(15.0),
+        child: ListView(
+          shrinkWrap: true,
+          physics: ScrollPhysics(),
+          children: [
+            Text('Description', style: TextStyle(fontSize: 18,),),
+            SizedBox(height: 10,),
+            Text('${widget.video.name}',style: TextStyle(fontSize: 15,fontFamily: 'semipop')),
+            SizedBox(height: 5,),
+            Text('10 September 2021',style: TextStyle(fontFamily: 'light')),
+            SizedBox(height: 15,),
+            Text('Description Description Description',style: TextStyle(fontFamily: 'regular'),),
+          ],
+        ),
+      ),
+    );
   }
 
 }

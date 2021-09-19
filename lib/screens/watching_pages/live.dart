@@ -95,7 +95,7 @@ class _LiveState extends State<Live> {
                     height: 37,
                     // padding: EdgeInsets.only(top: 10,bottom: 10,left: 20,right: 20),
                     decoration: BoxDecoration(
-                      color: Colors.grey,
+                      color: Colors.grey.shade400,
                         borderRadius: BorderRadius.all(Radius.circular(20))),
                     child: Center(child: Text(item , style: TextStyle(fontSize: 18,color:Colors.black,fontFamily: 'regular'),)),
                   ))
@@ -159,54 +159,6 @@ class _LiveState extends State<Live> {
             },)
         ],
       ),
-    );
-    return CustomScrollView(
-      shrinkWrap: true,
-      physics: ScrollPhysics(),
-      controller: controller,
-      slivers: [
-        SliverPadding(
-          padding: const EdgeInsets.all(2.0),
-          sliver: SliverList(
-            delegate: SliverChildListDelegate(
-                [
-                  BigVideoItem(videos[0]),
-                  Padding(
-                    padding: const EdgeInsets.only(
-                      top: 8.0,
-                      bottom: 8.0,
-                      left: 15,
-                      right: 15,
-                    ),
-                    child: Text(
-                      'hydraflick',
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                  Container(
-                    height: MediaQuery.of(context).size.height / 3.6,
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      physics: ScrollPhysics(),
-                      shrinkWrap: true,
-                      itemCount: videos.length - 1,
-                      itemBuilder: (context, index) {
-                        return SmallVideoItem(videos[index + 1]);
-                      },
-                    ),
-                  ),
-                  ListView.builder(
-                    shrinkWrap: true,
-                    physics: ClampingScrollPhysics(),
-                    itemCount: videos.length,
-                    itemBuilder: (context, index) {
-                      return BigVideoItem(videos[index]);
-                    },)
-            ],
-            ),
-          ),
-        )
-      ],
     );
   }
 

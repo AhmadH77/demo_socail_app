@@ -59,7 +59,7 @@ class _WatchFullShortVideoState extends State<WatchFullShortVideo> {
             alignment: Alignment.bottomCenter,
             child: Padding(
               padding: const EdgeInsets.only(
-                bottom: 40.0,
+                bottom: 50.0,
               ),
               child: PhysicalModel(
                 color: Colors.transparent,
@@ -73,46 +73,46 @@ class _WatchFullShortVideoState extends State<WatchFullShortVideo> {
                     mainAxisSize: MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      Padding(
-                        padding: EdgeInsets.only(bottom: 20.0, left: 10),
-                        child: PhysicalModel(
-                          color: Colors.transparent,
-                          shadowColor: Colors.black,
-                          elevation: 8,
-                          child: Column(
-                            children: [
-                              ListTile(
-                                leading: Container(
-                                  height: 30,
-                                  width: 30,
-                                  decoration: BoxDecoration(
-                                      borderRadius:
-                                          BorderRadiusDirectional.circular(50),
-                                      image: DecorationImage(
-                                        image: Image.asset(
-                                          'assets/images/restaurant-5.jpg',
-                                          fit: BoxFit.cover,
-                                        ).image,
-                                      )),
-                                ),
-                                title: Text(
-                                  'James Auther',
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                              Container(
-                                width: MediaQuery.of(context).size.width / 1.5,
-                                child: Text(
-                                  'Exp;salkdsvkmkm;lm kmlk mk mxzczjxnc kzxjnckjzxnckjzxnckjxznkcjzxnck',
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
+                      // Padding(
+                      //   padding: EdgeInsets.only(bottom: 20.0, left: 10),
+                      //   child: PhysicalModel(
+                      //     color: Colors.transparent,
+                      //     shadowColor: Colors.black,
+                      //     elevation: 8,
+                      //     child: Column(
+                      //       children: [
+                      //         ListTile(
+                      //           leading: Container(
+                      //             height: 30,
+                      //             width: 30,
+                      //             decoration: BoxDecoration(
+                      //                 borderRadius:
+                      //                     BorderRadiusDirectional.circular(50),
+                      //                 image: DecorationImage(
+                      //                   image: Image.asset(
+                      //                     'assets/images/restaurant-5.jpg',
+                      //                     fit: BoxFit.cover,
+                      //                   ).image,
+                      //                 )),
+                      //           ),
+                      //           title: Text(
+                      //             'James Auther',
+                      //             style: TextStyle(
+                      //                 color: Colors.white,
+                      //                 fontWeight: FontWeight.bold),
+                      //           ),
+                      //         ),
+                      //         Container(
+                      //           width: MediaQuery.of(context).size.width / 1.5,
+                      //           child: Text(
+                      //             'Exp;salkdsvkmkm;lm kmlk mk mxzczjxnc kzxjnckjzxnckjzxnckjxznkcjzxnck',
+                      //             style: TextStyle(color: Colors.white),
+                      //           ),
+                      //         ),
+                      //       ],
+                      //     ),
+                      //   ),
+                      // ),
                       Align(
                         alignment: Alignment.bottomLeft,
                         child: showComments
@@ -212,6 +212,7 @@ class _WatchFullShortVideoState extends State<WatchFullShortVideo> {
                   alignment: Alignment.bottomCenter,
                   child: Container(
                     height: 40,
+                    margin: EdgeInsets.all( 10),
                     child: Row(
                       children: [
                         Expanded(
