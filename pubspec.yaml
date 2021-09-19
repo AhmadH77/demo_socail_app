@@ -34,6 +34,7 @@ dependencies:
   bubble_tab_indicator: any
   persistent_bottom_nav_bar: ^4.0.2
   flutter_svg: ^0.22.0
+#  flutter_keyboard_visibility: ^5.0.3
 
 dev_dependencies:
   flutter_test:
@@ -57,9 +58,15 @@ flutter:
     - assets/svg/
 
   fonts:
-    - family: semi
+    - family: semipop
       fonts:
-        - asset: fonts/Semibold.ttf
+        - asset: fonts/Poppins-SemiBold.ttf
+    - family: regular
+      fonts:
+        - asset: fonts/Poppins-Regular.ttf
+    - family: light
+      fonts:
+        - asset: fonts/Poppins-Light.ttf
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
