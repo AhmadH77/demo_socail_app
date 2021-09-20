@@ -36,25 +36,24 @@ class _StoryHeaderState extends State<StoryHeader> {
         Stack(
           children: [
             Container(
-              margin: EdgeInsets.only(
-                  top: sixteenDp, left: sixteenDp, right: tenDp),
-              height: hundredDp,
-              width: hundredDp,
+              margin: EdgeInsets.only(top: sixteenDp, right: 6),
+              height: 90,
+              width: 90,
               decoration: BoxDecoration(
                 color: Colors.brown,
-                borderRadius: BorderRadius.circular(thirtySixDp),
+                borderRadius: BorderRadius.circular(28),
               ),
             ),
             Positioned(
-              top: eightyDp,
-              left: ninetyDp,
+              top: 72,
+              left: 64,
               child: Container(
                 child: Icon(
                   Icons.add,
                   color: Colors.white,
                 ),
-                height: thirtySixDp,
-                width: thirtySixDp,
+                height: 32,
+                width: 32,
                 decoration: BoxDecoration(
                     color: Colors.black,
                     borderRadius: BorderRadius.circular(twentyDp)),
@@ -62,7 +61,7 @@ class _StoryHeaderState extends State<StoryHeader> {
             ),
           ],
         ),
-        Text(yourStory, style: TextStyle(color: Colors.black)),
+        Text(yourStory, style: TextStyle(color: Colors.black, fontSize: 12)),
       ],
     );
   }
@@ -74,11 +73,10 @@ class _StoryHeaderState extends State<StoryHeader> {
           children: [
             Container(
               margin: EdgeInsets.only(
-                top: 30,
+                top: 20,
                 right: sixteenDp,
-                left: tenDp,
               ),
-              height: eightyDp,
+              height: 80,
               width: eightyDp,
               decoration: BoxDecoration(
                 color: Colors.greenAccent,
@@ -86,7 +84,7 @@ class _StoryHeaderState extends State<StoryHeader> {
               ),
             ),
             Positioned(
-              top: twentyDp,
+              top: 12,
               child: Container(
                 height: thirtyDp,
                 width: thirtyDp,
@@ -96,8 +94,8 @@ class _StoryHeaderState extends State<StoryHeader> {
               ),
             ),
             Positioned(
-              top: eightyDp,
-              left: seventyDp,
+              top: 68,
+              left: 55,
               child: Container(
                 height: thirtyDp,
                 width: thirtyDp,
@@ -112,7 +110,7 @@ class _StoryHeaderState extends State<StoryHeader> {
           padding: const EdgeInsets.only(top: 6),
           child: Text(
             discoverCreators,
-            style: TextStyle(color: Colors.black),
+            style: TextStyle(color: Colors.black, fontSize: 12),
           ),
         ),
       ],
@@ -123,12 +121,12 @@ class _StoryHeaderState extends State<StoryHeader> {
     return Column(
       children: [
         Container(
-          margin: EdgeInsets.only(top: sixteenDp, right: tenDp),
-          height: hundredDp,
-          width: hundredDp,
+          margin: EdgeInsets.only(top: 14, right: 8),
+          height: 90,
+          width: 90,
           decoration: BoxDecoration(
             color: color,
-            borderRadius: BorderRadius.circular(thirtySixDp),
+            borderRadius: BorderRadius.circular(26),
           ),
         ),
         Text(name, style: TextStyle(color: Colors.black)),
