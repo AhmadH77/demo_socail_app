@@ -5,6 +5,7 @@ import 'package:flutter/rendering.dart';
 import 'package:social_app_demo/constants/dimens.dart';
 import 'package:social_app_demo/constants/strings.dart';
 import 'package:social_app_demo/models/posts.dart';
+import 'package:social_app_demo/util/expanded_text.dart';
 import 'package:social_app_demo/widget/show_svg_icon.dart';
 
 class MainPage extends StatefulWidget {
@@ -271,12 +272,9 @@ class _MainPageState extends State<MainPage> {
               ? Container()
               : Padding(
                   padding: const EdgeInsets.symmetric(horizontal: tenDp),
-                  child: Text(
+            child: ExpandableText(
                     '${posts.postDescription}',
-                    maxLines: 2,
-                    textScaleFactor: 1.5,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(fontSize: tenDp, fontFamily: 'Semibold'),
+                    trimLines: 3,
                   ),
                 ),
 
@@ -288,10 +286,12 @@ class _MainPageState extends State<MainPage> {
                 style: TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.w300,
-                    color: Colors.grey),
+                    color: Color(0xFF6A6A6A)),
                 text: 'View all',
                 children: [
-                  TextSpan(text: ' 10.5k comments ', style: TextStyle()),
+                  TextSpan(
+                      text: ' 10.5k comments ',
+                      style: TextStyle(color: Color(0xFF6A6A6A))),
                 ],
               ),
               overflow: TextOverflow.ellipsis,
@@ -312,8 +312,8 @@ class _MainPageState extends State<MainPage> {
                     text: ' looking forward for Italian grand prix ',
                     style: TextStyle(
                         fontSize: sixteenDp,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.black),
+                        fontWeight: FontWeight.w400,
+                        color: Color(0xFF171717)),
                   ),
                 ],
               ),
