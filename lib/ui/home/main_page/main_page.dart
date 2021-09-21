@@ -2,11 +2,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/widgets.dart';
 import 'package:social_app_demo/constants/dimens.dart';
 import 'package:social_app_demo/constants/strings.dart';
 import 'package:social_app_demo/models/posts.dart';
 import 'package:social_app_demo/util/expanded_text.dart';
 import 'package:social_app_demo/widget/show_svg_icon.dart';
+import 'package:timeago/timeago.dart' as timeAgo;
+
+final DateTime timeStamp = DateTime.now();
 
 class MainPage extends StatefulWidget {
   final set_state;
@@ -158,9 +162,10 @@ class _MainPageState extends State<MainPage> {
                     child: Text(
                       '@${posts.publisher.name}',
                       style: TextStyle(
-                          fontSize: twentyDp,
-                          fontWeight: FontWeight.w500,
-                          fontFamily: 'semi'),
+                          fontSize: fifteenDp,
+                          color: Colors.black,
+                          overflow: TextOverflow.ellipsis,
+                          fontFamily: 'semipop'),
                     ),
                   ),
                   /*Column(
@@ -232,14 +237,17 @@ class _MainPageState extends State<MainPage> {
               ),
               Text.rich(
                 TextSpan(
-                  style: TextStyle(fontSize: fourteenDp),
-                  text: '+',
+                  style: TextStyle(fontSize: fifteenDp, color: Colors.black),
+                  text: '+ ',
                   children: [
                     TextSpan(
-                        text: ' 52k others',
-                        style: TextStyle(fontWeight: FontWeight.bold)),
-                    TextSpan(
-                      text: ' $others',
+                      text: '${posts.numberOfLikes}k others',
+                      //todo check number of posts likes
+                      style: TextStyle(
+                        fontSize: fifteenDp,
+                        fontFamily: "regular",
+                        color: Colors.black,
+                      ),
                     ),
                   ],
                 ),
@@ -258,8 +266,8 @@ class _MainPageState extends State<MainPage> {
                     "${posts.postTitle}",
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                        fontSize: eighteenDp, fontWeight: FontWeight.w700),
+                    style:
+                        TextStyle(fontSize: eighteenDp, fontFamily: 'semipop'),
                   ),
                 ),
           posts.postImage!.isEmpty
@@ -280,25 +288,26 @@ class _MainPageState extends State<MainPage> {
 
           //view all
           Padding(
-            padding: const EdgeInsets.only(left: eightDp, top: tenDp),
-            child: Text.rich(
-              TextSpan(
-                style: TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w300,
-                    color: Color(0xFF6A6A6A)),
-                text: 'View all',
-                children: [
-                  TextSpan(
-                      text: ' 10.5k comments ',
-                      style: TextStyle(color: Color(0xFF6A6A6A))),
-                ],
-              ),
-              overflow: TextOverflow.ellipsis,
+            padding: const EdgeInsets.only(left: eightDp, top: sixDp),
+            child: Row(
+              children: [
+                Text('${posts.country} ',
+                    style: TextStyle(
+                      fontSize: 12,
+                      // fontFamily: 'regular',
+                      color: Colors.black,
+                    )),
+                Text(timeAgo.format(posts.timePosted),
+                    style: TextStyle(
+                      fontSize: 12,
+                      // fontFamily: 'regular',
+                      color: Colors.black,
+                    )),
+              ],
             ),
           ),
           //at owned by
-          Padding(
+          /*    Padding(
             padding: const EdgeInsets.only(left: eightDp, top: fourDp),
             child: Text.rich(
               TextSpan(
@@ -344,13 +353,13 @@ class _MainPageState extends State<MainPage> {
               ),
               overflow: TextOverflow.ellipsis,
             ),
-          ),
+          ),*/
         ],
       ),
     );
   }
 
-  Widget buildImage (image, double radius) {
+  Widget buildImage(image, double radius) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 4),
       child: CircleAvatar(
@@ -448,7 +457,6 @@ class _MainPageState extends State<MainPage> {
     );
   }
 
-
   Widget buildSecondRow(Posts posts) {
     return Stack(
       children: [
@@ -480,7 +488,6 @@ class _MainPageState extends State<MainPage> {
                       ),
                       child: Text('${posts.postDescription}',
                           maxLines: 4,
-                          textScaleFactor: 1.5,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
                               fontSize: tenDp, fontFamily: 'semipop')),
@@ -498,8 +505,8 @@ class _MainPageState extends State<MainPage> {
                 ),
               ),
         PositionedDirectional(
-          start: oneTwentyDp,
-          end: oneTwentyDp,
+          start: 100,
+          end: 100,
           top: 0,
           child: Container(
             height: twentySixdp,
@@ -516,22 +523,20 @@ class _MainPageState extends State<MainPage> {
               children: [
                 Flexible(
                   fit: FlexFit.loose,
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: eightDp),
-                    child: Text.rich(
-                      TextSpan(
-                        style: TextStyle(fontSize: fourteenDp),
-                        text: ownedBy,
-                        children: [
-                          TextSpan(
-                              text: ' @${posts.ownedBy} ',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black)),
-                        ],
-                      ),
-                      overflow: TextOverflow.ellipsis,
+                  child: Text.rich(
+                    TextSpan(
+                      style: TextStyle(fontSize: 13),
+                      text: ownedBy,
+                      children: [
+                        TextSpan(
+                            text: ' @${posts.ownedBy}',
+                            style: TextStyle(
+                                fontFamily: "semipop",
+                                overflow: TextOverflow.ellipsis,
+                                color: Colors.black)),
+                      ],
                     ),
+                    overflow: TextOverflow.ellipsis,
                   ),
                 ),
                 buildImage(posts.publisher.image, 14),
