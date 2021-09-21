@@ -26,7 +26,7 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     return ListView.builder(
       physics: ClampingScrollPhysics(),
-      primary: false,
+      primary: true,
       padding: EdgeInsets.all(0),
       itemBuilder: (context, index) {
         Posts posts = postList[index];
