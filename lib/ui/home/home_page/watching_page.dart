@@ -5,12 +5,13 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:social_app_demo/constants/dimens.dart';
 import 'package:social_app_demo/constants/strings.dart';
+import 'package:social_app_demo/constants/theme_color.dart';
 import 'package:social_app_demo/ui/home/explore_page/explore_page.dart';
+import 'package:social_app_demo/ui/home/home_page/roundedClipper.dart';
 import 'package:social_app_demo/ui/home/main_page/main_page.dart';
 import 'package:social_app_demo/ui/home/trending_page/trending_page.dart';
 import 'package:social_app_demo/ui/market_place/market_place.dart';
-import 'package:social_app_demo/util/const.dart';
-import 'package:social_app_demo/widget/show_icons.dart';
+import 'package:social_app_demo/widget/show_svg_icon.dart';
 import 'package:social_app_demo/widget/story_header.dart';
 import 'package:social_app_demo/widgets/homeleftRoundedClipper.dart';
 
@@ -117,14 +118,18 @@ class _WatchState extends State<Watching> with TickerProviderStateMixin {
                       child: Stack(
                         children: [
                           !_isVisible
-                              ? AnimatedContainer(
-                                  duration: Duration(milliseconds: 10),
-                                  width: animation.value,
-                                  height: animation.value <= 150
-                                      ? 150
-                                      : animation.value,
-                                  decoration: BoxDecoration(
-                                    color: Constants.orangeLight, //Colors.teal,
+                              ? ClipPath(
+                                  clipper: RoundedClipper(),
+                                  child: AnimatedContainer(
+                                    duration: Duration(milliseconds: 400),
+                                    width: animation.value,
+                                    height: animation.value <= 150
+                                        ? 150
+                                        : animation.value,
+                                    decoration: BoxDecoration(
+                                      color:
+                                          ThemeColors.topCurve, //Colors.teal,
+                                    ),
                                   ),
                                 )
                               : SizedBox(),
@@ -138,13 +143,15 @@ class _WatchState extends State<Watching> with TickerProviderStateMixin {
                                       child: AnimatedContainer(
                                           duration: Duration(milliseconds: 400),
                                           width: animation2.value - 10,
-                                          height: animation2.value *
-                                              MediaQuery.of(context)
-                                                  .size
-                                                  .height,
+                                          height: animation2
+                                              .value /**
+                                          MediaQuery.of(context)
+                                          .size
+                                          .height,*/
+                                          ,
                                           //<= 150 ? 200 :animation.value,
                                           decoration: BoxDecoration(
-                                            color: Constants.orangeDark,
+                                            color: ThemeColors.topCurve,
                                           )
                                           // Colors.teal,
                                           ),
@@ -178,6 +185,7 @@ class _WatchState extends State<Watching> with TickerProviderStateMixin {
                                             style: TextStyle(
                                                 fontSize: 30,
                                                 fontWeight: FontWeight.bold,
+                                                fontFamily: 'semipop',
                                                 color: Colors.white),
                                           ),
                                         ),
@@ -190,9 +198,22 @@ class _WatchState extends State<Watching> with TickerProviderStateMixin {
                     ),
                   ),
                   background: Container(
-                    color: Constants.orangeLight,
+                    color: ThemeColors.middleCURVE,
                     child: Stack(
                       children: [
+                        ClipPath(
+                          clipper: RoundedClipper(),
+                          child: AnimatedContainer(
+                            duration: Duration(milliseconds: 400),
+                            width: animation.value,
+                            height:
+                                animation.value <= 150 ? 150 : animation.value,
+                            decoration: BoxDecoration(
+                              color: ThemeColors.topCurve,
+                            ),
+                          ),
+                          // Container(width:100,height:150,color: Constants.orangeDark,),
+                        ),
                         Align(
                           alignment: Alignment.bottomRight,
                           child: RotationTransition(
@@ -206,7 +227,7 @@ class _WatchState extends State<Watching> with TickerProviderStateMixin {
                                 height: animation2.value,
                                 //<= 150 ? 200 :animation.value,
                                 decoration: BoxDecoration(
-                                  color: Constants.orangeDark,
+                                  color: ThemeColors.topCurve,
                                 ),
                               ),
                             ),
@@ -220,7 +241,7 @@ class _WatchState extends State<Watching> with TickerProviderStateMixin {
                                     padding: const EdgeInsets.all(5.0),
                                     child: Padding(
                                       padding: const EdgeInsets.symmetric(
-                                          horizontal: 20),
+                                          horizontal: 10),
                                       child: Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
@@ -238,33 +259,23 @@ class _WatchState extends State<Watching> with TickerProviderStateMixin {
                                           ),
                                           Row(
                                             children: [
-                                              Padding(
-                                                padding: const EdgeInsets.only(
-                                                  right: fourteenDp,
-                                                ),
-                                                child: ShowIcon(
-                                                  iconName:
-                                                      'assets/icons/MagnifyingGlass.png',
-                                                  onIconTap: () {},
-                                                ),
+                                              ShowSvgIcon(
+                                                color: Colors.white,
+                                                iconName:
+                                                    'assets/svg/MagnifyingGlass.svg',
+                                                onIconTap: () {},
                                               ),
-                                              Padding(
-                                                padding: const EdgeInsets.only(
-                                                    right: fourteenDp),
-                                                child: ShowIcon(
-                                                  iconName:
-                                                      'assets/icons/BellRinging.png',
-                                                  onIconTap: () {},
-                                                ),
+                                              ShowSvgIcon(
+                                                color: Colors.white,
+                                                iconName:
+                                                    'assets/svg/BellRinging.svg',
+                                                onIconTap: () {},
                                               ),
-                                              Padding(
-                                                padding: const EdgeInsets.only(
-                                                    right: fourteenDp),
-                                                child: ShowIcon(
-                                                  iconName:
-                                                      'assets/icons/PaperPlane.png',
-                                                  onIconTap: () {},
-                                                ),
+                                              ShowSvgIcon(
+                                                color: Colors.white,
+                                                iconName:
+                                                    'assets/svg/PaperPlane.svg',
+                                                onIconTap: () {},
                                               ),
                                             ],
                                           ),
@@ -275,7 +286,6 @@ class _WatchState extends State<Watching> with TickerProviderStateMixin {
                                 ),
                               )
                             : SizedBox(),
-
                       ],
                     ),
                   ),
@@ -312,31 +322,25 @@ class _WatchState extends State<Watching> with TickerProviderStateMixin {
                                         mainAxisAlignment:
                                             MainAxisAlignment.end,
                                         children: [
-                                          Padding(
-                                            padding: const EdgeInsets.only(
-                                              right: fourteenDp,
-                                            ),
-                                            child: ShowIcon(
-                                              iconName:
-                                                  'assets/icons/MagnifyingGlass.png',
-                                              onIconTap: () {},
-                                            ),
+                                          ShowSvgIcon(
+                                            iconName:
+                                                'assets/svg/MagnifyingGlass.svg',
+                                            onIconTap: () {},
+                                            color: Colors.white,
+                                          ),
+                                          ShowSvgIcon(
+                                            color: Colors.white,
+                                            iconName:
+                                                'assets/svg/BellRinging.svg',
+                                            onIconTap: () {},
                                           ),
                                           Padding(
                                             padding: const EdgeInsets.only(
-                                                right: fourteenDp),
-                                            child: ShowIcon(
+                                                right: tenDp),
+                                            child: ShowSvgIcon(
+                                              color: Colors.white,
                                               iconName:
-                                                  'assets/icons/BellRinging.png',
-                                              onIconTap: () {},
-                                            ),
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.only(
-                                                right: fourteenDp),
-                                            child: ShowIcon(
-                                              iconName:
-                                                  'assets/icons/PaperPlane.png',
+                                                  'assets/svg/PaperPlane.svg',
                                               onIconTap: () {},
                                             ),
                                           ),

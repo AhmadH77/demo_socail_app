@@ -483,7 +483,7 @@ class _MainPageState extends State<MainPage> {
                           textScaleFactor: 1.5,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
-                              fontSize: tenDp, fontFamily: 'Semibold')),
+                              fontSize: tenDp, fontFamily: 'semipop')),
                     ),
                   ],
                 ),
