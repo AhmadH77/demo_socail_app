@@ -33,6 +33,8 @@ class ExpandableTextState extends State<ExpandableText> {
         text: _readMore ? "...more" : " less",
         style: TextStyle(
           color: colorClickableText,
+          fontFamily: "regular",
+          fontSize: 12,
         ),
         recognizer: TapGestureRecognizer()..onTap = _onTapLink);
     Widget result = LayoutBuilder(
