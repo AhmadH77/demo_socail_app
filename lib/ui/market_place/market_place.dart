@@ -23,7 +23,7 @@ class _MarketPlaceState extends State<MarketPlace> {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Container(
-            height: 120,
+            height: 150,
             width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
                 color: Color(0xFF3A9679),
@@ -40,7 +40,7 @@ class _MarketPlaceState extends State<MarketPlace> {
                     Navigator.of(context).pop();
                   },
                   child: Padding(
-                    padding: const EdgeInsets.only(top: 40, left: 16),
+                    padding: const EdgeInsets.only(top: 70, left: 16),
                     child: SvgPicture.asset(
                       'assets/svg/back.svg',
                       color: Colors.white,
@@ -66,6 +66,7 @@ class _MarketPlaceState extends State<MarketPlace> {
           Expanded(
               flex: 1,
               child: ListView.builder(
+                padding: EdgeInsets.all(0),
                 itemBuilder: (context, index) {
                   Posts post = postList[index];
                   return buildMarketPlace(post);
