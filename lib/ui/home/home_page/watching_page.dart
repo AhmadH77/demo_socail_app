@@ -304,7 +304,7 @@ class _WatchState extends State<Watching> with TickerProviderStateMixin {
                                       !firstScroll &&
                                       controller.offset > 75)
                               ? Align(
-                                  alignment: Alignment.topLeft,
+                            alignment: Alignment.centerLeft,
                                   child: Padding(
                                       padding: !isScrolling && !firstScroll
                                           ? (controller.offset == 0.0
@@ -317,7 +317,7 @@ class _WatchState extends State<Watching> with TickerProviderStateMixin {
                                                   left: 8,
                                                   right: 8))
                                           : EdgeInsets.only(
-                                              bottom: 10.0, left: 8, right: 8),
+                                              bottom: 30.0, left: 8, right: 8),
                                       child: Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.end,
@@ -381,7 +381,7 @@ class _WatchState extends State<Watching> with TickerProviderStateMixin {
                           buttonBackgroundColor: Colors.transparent,
                           backgroundColor: Colors.transparent,
                           animationCurve: Curves.easeInOut,
-                          animationDuration: Duration(milliseconds: 600),
+                          animationDuration: Duration(milliseconds: 200),
                           index: 0,
                           onTap: (value) {
                             print("value $value");
@@ -419,24 +419,38 @@ class _WatchState extends State<Watching> with TickerProviderStateMixin {
                               style: index == 0
                                   ? TextStyle(
                                       color: Colors.white,
+                                      fontSize: 13,
+                                      fontFamily: 'semipop',
                                       fontWeight: FontWeight.bold)
-                                  : TextStyle(color: Colors.black54),
+                                  : TextStyle(
+                                      color: Colors.black54,
+                                      fontSize: 13,
+                                      fontFamily: 'regular'),
                             ),
                             Text(
                               trending,
                               style: index == 1
                                   ? TextStyle(
                                       color: Colors.white,
+                                      fontSize: 13,
+                                      fontFamily: 'semipop',
                                       fontWeight: FontWeight.bold)
-                                  : TextStyle(color: Colors.black54),
+                                  : TextStyle(
+                                      color: Colors.black54,
+                                      fontSize: 13,
+                                      fontFamily: 'regular'),
                             ),
                             Text(
                               explore,
                               style: index == 2
                                   ? TextStyle(
                                       color: Colors.white,
-                                      fontWeight: FontWeight.bold)
-                                  : TextStyle(color: Colors.black54),
+                                      fontSize: 13,
+                                      fontFamily: 'semipop')
+                                  : TextStyle(
+                                      color: Colors.black54,
+                                      fontSize: 13,
+                                      fontFamily: 'regular'),
                             ),
                             GestureDetector(
                               onTap: () {
