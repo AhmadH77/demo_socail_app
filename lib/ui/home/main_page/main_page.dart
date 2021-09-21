@@ -221,14 +221,18 @@ class _MainPageState extends State<MainPage> {
                   children: [
                     //stacked images
 
-                    buildLikedUsersImage('assets/images/b.jpg', 10, Colors.red),
-                    buildLikedUsersImage(
+                    buildLikedUsersImageWithBorderColor(
+                        'assets/images/b.jpg', 10, Colors.red),
+                    buildLikedUsersImageWithBorderColor(
                         'assets/images/a.jpg', 10, Colors.amber),
-                    buildLikedUsersImage('assets/images/b.jpg', 10, Colors.red),
-                    buildLikedUsersImage('assets/images/b.jpg', 10, Colors.red),
-                    buildLikedUsersImage(
+                    buildLikedUsersImageWithBorderColor(
+                        'assets/images/b.jpg', 10, Colors.red),
+                    buildLikedUsersImageWithBorderColor(
+                        'assets/images/b.jpg', 10, Colors.red),
+                    buildLikedUsersImageWithBorderColor(
                         'assets/images/b.jpg', 10, Colors.amber),
-                    buildLikedUsersImage('assets/images/a.jpg', 10, Colors.red),
+                    buildLikedUsersImageWithBorderColor(
+                        'assets/images/a.jpg', 10, Colors.red),
                   ],
                 ),
               ),
@@ -306,54 +310,6 @@ class _MainPageState extends State<MainPage> {
               ],
             ),
           ),
-          //at owned by
-          /*    Padding(
-            padding: const EdgeInsets.only(left: eightDp, top: fourDp),
-            child: Text.rich(
-              TextSpan(
-                style: TextStyle(
-                    fontSize: sixteenDp,
-                    fontWeight: FontWeight.w700,
-                    color: Colors.black),
-                text: '@${posts.ownedBy}',
-                children: [
-                  TextSpan(
-                    text: ' looking forward for Italian grand prix ',
-                    style: TextStyle(
-                        fontSize: sixteenDp,
-                        fontWeight: FontWeight.w400,
-                        color: Color(0xFF171717)),
-                  ),
-                ],
-              ),
-              overflow: TextOverflow.ellipsis,
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(
-              left: eightDp,
-              top: fourDp,
-            ),
-            child: Text.rich(
-              TextSpan(
-                style: TextStyle(
-                    fontSize: sixteenDp,
-                    fontWeight: FontWeight.w700,
-                    color: Colors.black),
-                text: 'Pune.',
-                children: [
-                  TextSpan(
-                    text: ' 25 mins ago',
-                    style: TextStyle(
-                        fontSize: sixteenDp,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.black),
-                  ),
-                ],
-              ),
-              overflow: TextOverflow.ellipsis,
-            ),
-          ),*/
         ],
       ),
     );
@@ -371,18 +327,30 @@ class _MainPageState extends State<MainPage> {
     );
   }
 
-  Widget buildLikedUsersImage(image, double radius, Color color) {
+  Widget buildLikedUsersImageWithBorderColor(
+      image, double radius, Color color) {
     return Container(
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(twentyDp),
           border: Border.all(color: color, width: 3)),
-      margin: EdgeInsets.symmetric(horizontal: 0.9),
+      // margin: EdgeInsets.symmetric(horizontal: 0.9),
       child: CircleAvatar(
         radius: radius,
         backgroundImage: AssetImage(
           image,
         ),
       ),
+    );
+  }
+
+  Widget buildLikedImage(image) {
+    return Container(
+      width: 18,
+      height: 18,
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(24),
+          image:
+              DecorationImage(image: AssetImage("$image"), fit: BoxFit.cover)),
     );
   }
 
@@ -433,22 +401,31 @@ class _MainPageState extends State<MainPage> {
             ],
           ),
           Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: const EdgeInsets.all(sixDp),
+                padding: const EdgeInsets.only(
+                  top: sixDp,
+                ),
                 child: ShowSvgIcon(
                   iconName: 'assets/svg/Trophy.svg',
                   color: CupertinoColors.black,
                   onIconTap: () {},
                 ),
               ),
-              buildLikedUsersImage(
-                  'assets/images/b.jpg', 10, Colors.transparent),
-              buildLikedUsersImage(
-                  'assets/images/a.jpg', 10, Colors.transparent),
-              buildLikedUsersImage('', 10, Colors.transparent),
+              Container(
+                margin: EdgeInsets.only(top: 10, right: 8),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    buildLikedImage('assets/images/b.jpg'),
+                    buildLikedImage('assets/images/a.jpg'),
+                    buildLikedImage('assets/images/b.jpg'),
+                  ],
+                ),
+              ),
               SizedBox(
-                width: tenDp,
+                width: 4,
               )
             ],
           ),
