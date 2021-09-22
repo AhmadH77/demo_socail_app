@@ -1,11 +1,19 @@
 //@dart=2.9
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:social_app_demo/provider/currentPage.dart';
 import 'package:social_app_demo/screens/mainScreen.dart';
+import 'package:social_app_demo/util/const.dart';
 
 import 'constants/theme_color.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(
+      MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => CurrentPage()),
+      ],
+      child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -15,8 +23,9 @@ class MyApp extends StatelessWidget {
       title: 'Social App Demo',
       theme: ThemeData(
         fontFamily: 'regular',
+//         primarySwatch: createMaterialColor(Constants.orangeLight),
         primarySwatch:
-            createMaterialColor(ThemeColors.middleCURVE), //todo to be changes
+        createMaterialColor(ThemeColors.middleCURVE),
       ),
       home: MainScreen(),
     );
