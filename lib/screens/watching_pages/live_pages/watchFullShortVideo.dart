@@ -30,6 +30,7 @@ class _WatchFullShortVideoState extends State<WatchFullShortVideo> {
           backgroundColor: Colors.transparent,
           appBar: AppBar(
             elevation: 0,
+            titleSpacing: 0,
             backgroundColor: Colors.transparent,
             iconTheme: IconThemeData(color: Colors.black),
             leading: IconButton(
@@ -150,30 +151,11 @@ class _WatchFullShortVideoState extends State<WatchFullShortVideo> {
                   IconButton(
                     onPressed: () {},
                     icon: SvgPicture.asset(
-                      'assets/icons/DownloadSimple.svg',
+                      'assets/icons/Trophy.svg',
                       color: Colors.white,
                     ),
                   ),
-                  Row(
-                    mainAxisSize: MainAxisSize.min,
-                    textDirection: TextDirection.rtl,
-                    children: [
-                      IconButton(
-                        onPressed: () {},
-                        icon: SvgPicture.asset(
-                          'assets/icons/ThumbsUp.svg',
-                          color: Colors.white,
-                        ),
-                      ),
-                      SizedBox(
-                        width: 5,
-                      ),
-                      Text(
-                        '500 K',
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    ],
-                  ),
+
                   Row(
                     textDirection: TextDirection.rtl,
                     mainAxisSize: MainAxisSize.min,
@@ -202,7 +184,27 @@ class _WatchFullShortVideoState extends State<WatchFullShortVideo> {
                         style: TextStyle(color: Colors.white),
                       ),
                     ],
-                  )
+                  ),
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    textDirection: TextDirection.rtl,
+                    children: [
+                      IconButton(
+                        onPressed: () {},
+                        icon: SvgPicture.asset(
+                          'assets/icons/PaperPlaneRight.svg',
+                          color: Colors.white,
+                        ),
+                      ),
+                      // SizedBox(
+                      //   width: 5,
+                      // ),
+                      // Text(
+                      //   '500 K',
+                      //   style: TextStyle(color: Colors.white),
+                      // ),
+                    ],
+                  ),
                 ],
               ),
             ),

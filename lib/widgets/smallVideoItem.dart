@@ -14,7 +14,6 @@ class SmallVideoItem extends StatefulWidget {
 class _BigVideoItemState extends State<SmallVideoItem> {
   @override
   Widget build(BuildContext context) {
-    print('vedio${widget.video.id}');
     return  Padding(
       padding: const EdgeInsets.only(bottom: 5),
       child: InkWell(
@@ -28,7 +27,7 @@ class _BigVideoItemState extends State<SmallVideoItem> {
           // Navigator.push(context, MaterialPageRoute(builder: (context) => WatchVideo(widget.video)));
         },
         child: Card(
-          elevation: 4,
+          elevation: 0,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(15),
           ),
@@ -60,7 +59,7 @@ class _BigVideoItemState extends State<SmallVideoItem> {
                         ),
                         Text(
                           'Live',
-                          style: TextStyle(color: Colors.white),
+                          style: TextStyle(color: Colors.white,fontFamily: 'light',fontSize: 11),
                         ),
                       ],
                     ),
@@ -70,14 +69,14 @@ class _BigVideoItemState extends State<SmallVideoItem> {
                         Icon(
                           Icons.visibility_outlined,
                           color: Colors.white,
-                          size: 18,
+                          size: 12,
                         ),
                         Padding(
                           padding: EdgeInsets.only(left: 5.0, bottom: 2),
                           child: Text(
                             widget.video.watches,
                             style: TextStyle(
-                                color: Colors.white, fontWeight: FontWeight.bold),
+                                color: Colors.white, fontFamily: 'light',fontSize: 11),
                           ),
                         ),
                       ],
