@@ -43,7 +43,22 @@ List<Posts> postList = [
       postDescription: dummyDes,
       numberOfLikes: 58,
       country: "Ghana",
-      postImage: 'assets/images/b.jpg',
+      postImage: 'assets/images/postImage.png',
+      followers: ['userId1', 'userId2'],
+      timePosted: timeStamp,
+      ownedBy: 'abccd'),
+  Posts(
+      publisher: User('id', 'Aiysha', 'assets/images/a.jpg'),
+      likedBy: [
+        User('id', 'Koxc', 'assets/images/a.jpg'),
+        User('id', 'Mana', 'assets/images/b.jpg'),
+        User('id', 'Per', 'assets/images/a.jpg')
+      ],
+      postTitle: dummy,
+      postDescription: dummyDes,
+      numberOfLikes: 58,
+      country: "Ghana",
+      postImage: '',
       followers: ['userId1', 'userId2'],
       timePosted: timeStamp,
       ownedBy: 'abccd'),
