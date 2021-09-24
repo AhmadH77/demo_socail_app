@@ -1,4 +1,5 @@
 const Main = 'Main';
+const appName = 'Vasukam.';
 const trending = 'Trending';
 const feed = 'Feed';
 const explore = 'Explore';
