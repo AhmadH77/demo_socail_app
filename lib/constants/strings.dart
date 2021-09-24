@@ -1,6 +1,9 @@
 const Main = 'Main';
 const appName = 'Vasukam.';
 const trending = 'Trending';
+const login = 'Log in';
+const signup = 'Sign up';
+const welcomeToVasukam = 'Welcome to Vasukam!';
 const feed = 'Feed';
 const explore = 'Explore';
 const yourStory = 'Your Story';

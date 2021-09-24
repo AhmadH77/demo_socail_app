@@ -88,6 +88,16 @@ class _OnboardingPageState extends State<OnboardingPage> {
               ),
             ),
           ),
+          Align(
+              alignment: Alignment.topCenter,
+              child: Padding(
+                padding: const EdgeInsets.only(top: twoHundredDp),
+                child: Text(
+                  welcomeToVasukam,
+                  style:
+                      TextStyle(color: Colors.white, fontSize: twentyEightDp),
+                ),
+              )),
         ],
       ),
     );
