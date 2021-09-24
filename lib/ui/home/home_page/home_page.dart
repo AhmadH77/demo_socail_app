@@ -35,7 +35,6 @@ class _HomePageState extends State<HomePage>
     return Scaffold(
       body: Column(
         children: [
-          //todo -- incomplete task for header with animations
           Container(
             height: twoFiftyDp,
             decoration: BoxDecoration(color: Colors.green),
