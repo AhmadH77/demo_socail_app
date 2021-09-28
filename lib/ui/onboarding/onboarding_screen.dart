@@ -3,7 +3,9 @@ import 'package:flutter/painting.dart';
 import 'package:flutter/services.dart';
 import 'package:social_app_demo/constants/dimens.dart';
 import 'package:social_app_demo/constants/strings.dart';
+import 'package:social_app_demo/ui/auth/login/log_in_page.dart';
 import 'package:social_app_demo/widget/auth_button.dart';
+import 'package:social_app_demo/widget/bg_image.dart';
 
 class OnboardingPage extends StatefulWidget {
   static const routeName = '/onboardingPage';
@@ -41,15 +43,15 @@ class _OnboardingPageState extends State<OnboardingPage> {
             },
             children: [
               //image 1
-              backgroundImages('assets/images/1.jpg'),
+              BgImage(image: 'assets/images/1.jpg'),
               //image 2
-              backgroundImages('assets/images/2.jpg'),
+              BgImage(image: 'assets/images/2.jpg'),
               //image 3
-              backgroundImages('assets/images/3.jpg'),
+              BgImage(image: 'assets/images/3.jpg'),
               //image 4
-              backgroundImages('assets/images/4.jpg'),
+              BgImage(image: 'assets/images/4.jpg'),
               //image 5
-              backgroundImages('assets/images/4.jpg'),
+              BgImage(image: 'assets/images/4.jpg'),
             ],
           ),
           Align(
@@ -62,14 +64,17 @@ class _OnboardingPageState extends State<OnboardingPage> {
               ),
             ),
           ),
-          Align(
-            alignment: Alignment.center,
+          Center(
             child: Container(
-              margin: EdgeInsets.only(top: twoHundredDp),
+              //   width: 250,
+              margin: EdgeInsets.only(
+                top: twoHundredDp,
+              ),
               child: AuthButton(
+                isAuth: false,
                 buttonName: signup,
                 onButtonTapped: () {
-                  //todo
+                  //move to sign up
                 },
               ),
             ),
@@ -79,9 +84,13 @@ class _OnboardingPageState extends State<OnboardingPage> {
             child: Container(
               margin: EdgeInsets.only(top: threeTwentyDp),
               child: AuthButton(
+                isAuth: false,
                 buttonName: login,
                 onButtonTapped: () {
-                  //todo
+                  //move to login
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => LoginPage(),
+                  ));
                 },
               ),
             ),
@@ -128,12 +137,18 @@ class _OnboardingPageState extends State<OnboardingPage> {
     return indicators;
   }
 
-  //displays bg images
+/*  //displays bg images
   Widget backgroundImages(String image) {
     return Image.asset(
       image,
-      height: MediaQuery.of(context).size.height,
-      width: MediaQuery.of(context).size.width,
+      height: MediaQuery
+          .of(context)
+          .size
+          .height,
+      width: MediaQuery
+          .of(context)
+          .size
+          .width,
       fit: BoxFit.fitHeight,
       filterQuality: FilterQuality.high,
       colorBlendMode: BlendMode.darken,
@@ -141,5 +156,5 @@ class _OnboardingPageState extends State<OnboardingPage> {
       //todo ?
       cacheWidth: 1024,
     );
-  }
+  }*/
 }
