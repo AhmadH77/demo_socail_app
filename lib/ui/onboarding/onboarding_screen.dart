@@ -3,7 +3,7 @@ import 'package:flutter/painting.dart';
 import 'package:flutter/services.dart';
 import 'package:social_app_demo/constants/dimens.dart';
 import 'package:social_app_demo/constants/strings.dart';
-import 'package:social_app_demo/ui/auth/login/log_in_page.dart';
+import 'package:social_app_demo/ui/auth/login/state_check.dart';
 import 'package:social_app_demo/widget/auth_button.dart';
 import 'package:social_app_demo/widget/bg_image.dart';
 
@@ -75,6 +75,11 @@ class _OnboardingPageState extends State<OnboardingPage> {
                 buttonName: signup,
                 onButtonTapped: () {
                   //move to sign up
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => StateCheck(
+                      isLogin: false,
+                    ),
+                  ));
                 },
               ),
             ),
@@ -89,7 +94,9 @@ class _OnboardingPageState extends State<OnboardingPage> {
                 onButtonTapped: () {
                   //move to login
                   Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => LoginPage(),
+                    builder: (context) => StateCheck(
+                      isLogin: true,
+                    ),
                   ));
                 },
               ),
