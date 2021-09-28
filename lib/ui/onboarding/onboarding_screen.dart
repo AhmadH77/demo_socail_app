@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:social_app_demo/constants/dimens.dart';
 import 'package:social_app_demo/constants/strings.dart';
 import 'package:social_app_demo/widget/auth_button.dart';
@@ -30,7 +29,6 @@ class _OnboardingPageState extends State<OnboardingPage> {
     SystemChrome.setSystemUIOverlayStyle(
         SystemUiOverlayStyle(statusBarColor: Colors.transparent));
     return Scaffold(
-      backgroundColor: Colors.teal, //todo remove
       body: Stack(
         alignment: Alignment.bottomCenter,
         children: [
@@ -43,15 +41,15 @@ class _OnboardingPageState extends State<OnboardingPage> {
             },
             children: [
               //image 1
-              backgroundImages('assets/svg/back.svg'),
+              backgroundImages('assets/images/1.jpg'),
               //image 2
-              backgroundImages('assets/svg/back.svg'),
+              backgroundImages('assets/images/2.jpg'),
               //image 3
-              backgroundImages('assets/svg/back.svg'),
+              backgroundImages('assets/images/3.jpg'),
               //image 4
-              backgroundImages('assets/svg/back.svg'),
+              backgroundImages('assets/images/4.jpg'),
               //image 5
-              backgroundImages('assets/svg/back.svg'),
+              backgroundImages('assets/images/4.jpg'),
             ],
           ),
           Align(
@@ -132,10 +130,16 @@ class _OnboardingPageState extends State<OnboardingPage> {
 
   //displays bg images
   Widget backgroundImages(String image) {
-    return SvgPicture.asset(
+    return Image.asset(
       image,
       height: MediaQuery.of(context).size.height,
       width: MediaQuery.of(context).size.width,
+      fit: BoxFit.fitHeight,
+      filterQuality: FilterQuality.high,
+      colorBlendMode: BlendMode.darken,
+      cacheHeight: 1550,
+      //todo ?
+      cacheWidth: 1024,
     );
   }
 }
