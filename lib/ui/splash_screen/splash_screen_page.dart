@@ -4,7 +4,6 @@ import 'package:flutter/painting.dart';
 import 'package:flutter/services.dart';
 import 'package:social_app_demo/constants/dimens.dart';
 import 'package:social_app_demo/constants/strings.dart';
-import 'package:social_app_demo/screens/mainScreen.dart';
 import 'package:social_app_demo/ui/onboarding/onboarding_screen.dart';
 
 class SplashScreenPage extends StatelessWidget {
@@ -14,8 +13,8 @@ class SplashScreenPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Future.delayed(Duration(seconds: 3)).then((value) {
-      Navigator.of(context).pushReplacement(MaterialPageRoute(
+    Future.delayed(Duration(seconds: 3)).then((value) async {
+      await Navigator.of(context).pushReplacement(MaterialPageRoute(
         builder: (context) => OnboardingPage(),
       ));
     });
