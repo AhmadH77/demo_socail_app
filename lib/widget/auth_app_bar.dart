@@ -3,13 +3,23 @@ import 'package:social_app_demo/constants/dimens.dart';
 
 import 'auth_button.dart';
 
-class AuthAppBar extends StatelessWidget {
+class AuthAppBar extends StatefulWidget {
   final Function()? onTap;
+  final Function()? onBackArrowPressed;
   final buttonName;
 
-  const AuthAppBar({Key? key, required this.onTap, required this.buttonName})
+  const AuthAppBar(
+      {Key? key,
+      required this.onTap,
+      required this.buttonName,
+      required this.onBackArrowPressed})
       : super(key: key);
 
+  @override
+  State<AuthAppBar> createState() => _AuthAppBarState();
+}
+
+class _AuthAppBarState extends State<AuthAppBar> {
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -18,20 +28,18 @@ class AuthAppBar extends StatelessWidget {
       children: [
         Padding(
           padding: const EdgeInsets.only(top: tenDp),
-          child: GestureDetector(
-            onTap: () => Navigator.of(context).pop(),
-            child: Icon(
-              Icons.arrow_back_ios,
-              color: Colors.white,
-            ),
+          child: IconButton(
+            icon: Icon(Icons.arrow_back_ios),
+            color: Colors.white,
+            onPressed: widget.onBackArrowPressed,
           ),
         ),
         Container(
           width: oneTwentyDp,
           child: AuthButton(
             isAuth: true,
-            onButtonTapped: () async => onTap,
-            buttonName: buttonName,
+            onButtonTapped: widget.onTap,
+            buttonName: widget.buttonName,
           ),
         )
       ],
