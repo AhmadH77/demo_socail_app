@@ -3,17 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:social_app_demo/provider/currentPage.dart';
 import 'package:social_app_demo/screens/mainScreen.dart';
-import 'package:social_app_demo/util/const.dart';
 
 import 'constants/theme_color.dart';
 
 void main() {
-  runApp(
-      MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (_) => CurrentPage()),
-      ],
-      child: MyApp()));
+  runApp(MultiProvider(providers: [
+    ChangeNotifierProvider(create: (_) => CurrentPage()),
+  ], child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -21,15 +17,16 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Social App Demo',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         fontFamily: 'regular',
 //         primarySwatch: createMaterialColor(Constants.orangeLight),
-        primarySwatch:
-        createMaterialColor(ThemeColors.middleCURVE),
+        primarySwatch: createMaterialColor(ThemeColors.middleCURVE),
       ),
       home: MainScreen(),
     );
   }
+
   MaterialColor createMaterialColor(Color color) {
     List strengths = <double>[.05];
     Map swatch = <int, Color>{};
@@ -50,4 +47,3 @@ class MyApp extends StatelessWidget {
     return MaterialColor(color.value, swatch);
   }
 }
-

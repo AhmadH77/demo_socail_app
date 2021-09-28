@@ -457,7 +457,8 @@ class _MainPageState extends State<MainPage> {
                       ),
                     ),
               Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: tenDp),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: tenDp, vertical: sixDp),
                       child: ExpandableText(
                         '${posts.postDescription}',
                         trimLines: 3,

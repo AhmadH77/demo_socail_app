@@ -3,6 +3,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/widgets.dart';
 
 class ExpandableText extends StatefulWidget {
   const ExpandableText(
@@ -75,8 +76,9 @@ class ExpandableTextState extends State<ExpandableText> {
             text: _readMore ? widget.text.substring(0, endIndex) : widget.text,
             style: TextStyle(
               color: widgetColor,
-              fontSize: 13,
+              fontSize: 16,
               fontFamily: 'regular',
+              fontWeight: FontWeight.w400,
               letterSpacing: -0.04,
             ),
             children: <TextSpan>[link],
