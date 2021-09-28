@@ -2,10 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:social_app_demo/constants/dimens.dart';
 
-class AuthButton extends StatelessWidget {
+class AuthButton extends StatefulWidget {
   final buttonName;
   final bool isAuth;
-  final Function() onButtonTapped;
+  final Function()? onButtonTapped;
 
   const AuthButton(
       {Key? key,
@@ -15,30 +15,35 @@ class AuthButton extends StatelessWidget {
       : super(key: key);
 
   @override
+  State<AuthButton> createState() => _AuthButtonState();
+}
+
+class _AuthButtonState extends State<AuthButton> {
+  @override
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.only(
-          right: isAuth ? tenDp : hundredDp,
-          top: isAuth ? 5 : twentyDp,
-          left: isAuth ? 0 : hundredDp),
+          right: widget.isAuth ? tenDp : hundredDp,
+          top: widget.isAuth ? 5 : twentyDp,
+          left: widget.isAuth ? 0 : hundredDp),
       height: fortyDp,
       child: MaterialButton(
         shape: RoundedRectangleBorder(
             side: BorderSide(
-                color: isAuth ? Colors.white : Colors.white,
-                width: isAuth ? 2 : 0),
+                color: widget.isAuth ? Colors.white : Colors.white,
+                width: widget.isAuth ? 2 : 0),
             borderRadius: BorderRadius.circular(twentyDp)),
         minWidth: MediaQuery.of(context).size.width,
         height: fiftyDp,
-        onPressed: onButtonTapped,
+        onPressed: widget.onButtonTapped,
         child: Text(
-          buttonName,
+          widget.buttonName,
           style: TextStyle(
-              color: isAuth ? Colors.white : Colors.black,
+              color: widget.isAuth ? Colors.white : Colors.black,
               fontSize: sixteenDp,
               fontWeight: FontWeight.bold),
         ),
-        color: isAuth ? Colors.transparent : Colors.white,
+        color: widget.isAuth ? Colors.transparent : Colors.white,
       ),
     );
   }
