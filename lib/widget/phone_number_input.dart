@@ -19,8 +19,8 @@ class _PhoneNumberInputState extends State<PhoneNumberInput> {
     return Container(
         width: widget.isOTP
             ? MediaQuery.of(context).size.width
-            : MediaQuery.of(context).size.width / 1.8,
-        margin: EdgeInsets.symmetric(horizontal: 30),
+            : MediaQuery.of(context).size.width / 1.42,
+        margin: EdgeInsets.symmetric(horizontal: 20),
         child: TextFormField(
           cursorColor: Colors.white,
           style: TextStyle(color: Colors.white),
