@@ -21,6 +21,8 @@ class _EmailInputState extends State<EmailInput> {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: sixteenDp),
       child: TextFormField(
+          cursorColor: Colors.white,
+          style: TextStyle(color: Colors.white),
           keyboardType: TextInputType.emailAddress,
           controller: widget.emailController,
           validator: (value) =>

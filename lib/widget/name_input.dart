@@ -19,6 +19,8 @@ class _NameInputState extends State<NameInput> {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: sixteenDp),
       child: TextFormField(
+          cursorColor: Colors.white,
+          style: TextStyle(color: Colors.white),
           keyboardType: TextInputType.name,
           controller: widget.controller,
           validator: (value) =>

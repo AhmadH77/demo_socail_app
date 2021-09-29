@@ -5,6 +5,7 @@ import 'package:social_app_demo/constants/strings.dart';
 import 'package:social_app_demo/widget/auth_button.dart';
 import 'package:social_app_demo/widget/auth_error_response.dart';
 import 'package:social_app_demo/widget/phone_number_input.dart';
+import 'package:social_app_demo/screens/mainScreen.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
