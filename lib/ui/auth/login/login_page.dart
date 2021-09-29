@@ -141,7 +141,11 @@ class _LoginPageState extends State<LoginPage> {
               top: fiftyDp,
             ),
             child: AuthButton(
-                buttonName: next, onButtonTapped: () {}, isAuth: false),
+                buttonName: next, onButtonTapped: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => MainScreen(),
+              ));
+            }, isAuth: false),
           ),
           AuthError(
             message: incorrectOTP,
