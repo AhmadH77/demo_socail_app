@@ -76,10 +76,9 @@ class ExpandableTextState extends State<ExpandableText> {
             text: _readMore ? widget.text.substring(0, endIndex) : widget.text,
             style: TextStyle(
               color: widgetColor,
-              fontSize: 16,
+              fontSize: 12,
               fontFamily: 'regular',
-              fontWeight: FontWeight.w400,
-              letterSpacing: -0.04,
+              letterSpacing: -0.05,
             ),
             children: <TextSpan>[link],
           );
