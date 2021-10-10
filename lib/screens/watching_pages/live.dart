@@ -1,4 +1,3 @@
-import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -34,13 +33,13 @@ class _LiveState extends State<Live> {
         true,
         'assets/images/cover.jpg',
         ['Live', 'Music'],
-        User(0, 'Zombie_500', 'assets/images/rick.jpg'),
+        UserModel(0, 'Zombie_500', 'assets/images/rick.jpg'),
         '1 K',
         '200',
         [
           Comment(
               'Jag målar inte drömmar eller mardrömmar, jag målar min egen verklighet',
-              user: User(0, 'user1', 'assets/images/restaurant-5.jpg'))
+              user: UserModel(0, 'user1', 'assets/images/restaurant-5.jpg'))
         ]),
     Video(
         0,
@@ -50,18 +49,18 @@ class _LiveState extends State<Live> {
         true,
         'assets/images/live1.jpg',
         ['Live', 'Music'],
-        User(1, 'ESL_CSGO', 'assets/images/restaurant-5.jpg'),
+        UserModel(1, 'ESL_CSGO', 'assets/images/restaurant-5.jpg'),
         '1 K',
         '200',
         [
           Comment(
               'En målning för mig är i första hand ett verb, inte ett substantiv, en händelse först och bara i andra hand en bild',
-              user: User(0, 'user1', 'assets/images/rick.jpg')),
+              user: UserModel(0, 'user1', 'assets/images/rick.jpg')),
           Comment(
               'Jag målar inte drömmar eller mardrömmar, jag målar min egen verklighet',
-              user: User(1, 'user1', 'assets/images/restaurant-5.jpg')),
+              user: UserModel(1, 'user1', 'assets/images/restaurant-5.jpg')),
           Comment('comment',
-              user: User(0, 'user1', 'assets/images/restaurant-5.jpg')),
+              user: UserModel(0, 'user1', 'assets/images/restaurant-5.jpg')),
         ]),
     Video(
         1,
@@ -71,12 +70,12 @@ class _LiveState extends State<Live> {
         true,
         'assets/images/live2.jpg',
         ['Live', 'Music'],
-        User(2, 'publisher2', 'assets/images/rick.jpg'),
+        UserModel(2, 'publisher2', 'assets/images/rick.jpg'),
         '1 K',
         '200',
         [
           Comment('comment',
-              user: User(0, 'user1', 'assets/images/restaurant-5.jpg'))
+              user: UserModel(0, 'user1', 'assets/images/restaurant-5.jpg'))
         ]),
     Video(
         2,
@@ -86,12 +85,12 @@ class _LiveState extends State<Live> {
         true,
         'assets/images/live3.jpg',
         ['Live', 'Music'],
-        User(3, 'publisher3', 'assets/images/restaurant-5.jpg'),
+        UserModel(3, 'publisher3', 'assets/images/restaurant-5.jpg'),
         '1 K',
         '200',
         [
           Comment('comment',
-              user: User(0, 'user1', 'assets/images/restaurant-5.jpg'))
+              user: UserModel(0, 'user1', 'assets/images/restaurant-5.jpg'))
         ]),
     Video(
         4,
@@ -101,12 +100,12 @@ class _LiveState extends State<Live> {
         true,
         'assets/images/live3.jpg',
         ['Live', 'Music'],
-        User(3, 'publisher3', 'assets/images/restaurant-5.jpg'),
+        UserModel(3, 'publisher3', 'assets/images/restaurant-5.jpg'),
         '1 K',
         '200',
         [
           Comment('comment',
-              user: User(0, 'user1', 'assets/images/restaurant-5.jpg'))
+              user: UserModel(0, 'user1', 'assets/images/restaurant-5.jpg'))
         ]),
   ];
   ScrollController controller = ScrollController();

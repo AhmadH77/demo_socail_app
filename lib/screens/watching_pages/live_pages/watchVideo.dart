@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
@@ -35,13 +34,14 @@ class _WatchVideoState extends State<WatchVideo> with TickerProviderStateMixin {
         true,
         'assets/images/live1.jpg',
         ['Live', 'Music'],
-        User(1, 'publisher1', 'assets/images/restaurant-5.jpg'),
+        UserModel(1, 'publisher1', 'assets/images/restaurant-5.jpg'),
         '1 K',
         '200',
         [
-          Comment('comment', user: User(0, 'user1', 'assets/images/rick.jpg')),
+          Comment(
+              'comment', user: UserModel(0, 'user1', 'assets/images/rick.jpg')),
           Comment('comment',
-              user: User(1, 'user1', 'assets/images/restaurant-5.jpg')),
+              user: UserModel(1, 'user1', 'assets/images/restaurant-5.jpg')),
           Comment('comment'),
         ]),
     Video(
@@ -52,7 +52,7 @@ class _WatchVideoState extends State<WatchVideo> with TickerProviderStateMixin {
         true,
         'assets/images/live2.jpg',
         ['Live', 'Music'],
-        User(2, 'publisher2', 'assets/images/rick.jpg'),
+        UserModel(2, 'publisher2', 'assets/images/rick.jpg'),
         '1 K',
         '200',
         [Comment('comment')]),
@@ -64,7 +64,7 @@ class _WatchVideoState extends State<WatchVideo> with TickerProviderStateMixin {
         true,
         'assets/images/live3.jpg',
         ['Live', 'Music'],
-        User(3, 'publisher3', 'assets/images/restaurant-5.jpg'),
+        UserModel(3, 'publisher3', 'assets/images/restaurant-5.jpg'),
         '1 K',
         '200',
         [Comment('comment')]),
