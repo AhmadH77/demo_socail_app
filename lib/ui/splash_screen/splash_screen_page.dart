@@ -4,7 +4,8 @@ import 'package:flutter/painting.dart';
 import 'package:flutter/services.dart';
 import 'package:social_app_demo/constants/dimens.dart';
 import 'package:social_app_demo/constants/strings.dart';
-import 'package:social_app_demo/ui/onboarding/onboarding_screen.dart';
+import 'package:social_app_demo/ui/auth/config_page.dart';
+import 'package:social_app_demo/util/app_actions.dart';
 
 class SplashScreenPage extends StatefulWidget {
   static const routeName = '/splashScreenPage';
@@ -19,9 +20,11 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
   @override
   void initState() {
     Future.delayed(Duration(seconds: 3)).then((value) {
-      Navigator.of(context).pushReplacement(MaterialPageRoute(
-        builder: (context) => OnboardingPage(),
-      ));
+      AppActions.pushReplacementNamedActivity(
+          context, ConfigPage.routeName, '');
+      /*Navigator.of(context).pushReplacement(MaterialPageRoute(
+        builder: (context) => ConfigPage(),
+      ));*/
     });
     super.initState();
   }
