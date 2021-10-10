@@ -6,18 +6,28 @@ import 'package:social_app_demo/constants/dimens.dart';
 import 'package:social_app_demo/constants/strings.dart';
 import 'package:social_app_demo/ui/onboarding/onboarding_screen.dart';
 
-class SplashScreenPage extends StatelessWidget {
+class SplashScreenPage extends StatefulWidget {
   static const routeName = '/splashScreenPage';
 
   const SplashScreenPage({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  State<SplashScreenPage> createState() => _SplashScreenPageState();
+}
+
+class _SplashScreenPageState extends State<SplashScreenPage> {
+  @override
+  void initState() {
     Future.delayed(Duration(seconds: 3)).then((value) {
       Navigator.of(context).pushReplacement(MaterialPageRoute(
         builder: (context) => OnboardingPage(),
       ));
     });
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(
         SystemUiOverlayStyle(statusBarColor: Colors.transparent));
     return Scaffold(

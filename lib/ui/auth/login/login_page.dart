@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:social_app_demo/constants/dimens.dart';
 import 'package:social_app_demo/constants/strings.dart';
 import 'package:social_app_demo/screens/mainScreen.dart';
+import 'package:social_app_demo/ui/auth/login/state_check.dart';
 import 'package:social_app_demo/widget/auth_app_bar.dart';
 import 'package:social_app_demo/widget/auth_button.dart';
 import 'package:social_app_demo/widget/auth_error_response.dart';
@@ -46,30 +47,20 @@ class _LoginPageState extends State<LoginPage> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: const EdgeInsets.only(
-            top: fortyDp,
-            left: sixteenDp,
-          ),
-          child: !widget.isLogin
-              ? AuthAppBar(
-                  onTap: () async {
-                    print("sfdf");
-                  },
-                  buttonName: login,
-                  onBackArrowPressed: () => Navigator.pop(context))
-              : AuthAppBar(
-                  onTap: () {
-                    print("sfdf");
-                  },
-                  buttonName: signup,
-                  onBackArrowPressed: () {
-                    print("sfdf");
-                    return Navigator.of(context).pop();
-                  },
-                ),
-        ),
+            padding: const EdgeInsets.only(
+              top: fortyDp,
+              left: sixteenDp,
+            ),
+            child: AuthAppBar(
+                onTap: () async {
+                  Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    builder: (context) => StateCheck(isLogin: false),
+                  ));
+                },
+                buttonName: login,
+                onBackArrowPressed: () => Navigator.pop(context))),
         Padding(
-          padding: const EdgeInsets.only(left: sixteenDp, top: twoHundredDp),
+          padding: const EdgeInsets.only(left: sixteenDp, top: oneFiftyDp),
           child: Text(
             loginToExperience,
             style: TextStyle(
@@ -168,11 +159,13 @@ class _LoginPageState extends State<LoginPage> {
               top: fiftyDp,
             ),
             child: AuthButton(
-                buttonName: next, onButtonTapped: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => MainScreen(),
-              ));
-            }, isAuth: false),
+                buttonName: next,
+                onButtonTapped: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => MainScreen(),
+                  ));
+                },
+                isAuth: false),
           ),
           AuthError(
             message: incorrectOTP,
