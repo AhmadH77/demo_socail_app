@@ -2,8 +2,8 @@ import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:social_app_demo/constants/dimens.dart';
 import 'package:social_app_demo/constants/strings.dart';
-import 'package:social_app_demo/screens/mainScreen.dart';
 import 'package:social_app_demo/ui/auth/login/state_check.dart';
+import 'package:social_app_demo/ui/interests/select_interests.dart';
 import 'package:social_app_demo/widget/auth_app_bar.dart';
 import 'package:social_app_demo/widget/auth_button.dart';
 import 'package:social_app_demo/widget/auth_error_response.dart';
@@ -102,16 +102,18 @@ class _LoginPageState extends State<LoginPage> {
             top: fiftyDp,
           ),
           child: AuthButton(
-              buttonName: login,
-              onButtonTapped: () {
-                //if number is valid
-                if (_formKey.currentState!.validate()) {
-                  setState(() {
-                    isNumberValid = true;
-                  });
-                }
-              },
-              isAuth: false),
+            buttonName: login,
+            onButtonTapped: () {
+              //if number is valid
+              if (_formKey.currentState!.validate()) {
+                setState(() {
+                  isNumberValid = true;
+                });
+              }
+            },
+            isAuth: false,
+            borderColor: Colors.white,
+          ),
         )
       ],
     ));
@@ -159,13 +161,16 @@ class _LoginPageState extends State<LoginPage> {
               top: fiftyDp,
             ),
             child: AuthButton(
-                buttonName: next,
-                onButtonTapped: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => MainScreen(),
-                  ));
-                },
-                isAuth: false),
+              buttonName: next,
+              onButtonTapped: () {
+                //todo verify otp and move to next
+                Navigator.of(context).pushReplacement(MaterialPageRoute(
+                  builder: (context) => SelectInterests(),
+                ));
+              },
+              isAuth: false,
+              borderColor: Colors.white,
+            ),
           ),
           AuthError(
             message: incorrectOTP,
