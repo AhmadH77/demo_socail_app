@@ -11,4 +11,8 @@ class ThemeColors {
   static Color g3 = Color(0xFF3360E5);
   static Color postBgColor = Color(0xFF5DFFEC);
   static Color grey = Color(0xff929292);
+  static Color interestColor1 = Color(0xffff8c8c);
+  static Color interestColor2 = Color(0xffa9ace7);
+  static Color interestColor3 = Color(0xff7bcfff);
+  static Color interestColor4 = Color(0xff8f339e);
 }
