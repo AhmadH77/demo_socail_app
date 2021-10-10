@@ -1,7 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:social_app_demo/constants/dimens.dart';
 import 'package:social_app_demo/constants/strings.dart';
+import 'package:social_app_demo/constants/theme_color.dart';
+import 'package:social_app_demo/screens/mainScreen.dart';
 import 'package:social_app_demo/util/app_actions.dart';
 import 'package:social_app_demo/widget/interest_container.dart';
 import 'package:social_app_demo/widget/search_box.dart';
@@ -49,7 +52,8 @@ class _SelectInterestsState extends State<SelectInterests> {
                       borderRadius: BorderRadius.circular(twentyDp)),
                   minWidth: MediaQuery.of(context).size.width,
                   height: fiftyDp,
-                  onPressed: () {},
+                  onPressed: AppActions.pushReplacementNamedActivity(
+                      context, MainScreen.routeName, ''),
                   child: Text(
                     skip,
                     style: TextStyle(
@@ -64,6 +68,23 @@ class _SelectInterestsState extends State<SelectInterests> {
             ],
           ),
           SearchBox(controller: _searchController, borderColor: Colors.black),
+
+          //selected interests -- todo Re implement
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            physics: ClampingScrollPhysics(),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                interestSelected(ThemeColors.interestColor1, gaming),
+                interestSelected(ThemeColors.interestColor2, ''),
+                interestSelected(ThemeColors.interestColor3, ''),
+                interestSelected(ThemeColors.interestColor4, ''),
+              ],
+            ),
+          ),
+
+          //interests
           Expanded(
             flex: 1,
             child: SingleChildScrollView(
@@ -108,7 +129,7 @@ class _SelectInterestsState extends State<SelectInterests> {
                                   marginLeft: 0,
                                   image: pop1,
                                   width:
-                                      MediaQuery.of(context).size.width - 235,
+                                  MediaQuery.of(context).size.width - 235,
                                   height: sixtyDp,
                                   title: '',
                                   onTap: () {})
@@ -215,9 +236,33 @@ class _SelectInterestsState extends State<SelectInterests> {
     );
   }
 
+  //to display interests
   Widget rowItem(Widget widgetA, Widget widgetB) {
     return Row(
       children: [widgetA, widgetB],
+    );
+  }
+
+  //on interest tap
+  Widget interestSelected(Color bgColor, String itemSelected) {
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: tenDp),
+      width: hundredDp,
+      height: thirtyDp,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(sixteenDp),
+        color: bgColor,
+      ),
+      child: Center(
+        child: Text(
+          itemSelected,
+          style: TextStyle(
+              fontWeight: FontWeight.w400,
+              fontSize: twelveDp,
+              color: Colors.black,
+              fontFamily: 'regular'),
+        ),
+      ),
     );
   }
 }
