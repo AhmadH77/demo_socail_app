@@ -133,17 +133,19 @@ class _SignupPageState extends State<SignupPage> {
                         buttonName: signup,
                         onButtonTapped: () {
                           //if number is valid
-                          /* if (_formKey.currentState!.validate()) {
+                        /* if (_formKey.currentState!.validate()) {
                     setState(() {
 
                     });
                   }*/
 
-                          Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => MainScreen(),
-                          ));
-                        },
-                        isAuth: false),
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => MainScreen(),
+                        ));
+                      },
+                      isAuth: false,
+                      borderColor: Colors.white,
+                    ),
                   ),
                   SizedBox(
                     height: tenDp,
