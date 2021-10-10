@@ -5,8 +5,8 @@ import 'package:social_app_demo/ui/home/main_page/main_page.dart';
 
 //todo to be re implemented
 class Posts {
-  final User publisher;
-  List<User> likedBy = [];
+  final UserModel publisher;
+  List<UserModel> likedBy = [];
   final ownedBy;
   String? postTitle;
   String? postDescription;
@@ -33,11 +33,11 @@ class Posts {
 
 List<Posts> postList = [
   Posts(
-      publisher: User('id', 'Aiysha', 'assets/images/a.jpg'),
+      publisher: UserModel('id', 'Aiysha', 'assets/images/a.jpg'),
       likedBy: [
-        User('id', 'Koxc', 'assets/images/a.jpg'),
-        User('id', 'Mana', 'assets/images/b.jpg'),
-        User('id', 'Per', 'assets/images/a.jpg')
+        UserModel('id', 'Koxc', 'assets/images/a.jpg'),
+        UserModel('id', 'Mana', 'assets/images/b.jpg'),
+        UserModel('id', 'Per', 'assets/images/a.jpg')
       ],
       postTitle: dummy,
       postDescription: dummyDes,
@@ -48,11 +48,11 @@ List<Posts> postList = [
       timePosted: timeStamp,
       ownedBy: 'abccd'),
   Posts(
-      publisher: User('id', 'Aiysha', 'assets/images/a.jpg'),
+      publisher: UserModel('id', 'Aiysha', 'assets/images/a.jpg'),
       likedBy: [
-        User('id', 'Koxc', 'assets/images/a.jpg'),
-        User('id', 'Mana', 'assets/images/b.jpg'),
-        User('id', 'Per', 'assets/images/a.jpg')
+        UserModel('id', 'Koxc', 'assets/images/a.jpg'),
+        UserModel('id', 'Mana', 'assets/images/b.jpg'),
+        UserModel('id', 'Per', 'assets/images/a.jpg')
       ],
       postTitle: dummy,
       postDescription: dummyDes,
@@ -63,11 +63,11 @@ List<Posts> postList = [
       timePosted: timeStamp,
       ownedBy: 'abccd'),
   Posts(
-    publisher: User('id', 'Daniz', 'assets/images/a.jpg'),
+    publisher: UserModel('id', 'Daniz', 'assets/images/a.jpg'),
     likedBy: [
-      User('id', 'Koxc', 'assets/images/a.jpg'),
-      User('id', 'Mana', 'assets/images/b.jpg'),
-      User('id', 'Per', 'assets/images/a.jpg')
+      UserModel('id', 'Koxc', 'assets/images/a.jpg'),
+      UserModel('id', 'Mana', 'assets/images/b.jpg'),
+      UserModel('id', 'Per', 'assets/images/a.jpg')
     ],
     postTitle: dummy,
     country: "Togo",
@@ -79,7 +79,7 @@ List<Posts> postList = [
     timePosted: timeStamp,
   ),
   Posts(
-      publisher: User('id', 'Bera', 'assets/images/a.jpg'),
+      publisher: UserModel('id', 'Bera', 'assets/images/a.jpg'),
       likedBy: [],
       postTitle: dummy,
       postDescription: dummyDes,

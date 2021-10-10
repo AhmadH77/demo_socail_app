@@ -2,9 +2,8 @@
 import 'package:social_app_demo/models/user.dart';
 
 class Comment{
-   User user;
+   UserModel user;
   final String content;
 
   Comment(this.content, {this.user});
-
 }

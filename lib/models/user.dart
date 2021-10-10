@@ -1,6 +1,6 @@
-class User{
+class UserModel {
   final id;
   final name, image;
 
-  User(this.id, this.name, this.image);
+  UserModel(this.id, this.name, this.image);
 }
