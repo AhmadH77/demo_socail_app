@@ -6,11 +6,13 @@ class AuthButton extends StatefulWidget {
   final buttonName;
   final bool isAuth;
   final Function()? onButtonTapped;
+  final Color borderColor;
 
   const AuthButton(
       {Key? key,
       required this.buttonName,
       required this.onButtonTapped,
+      required this.borderColor,
       required this.isAuth})
       : super(key: key);
 
@@ -30,8 +32,7 @@ class _AuthButtonState extends State<AuthButton> {
       child: MaterialButton(
         shape: RoundedRectangleBorder(
             side: BorderSide(
-                color: widget.isAuth ? Colors.white : Colors.white,
-                width: widget.isAuth ? 2 : 0),
+                color: widget.borderColor, width: widget.isAuth ? 2 : 0),
             borderRadius: BorderRadius.circular(twentyDp)),
         minWidth: MediaQuery.of(context).size.width,
         height: fiftyDp,
