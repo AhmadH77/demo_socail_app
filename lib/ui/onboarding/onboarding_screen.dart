@@ -81,6 +81,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                     ),
                   ));
                 },
+                borderColor: Colors.white,
               ),
             ),
           ),
@@ -99,6 +100,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                     ),
                   ));
                 },
+                borderColor: Colors.white,
               ),
             ),
           ),
