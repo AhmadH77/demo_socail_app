@@ -32,7 +32,7 @@ class _ConfigPageState extends State<ConfigPage> {
             top: false,
             bottom: false,
             child:
-                Scaffold(body: isLoggedIn! ? OnboardingPage() : MainScreen())),
+                Scaffold(body: isLoggedIn! ? MainScreen() : OnboardingPage())),
       ),
     );
   }
