@@ -13,8 +13,8 @@ class SplashScreenPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Future.delayed(Duration(seconds: 3)).then((value) async {
-      await Navigator.of(context).pushReplacement(MaterialPageRoute(
+    Future.delayed(Duration(seconds: 3)).then((value) {
+      Navigator.of(context).pushReplacement(MaterialPageRoute(
         builder: (context) => OnboardingPage(),
       ));
     });

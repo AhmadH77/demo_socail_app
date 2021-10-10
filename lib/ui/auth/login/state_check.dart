@@ -32,34 +32,13 @@ class _StateCheck extends State<StateCheck> {
             Container(
               child: BgImage(image: 'assets/images/4.jpg'),
             ),
-            Padding(
-              padding: const EdgeInsets.only(
-                top: fortyDp,
-                left: sixteenDp,
-              ),
-              child: !widget.isLogin
-                  ? AuthAppBar(
-                      onTap: () async {
-                        print("sfdf");
-                      },
-                      buttonName: login,
-                      onBackArrowPressed: () async {
-                        print("sfdf");
-                        return Navigator.pop(context);
-                      },
-                    )
-                  : AuthAppBar(
-                      onTap: () {
-                        print("sfdf");
-                      },
-                      buttonName: signup,
-                      onBackArrowPressed: () {
-                        print("sfdf");
-                        return Navigator.of(context).pop();
-                      },
-                    ),
-            ),
-            widget.isLogin ? LoginPage() : SignupPage()
+            widget.isLogin
+                ? LoginPage(
+                    isLogin: widget.isLogin,
+                  )
+                : SignupPage(
+                    isSignup: widget.isLogin,
+                  )
           ],
         ),
       ),

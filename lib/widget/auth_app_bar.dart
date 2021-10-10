@@ -27,7 +27,7 @@ class _AuthAppBarState extends State<AuthAppBar> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Padding(
-          padding: const EdgeInsets.only(top: tenDp),
+          padding: EdgeInsets.only(top: tenDp),
           child: IconButton(
             icon: Icon(Icons.arrow_back_ios),
             color: Colors.white,

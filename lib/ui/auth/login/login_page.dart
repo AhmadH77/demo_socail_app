@@ -2,13 +2,16 @@ import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:social_app_demo/constants/dimens.dart';
 import 'package:social_app_demo/constants/strings.dart';
+import 'package:social_app_demo/screens/mainScreen.dart';
+import 'package:social_app_demo/widget/auth_app_bar.dart';
 import 'package:social_app_demo/widget/auth_button.dart';
 import 'package:social_app_demo/widget/auth_error_response.dart';
 import 'package:social_app_demo/widget/phone_number_input.dart';
-import 'package:social_app_demo/screens/mainScreen.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
+  final bool isLogin;
+
+  const LoginPage({Key? key, required this.isLogin}) : super(key: key);
 
   @override
   _LoginPageState createState() => _LoginPageState();
@@ -42,6 +45,29 @@ class _LoginPageState extends State<LoginPage> {
         child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        Padding(
+          padding: const EdgeInsets.only(
+            top: fortyDp,
+            left: sixteenDp,
+          ),
+          child: !widget.isLogin
+              ? AuthAppBar(
+                  onTap: () async {
+                    print("sfdf");
+                  },
+                  buttonName: login,
+                  onBackArrowPressed: () => Navigator.pop(context))
+              : AuthAppBar(
+                  onTap: () {
+                    print("sfdf");
+                  },
+                  buttonName: signup,
+                  onBackArrowPressed: () {
+                    print("sfdf");
+                    return Navigator.of(context).pop();
+                  },
+                ),
+        ),
         Padding(
           padding: const EdgeInsets.only(left: sixteenDp, top: twoHundredDp),
           child: Text(
