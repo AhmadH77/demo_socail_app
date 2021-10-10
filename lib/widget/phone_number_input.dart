@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:social_app_demo/constants/dimens.dart';
 import 'package:social_app_demo/constants/strings.dart';
 
 class PhoneNumberInput extends StatefulWidget {
@@ -20,12 +22,16 @@ class _PhoneNumberInputState extends State<PhoneNumberInput> {
         width: widget.isOTP
             ? MediaQuery.of(context).size.width
             : MediaQuery.of(context).size.width / 1.42,
-        margin: EdgeInsets.symmetric(horizontal: 20),
+        margin: EdgeInsets.symmetric(horizontal: tenDp),
         child: TextFormField(
           cursorColor: Colors.white,
           style: TextStyle(color: Colors.white),
           keyboardType: TextInputType.phone,
           controller: widget.controller,
+          inputFormatters: <TextInputFormatter>[
+            LengthLimitingTextInputFormatter(10),
+            FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+          ],
           validator: (value) => widget.isOTP
               ? value!.trim().isNotEmpty && value.length == 6
                   ? null

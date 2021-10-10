@@ -96,9 +96,10 @@ class _SignupPageState extends State<SignupPage> {
                         width: selectedCountryCode.trim().isEmpty
                             ? sixtyDp
                             : ninetyDp,
-                        margin: EdgeInsets.only(left: sixteenDp),
+                        margin: EdgeInsets.only(left: eightDp),
                         decoration: BoxDecoration(color: Colors.white),
                         child: CountryCodePicker(
+                          flagWidth: twentyFourDp,
                           padding: EdgeInsets.all(0),
                           //country code
                           onChanged: _onCountryChange,

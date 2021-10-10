@@ -57,7 +57,7 @@ class _LoginPageState extends State<LoginPage> {
                     builder: (context) => StateCheck(isLogin: false),
                   ));
                 },
-                buttonName: login,
+                buttonName: signup,
                 onBackArrowPressed: () => Navigator.pop(context))),
         Padding(
           padding: const EdgeInsets.only(left: sixteenDp, top: oneFiftyDp),
@@ -78,9 +78,10 @@ class _LoginPageState extends State<LoginPage> {
           children: [
             Container(
               width: selectedCountryCode.trim().isEmpty ? sixtyDp : ninetyDp,
-              margin: EdgeInsets.only(left: sixteenDp),
+              margin: EdgeInsets.only(left: eightDp),
               decoration: BoxDecoration(color: Colors.white),
               child: CountryCodePicker(
+                flagWidth: twentyFourDp,
                 padding: EdgeInsets.all(0),
                 //country code
                 onChanged: _onCountryChange,
