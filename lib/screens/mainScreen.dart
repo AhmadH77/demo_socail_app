@@ -5,11 +5,12 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:social_app_demo/screens/watching_page.dart';
 import 'package:social_app_demo/ui/home/home_page/watching_page.dart' as watch;
-import 'package:social_app_demo/ui/home/home_page/watching_page_new.dart';
 
 import 'home.dart';
 
 class MainScreen extends StatefulWidget {
+  static const routeName = '/mainScreen';
+
   const MainScreen({Key? key}) : super(key: key);
 
   @override

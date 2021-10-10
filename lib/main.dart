@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:social_app_demo/provider/currentPage.dart';
+import 'package:social_app_demo/route_generator.dart';
 import 'package:social_app_demo/ui/splash_screen/splash_screen_page.dart';
 
 import 'constants/theme_color.dart';
@@ -23,7 +24,9 @@ class MyApp extends StatelessWidget {
 //         primarySwatch: createMaterialColor(Constants.orangeLight),
         primarySwatch: createMaterialColor(ThemeColors.middleCURVE),
       ),
-      home: SplashScreenPage(),
+      //home: MainScreen(),
+      initialRoute: SplashScreenPage.routeName,
+      onGenerateRoute: RouteGenerator.generateRoute,
     );
   }
 
