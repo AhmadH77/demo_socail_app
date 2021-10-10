@@ -40,6 +40,7 @@ class _AuthAppBarState extends State<AuthAppBar> {
             isAuth: true,
             onButtonTapped: widget.onTap,
             buttonName: widget.buttonName,
+            borderColor: Colors.white,
           ),
         )
       ],
