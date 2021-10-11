@@ -7,7 +7,7 @@ class AppActions {
       context: context,
       initialDate: DateTime.now(),
       firstDate: DateTime.now(),
-      lastDate: DateTime.now());
+      lastDate: DateTime(2100));
 
   static popActivity(BuildContext context) {
     return Navigator.of(context).pop();

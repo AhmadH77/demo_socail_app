@@ -7,6 +7,7 @@ import 'package:social_app_demo/ui/auth/login/state_check.dart';
 import 'package:social_app_demo/widget/auth_app_bar.dart';
 import 'package:social_app_demo/widget/auth_button.dart';
 import 'package:social_app_demo/widget/auth_error_response.dart';
+import 'package:social_app_demo/widget/dob_input.dart';
 import 'package:social_app_demo/widget/email_input_widget.dart';
 import 'package:social_app_demo/widget/name_input.dart';
 import 'package:social_app_demo/widget/phone_number_input.dart';
@@ -125,15 +126,17 @@ class _SignupPageState extends State<SignupPage> {
                   SizedBox(
                     height: tenDp,
                   ),
-                  NameInput(controller: dobController, hint: dob),
+                  DobInput(
+                    controller: dobController,
+                  ),
                   Container(
                     padding: EdgeInsets.only(
                       top: fiftyDp,
                     ),
                     child: AuthButton(
-                        buttonName: signup,
-                        onButtonTapped: () {
-                          //if number is valid
+                      buttonName: signup,
+                      onButtonTapped: () {
+                        //if number is valid
                         /* if (_formKey.currentState!.validate()) {
                     setState(() {
 
