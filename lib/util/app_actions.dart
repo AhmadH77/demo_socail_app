@@ -2,6 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:social_app_demo/constants/dimens.dart';
 
 class AppActions {
+  //get date
+  static Future<DateTime?> selectDate(BuildContext context) => showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime.now(),
+      lastDate: DateTime.now());
+
   static popActivity(BuildContext context) {
     return Navigator.of(context).pop();
   }
