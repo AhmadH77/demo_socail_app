@@ -22,6 +22,7 @@ class _NameInputState extends State<NameInput> {
           cursorColor: Colors.white,
           style: TextStyle(color: Colors.white),
           keyboardType: TextInputType.name,
+          readOnly: widget.hint.toString().contains(userName) ? true : false,
           controller: widget.controller,
           validator: (value) =>
               value!.trim().isNotEmpty || value.length > 3 ? null : requireD,
