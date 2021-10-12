@@ -13,6 +13,15 @@ class AppActions {
     return Navigator.of(context).pop();
   }
 
+  static String getFirstWord(String inputString) {
+    List<String> wordList = inputString.split(" ");
+    if (wordList.isNotEmpty) {
+      return wordList[0];
+    } else {
+      return ' ';
+    }
+  }
+
   static pushReplacementNamedActivity(
       BuildContext context, String routeName, Object args) {
     if (args == null) {
