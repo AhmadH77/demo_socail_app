@@ -9,12 +9,13 @@ class ExpandableText extends StatefulWidget {
   const ExpandableText(
     this.text, {
     Key? key,
-    this.trimLines = 2,
+    this.trimLines = 2, this.textStyle,
   })  : assert(text != null),
         super(key: key);
 
   final String text;
   final int trimLines;
+  final TextStyle? textStyle;
 
   @override
   ExpandableTextState createState() => ExpandableTextState();
@@ -32,6 +33,14 @@ class ExpandableTextState extends State<ExpandableText> {
     final DefaultTextStyle defaultTextStyle = DefaultTextStyle.of(context);
     final colorClickableText = Colors.grey;
     final widgetColor = Colors.black;
+    final textStyle = widget.textStyle
+        ?? TextStyle(
+          color: widgetColor,
+          fontSize: 12,
+          fontFamily: 'regular',
+          fontWeight: FontWeight.w400,
+          letterSpacing: -0.05,
+        );
     TextSpan link = TextSpan(
         text: _readMore ? "...more" : " less",
         style: TextStyle(
@@ -74,12 +83,7 @@ class ExpandableTextState extends State<ExpandableText> {
         if (textPainter.didExceedMaxLines) {
           textSpan = TextSpan(
             text: _readMore ? widget.text.substring(0, endIndex) : widget.text,
-            style: TextStyle(
-              color: widgetColor,
-              fontSize: 12,
-              fontFamily: 'regular',
-              letterSpacing: -0.05,
-            ),
+            style: textStyle,
             children: <TextSpan>[link],
           );
         } else {

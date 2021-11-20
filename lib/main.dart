@@ -1,22 +1,46 @@
 //@dart=2.9
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
+import 'package:social_app_demo/provider/create_dialog.dart';
+import 'package:social_app_demo/provider/currentPage.dart';
+import 'package:social_app_demo/provider/live_page_controller.dart';
+import 'package:social_app_demo/provider/shortieCurrentPage.dart';
 import 'package:social_app_demo/screens/mainScreen.dart';
+import 'package:social_app_demo/ui/splash_screen/splash_screen_page.dart';
 import 'package:social_app_demo/util/const.dart';
 
+import 'constants/theme_color.dart';
+
 void main() {
-  runApp(MyApp());
+
+  runApp(
+      MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => CurrentPage()),
+        ChangeNotifierProvider(create: (_) => ShortieCurrentPage()),
+        ChangeNotifierProvider(create: (_) => CreateDialogProvider()),
+        ChangeNotifierProvider(create: (_) => LivePageController()),
+      ],
+      child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light.copyWith(
+        statusBarIconBrightness: Brightness.light
+    ));
     return MaterialApp(
       title: 'Social App Demo',
       theme: ThemeData(
-        fontFamily: 'semipop',
-        primarySwatch: createMaterialColor(Constants.orangeLight),
+        fontFamily: 'regular',
+        // primarySwatch: createMaterialColor(Constants.orangeLight),
+        primarySwatch: createMaterialColor(ThemeColors.middleCURVE),
       ),
-      home: MainScreen(),
+      home:
+      SplashScreenPage()
+      // MainScreen(index: 0,),
     );
   }
   MaterialColor createMaterialColor(Color color) {

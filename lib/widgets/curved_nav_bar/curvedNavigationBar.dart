@@ -1,6 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:curved_navigation_bar/src/nav_button.dart';
+import 'package:social_app_demo/constants/theme_color.dart';
+import 'package:social_app_demo/util/const.dart';
 
 
 typedef _LetIndexPage = bool Function(int value);
@@ -8,6 +12,7 @@ typedef _LetIndexPage = bool Function(int value);
 class CurvedNavigationBar extends StatefulWidget {
   final List<Widget> items;
   final int index;
+  final int source;
   final Color color;
   final Color? buttonBackgroundColor;
   final Color backgroundColor;
@@ -28,7 +33,7 @@ class CurvedNavigationBar extends StatefulWidget {
     _LetIndexPage? letIndexChange,
     this.animationCurve = Curves.easeOut,
     this.animationDuration = const Duration(milliseconds: 600),
-    this.height = 75.0,
+    this.height = 75.0, this.source = 1,
   })  : letIndexChange = letIndexChange ?? ((_) => true),
         assert(items.length >= 1),
         assert(0 <= index && index < items.length),
@@ -141,15 +146,25 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
           Positioned(
               left: widget.index==0 ? -210 : (widget.index == 1 ? 0 : 200),
               right: 0,
+              top: 0,
               bottom: 0,//( widget.height),
               child: widget.index == 1
                   ? SvgPicture.asset(
                 'assets/icons/middleTab.svg',
+                color: widget.source == 1 ? null : (widget.source == 2 ? Constants.shortieHeader1 : ThemeColors.middleCURVE),
+
               )
-                  : (widget.index==0 ? SvgPicture.asset(
+                  : (widget.index==0
+                    // ? Image.asset('assets/images/leftTab4.png',fit: BoxFit.contain,)
+                  ? SvgPicture.asset(
                 'assets/icons/leftTab.svg',
-              ):SvgPicture.asset(
+                color: widget.source == 1 ? null : (widget.source == 2 ? Constants.shortieHeader1: ThemeColors.middleCURVE),
+
+              )
+                    : SvgPicture.asset(
                 'assets/icons/rightTab.svg',
+                color: widget.source == 1 ? null : (widget.source == 2 ? Constants.shortieHeader3: ThemeColors.topCurve),
+
               ))
             // CustomPaint(
             //   painter: NavCustomPainter(

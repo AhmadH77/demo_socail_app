@@ -967,22 +967,61 @@ class _TabBarState extends State<TabBar> {
     // the same share of the tab bar's overall width.
     final int tabCount = widget.tabs.length;
     for (int index = 0; index < tabCount; index += 1) {
-      wrappedTabs[index] = new InkWell(
-        onTap: () {
-          _handleTap(index);
-        },
-        child: new Padding(
-          padding: new EdgeInsets.only(bottom: widget.indicatorWeight),
-          child: new Stack(children: <Widget>[
-            wrappedTabs[index],
-            new Semantics(
-              selected: index == _currentIndex,
-              label: localizations.tabLabel(
-                  tabIndex: index + 1, tabCount: tabCount),
-            ),
-          ]),
-        ),
-      );
+      wrappedTabs[index] =
+          Container(
+              color: Colors.black,
+              child: Stack(
+                  children: [
+                    Align(
+                        alignment: Alignment.bottomRight,
+                        child: Container(
+                          color: Colors.amber,
+
+                        )),
+                    Container(
+                        decoration: BoxDecoration(
+                            color: index == _currentIndex ? Colors.transparent :Colors.white,
+                            borderRadius: index == _currentIndex && _currentIndex  != 0
+                                ? (_currentIndex == 1
+                                ? BorderRadius.only(
+                                bottomRight: Radius.circular(20),bottomLeft: Radius.circular(20))
+                                : BorderRadius.only(
+                                bottomLeft: Radius.circular(20)))
+                                :(index == 0 ? BorderRadius.only(bottomRight: Radius.circular(20)) :BorderRadius.only(topLeft: Radius.circular(20),bottomLeft: Radius.circular(-100)))
+                        ),
+                        child:InkWell(
+                          onTap: () {
+                            _handleTap(index);
+                          },
+                          child: new Padding(
+                            padding: new EdgeInsets.only(bottom: widget.indicatorWeight),
+                            child: new Stack(children: <Widget>[
+                              wrappedTabs[index],
+                              new Semantics(
+                                selected: index == _currentIndex,
+                                label: localizations.tabLabel(
+                                    tabIndex: index + 1, tabCount: tabCount),
+                              ),
+                            ]),
+                          ),
+                        ))
+                  ]));
+      // new InkWell(
+      //   onTap: () {
+      //     _handleTap(index);
+      //   },
+      //   child: new Padding(
+      //     padding: new EdgeInsets.only(bottom: widget.indicatorWeight),
+      //     child: new Stack(children: <Widget>[
+      //       wrappedTabs[index],
+      //       new Semantics(
+      //         selected: index == _currentIndex,
+      //         label: localizations.tabLabel(
+      //             tabIndex: index + 1, tabCount: tabCount),
+      //       ),
+      //     ]),
+      //   ),
+      // );
       if (!widget.isScrollable)
         wrappedTabs[index] = new Expanded(child: wrappedTabs[index]);
     }

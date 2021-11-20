@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:social_app_demo/models/video.dart';
+import 'package:social_app_demo/screens/shortie_pages/main_pages/fullScreenShortVideo.dart';
 import 'package:social_app_demo/screens/watching_pages/live_pages/watchVideo.dart';
 
 class SmallVideoItem extends StatefulWidget {
-  final Video video;
-  const SmallVideoItem(this.video,{Key? key, }) : super(key: key);
+  final int videoIndex;
+  final List<Video> videos;
+  final String source;//trending --watching
+  const SmallVideoItem(this.videoIndex,this.videos,{Key? key, this.source='watching', }) : super(key: key);
 
   @override
   _BigVideoItemState createState() => _BigVideoItemState();
@@ -14,23 +17,23 @@ class SmallVideoItem extends StatefulWidget {
 class _BigVideoItemState extends State<SmallVideoItem> {
   @override
   Widget build(BuildContext context) {
-    print('vedio${widget.video.id}');
     return  Padding(
-      padding: const EdgeInsets.only(top: 8.0,bottom: 8,left: 5),
+      padding:  EdgeInsets.only(bottom: widget.source == 'watching' ? 5 : 0),
       child: InkWell(
         onTap: (){
           pushNewScreen(
             context,
-            screen: WatchVideo(widget.video),
+            screen: FullScreenShortVideo(videoIndex: widget.videoIndex,allVideos: widget.videos,),//WatchVideo(widget.video),
             withNavBar: false, // OPTIONAL VALUE. True by default.
             pageTransitionAnimation: PageTransitionAnimation.cupertino,
           );
           // Navigator.push(context, MaterialPageRoute(builder: (context) => WatchVideo(widget.video)));
         },
         child: Card(
-          elevation: 4,
+          elevation: 0,
+          margin: EdgeInsets.only(left: 0,right: 8),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20),
+            borderRadius: BorderRadius.circular(10),
           ),
           child: HeroMode(
             enabled: true,//: 'vedio${widget.video.id}',
@@ -38,12 +41,12 @@ class _BigVideoItemState extends State<SmallVideoItem> {
               height: 300,
               width: 120,
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
+                  borderRadius: BorderRadius.circular(15),
                   image: DecorationImage(
-                    image: Image.asset(widget.video.image).image,
+                    image: Image.asset(widget.videos[widget.videoIndex].image).image,
                     fit: BoxFit.cover,
                   )),
-              child: widget.video.live
+              child: widget.videos[widget.videoIndex].live
                   ? Padding(
                 padding: EdgeInsets.only(left: 8.0, right: 8.0, top: 8.0),
                 child: Row(
@@ -60,7 +63,7 @@ class _BigVideoItemState extends State<SmallVideoItem> {
                         ),
                         Text(
                           'Live',
-                          style: TextStyle(color: Colors.white),
+                          style: TextStyle(color: Colors.white,fontFamily: 'light',fontSize: 11),
                         ),
                       ],
                     ),
@@ -70,14 +73,14 @@ class _BigVideoItemState extends State<SmallVideoItem> {
                         Icon(
                           Icons.visibility_outlined,
                           color: Colors.white,
-                          size: 18,
+                          size: 12,
                         ),
                         Padding(
                           padding: EdgeInsets.only(left: 5.0, bottom: 2),
                           child: Text(
-                            widget.video.watches,
+                            widget.videos[widget.videoIndex].watches,
                             style: TextStyle(
-                                color: Colors.white, fontWeight: FontWeight.bold),
+                                color: Colors.white, fontFamily: 'light',fontSize: 11),
                           ),
                         ),
                       ],

@@ -1,11 +1,19 @@
+import 'dart:ui';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/widgets.dart';
 import 'package:social_app_demo/constants/dimens.dart';
 import 'package:social_app_demo/constants/strings.dart';
+import 'package:social_app_demo/constants/theme_color.dart';
 import 'package:social_app_demo/models/posts.dart';
+import 'package:social_app_demo/util/expanded_text.dart';
 import 'package:social_app_demo/widget/show_svg_icon.dart';
+import 'package:timeago/timeago.dart' as timeAgo;
+
+final DateTime timeStamp = DateTime.now();
 
 class MainPage extends StatefulWidget {
   final set_state;
@@ -21,7 +29,7 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     return ListView.builder(
       physics: ClampingScrollPhysics(),
-      primary: false,
+      primary: true,
       padding: EdgeInsets.all(0),
       itemBuilder: (context, index) {
         Posts posts = postList[index];
@@ -157,9 +165,10 @@ class _MainPageState extends State<MainPage> {
                     child: Text(
                       '@${posts.publisher.name}',
                       style: TextStyle(
-                          fontSize: twentyDp,
-                          fontWeight: FontWeight.w500,
-                          fontFamily: 'semi'),
+                          fontSize: fifteenDp,
+                          color: Colors.black,
+                          // overflow: TextOverflow.ellipsis,
+                          fontFamily: 'semipop'),
                     ),
                   ),
                   /*Column(
@@ -215,14 +224,18 @@ class _MainPageState extends State<MainPage> {
                   children: [
                     //stacked images
 
-                    buildLikedUsersImage('assets/images/b.jpg', 10, Colors.red),
-                    buildLikedUsersImage(
+                    buildLikedUsersImageWithBorderColor(
+                        'assets/images/b.jpg', 10, Colors.red),
+                    buildLikedUsersImageWithBorderColor(
                         'assets/images/a.jpg', 10, Colors.amber),
-                    buildLikedUsersImage('assets/images/b.jpg', 10, Colors.red),
-                    buildLikedUsersImage('assets/images/b.jpg', 10, Colors.red),
-                    buildLikedUsersImage(
+                    buildLikedUsersImageWithBorderColor(
+                        'assets/images/b.jpg', 10, Colors.red),
+                    buildLikedUsersImageWithBorderColor(
+                        'assets/images/b.jpg', 10, Colors.red),
+                    buildLikedUsersImageWithBorderColor(
                         'assets/images/b.jpg', 10, Colors.amber),
-                    buildLikedUsersImage('assets/images/a.jpg', 10, Colors.red),
+                    buildLikedUsersImageWithBorderColor(
+                        'assets/images/a.jpg', 10, Colors.red),
                   ],
                 ),
               ),
@@ -231,14 +244,17 @@ class _MainPageState extends State<MainPage> {
               ),
               Text.rich(
                 TextSpan(
-                  style: TextStyle(fontSize: fourteenDp),
-                  text: '+',
+                  style: TextStyle(fontSize: fifteenDp, color: Colors.black),
+                  text: '+ ',
                   children: [
                     TextSpan(
-                        text: ' 52k others',
-                        style: TextStyle(fontWeight: FontWeight.bold)),
-                    TextSpan(
-                      text: ' $others',
+                      text: '${posts.numberOfLikes}k others',
+                      //todo check number of posts likes
+                      style: TextStyle(
+                        fontSize: fifteenDp,
+                        // fontFamily: "regular",
+                        color: Colors.black,
+                      ),
                     ),
                   ],
                 ),
@@ -252,97 +268,47 @@ class _MainPageState extends State<MainPage> {
           posts.postImage!.isEmpty
               ? Container()
               : Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: tenDp),
-                  child: Text(
-                    "${posts.postTitle}",
+            padding: const EdgeInsets.symmetric(horizontal: tenDp),
+            child: Text(
+              "${posts.postTitle}",
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                        fontSize: eighteenDp, fontWeight: FontWeight.w700),
+                    style: TextStyle(fontSize: 17, fontWeight: FontWeight.w600),
                   ),
-                ),
+          ),
           posts.postImage!.isEmpty
               ? Container()
               : SizedBox(
-                  height: eightDp,
-                ),
+            height: eightDp,
+          ),
           //sixth row
           posts.postImage!.isEmpty
               ? Container()
               : Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: tenDp),
-                  child: Text(
-                    '${posts.postDescription}',
-                    maxLines: 2,
-                    textScaleFactor: 1.5,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(fontSize: tenDp, fontFamily: 'Semibold'),
-                  ),
-                ),
+            padding: const EdgeInsets.symmetric(horizontal: tenDp),
+            child: ExpandableText(
+              '${posts.postDescription}',
+              trimLines: 3,
+            ),
+          ),
 
-          //view all
           Padding(
-            padding: const EdgeInsets.only(left: eightDp, top: tenDp),
-            child: Text.rich(
-              TextSpan(
-                style: TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w300,
-                    color: Colors.grey),
-                text: 'View all',
-                children: [
-                  TextSpan(text: ' 10.5k comments ', style: TextStyle()),
-                ],
-              ),
-              overflow: TextOverflow.ellipsis,
-            ),
-          ),
-          //at owned by
-          Padding(
-            padding: const EdgeInsets.only(left: eightDp, top: fourDp),
-            child: Text.rich(
-              TextSpan(
-                style: TextStyle(
-                    fontSize: sixteenDp,
-                    fontWeight: FontWeight.w700,
-                    color: Colors.black),
-                text: '@${posts.ownedBy}',
-                children: [
-                  TextSpan(
-                    text: ' looking forward for Italian grand prix ',
+            padding: const EdgeInsets.only(left: eightDp, top: sixDp),
+            child: Row(
+              children: [
+                Text('${posts.country} ',
                     style: TextStyle(
-                        fontSize: sixteenDp,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.black),
-                  ),
-                ],
-              ),
-              overflow: TextOverflow.ellipsis,
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(
-              left: eightDp,
-              top: fourDp,
-            ),
-            child: Text.rich(
-              TextSpan(
-                style: TextStyle(
-                    fontSize: sixteenDp,
-                    fontWeight: FontWeight.w700,
-                    color: Colors.black),
-                text: 'Pune.',
-                children: [
-                  TextSpan(
-                    text: ' 25 mins ago',
+                      fontSize: 13,
+                      fontFamily: 'regular',
+                      color: Colors.black,
+                    )),
+                Text(timeAgo.format(posts.timePosted),
                     style: TextStyle(
-                        fontSize: sixteenDp,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.black),
-                  ),
-                ],
-              ),
-              overflow: TextOverflow.ellipsis,
+                      fontSize: 13,
+                      // fontFamily: 'regular',
+                      color: Colors.black,
+                    )),
+              ],
             ),
           ),
         ],
@@ -350,7 +316,7 @@ class _MainPageState extends State<MainPage> {
     );
   }
 
-  Widget buildImage (image, double radius) {
+  Widget buildImage(image, double radius) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 4),
       child: CircleAvatar(
@@ -362,18 +328,29 @@ class _MainPageState extends State<MainPage> {
     );
   }
 
-  Widget buildLikedUsersImage(image, double radius, Color color) {
+  Widget buildLikedUsersImageWithBorderColor(image, double radius, Color color) {
     return Container(
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(twentyDp),
           border: Border.all(color: color, width: 3)),
-      margin: EdgeInsets.symmetric(horizontal: 0.9),
+      // margin: EdgeInsets.symmetric(horizontal: 0.9),
       child: CircleAvatar(
         radius: radius,
         backgroundImage: AssetImage(
           image,
         ),
       ),
+    );
+  }
+
+  Widget buildLikedImage(image) {
+    return Container(
+      width: 18,
+      height: 18,
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(24),
+          image:
+          DecorationImage(image: AssetImage("$image"), fit: BoxFit.cover)),
     );
   }
 
@@ -424,22 +401,31 @@ class _MainPageState extends State<MainPage> {
             ],
           ),
           Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: const EdgeInsets.all(sixDp),
+                padding: const EdgeInsets.only(
+                  top: sixDp,
+                ),
                 child: ShowSvgIcon(
                   iconName: 'assets/svg/Trophy.svg',
                   color: CupertinoColors.black,
                   onIconTap: () {},
                 ),
               ),
-              buildLikedUsersImage(
-                  'assets/images/b.jpg', 10, Colors.transparent),
-              buildLikedUsersImage(
-                  'assets/images/a.jpg', 10, Colors.transparent),
-              buildLikedUsersImage('', 10, Colors.transparent),
+              Container(
+                margin: EdgeInsets.only(top: 10, right: 8),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    buildLikedImage('assets/images/b.jpg'),
+                    buildLikedImage('assets/images/a.jpg'),
+                    buildLikedImage('assets/images/b.jpg'),
+                  ],
+                ),
+              ),
               SizedBox(
-                width: tenDp,
+                width: 4,
               )
             ],
           ),
@@ -448,58 +434,52 @@ class _MainPageState extends State<MainPage> {
     );
   }
 
-
   Widget buildSecondRow(Posts posts) {
     return Stack(
       children: [
         //switch between image and post description
         posts.postImage!.isEmpty
             ? Container(
-                margin: EdgeInsets.only(top: sixteenDp),
-                //  height: 200,
-                decoration:
-                    BoxDecoration(color: Colors.amberAccent.withOpacity(0.09)),
+          margin: EdgeInsets.only(top: sixteenDp),
+                decoration: BoxDecoration(
+                    color: ThemeColors.postBgColor.withOpacity(0.2)),
                 child: Column(
                   children: [
                     Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: sixteenDp, vertical: tenDp),
-                      child: Text('${posts.postTitle}',
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black)),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(
-                        left: sixteenDp,
-                        right: sixteenDp,
-                        bottom: sixteenDp,
+                      padding: const EdgeInsets.only(
+                          left: fourteenDp, right: fourteenDp, top: tenDp),
+                      child: Text(
+                        "${posts.postTitle}",
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                            fontSize: 17, fontWeight: FontWeight.w600),
                       ),
-                      child: Text('${posts.postDescription}',
-                          maxLines: 4,
-                          textScaleFactor: 1.5,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                              fontSize: tenDp, fontFamily: 'Semibold')),
                     ),
-                  ],
-                ),
-              )
+              Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: tenDp, vertical: sixDp),
+                      child: ExpandableText(
+                        '${posts.postDescription}',
+                        trimLines: 3,
+                      ),
+                    ),
+            ],
+          ),
+        )
             : Container(
-                margin: EdgeInsets.only(top: tenDp),
-                child: Image.asset(
+          margin: EdgeInsets.only(top: tenDp),
+          child: Image.asset(
+                  //todo change to load from network
                   posts.postImage!,
                   // height: fourFourteenDp,
                   // width: MediaQuery.of(context).size.width,
                   fit: BoxFit.fitHeight,
                 ),
-              ),
+        ),
         PositionedDirectional(
-          start: oneTwentyDp,
-          end: oneTwentyDp,
+          start: 100,
+          end: 100,
           top: 0,
           child: Container(
             height: twentySixdp,
@@ -508,31 +488,31 @@ class _MainPageState extends State<MainPage> {
                 gradient: LinearGradient(
                     begin: Alignment.topLeft,
                     end: Alignment.topRight,
-                    colors: [Colors.lightGreenAccent, Colors.tealAccent]),
+                    colors: [ThemeColors.g3, ThemeColors.g2, ThemeColors.g1]),
                 borderRadius: BorderRadius.circular(thirtyTwoDp)),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Flexible(
-                  fit: FlexFit.loose,
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: eightDp),
+                Padding(
+                  padding: const EdgeInsets.only(left: 10, right: 10),
+
                     child: Text.rich(
                       TextSpan(
-                        style: TextStyle(fontSize: fourteenDp),
+                        style: TextStyle(fontSize: 13,),
                         text: ownedBy,
                         children: [
                           TextSpan(
-                              text: ' @${posts.ownedBy} ',
+                              text: ' @${posts.ownedBy}',
                               style: TextStyle(
-                                  fontWeight: FontWeight.bold,
+                                  fontFamily: "semipop",
+
                                   color: Colors.black)),
                         ],
                       ),
                       overflow: TextOverflow.ellipsis,
                     ),
-                  ),
+
                 ),
                 buildImage(posts.publisher.image, 14),
               ],

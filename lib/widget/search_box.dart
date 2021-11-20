@@ -34,7 +34,7 @@ class _SearchBoxState extends State<SearchBox> {
             fontSize: fourteenDp,
             fontFamily: 'regular',
             fontWeight: FontWeight.w400),
-        keyboardType: TextInputType.number,
+        keyboardType: TextInputType.text,
         validator: (value) =>
             value!.trim().isNotEmpty && value.length > 5 ? null : requireD,
         decoration: InputDecoration(

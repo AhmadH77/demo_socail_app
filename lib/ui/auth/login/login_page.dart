@@ -77,7 +77,7 @@ class _LoginPageState extends State<LoginPage> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Container(
-              width: selectedCountryCode.trim().isEmpty ? sixtyDp : ninetyDp,
+              width: selectedCountryCode.trim().isEmpty ? sixtyDp : ninetyDp -2,
               margin: EdgeInsets.only(left: eightDp),
               decoration: BoxDecoration(color: Colors.white),
               child: CountryCodePicker(

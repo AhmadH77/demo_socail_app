@@ -27,7 +27,7 @@ class AppActions {
     if (args == null) {
       return Navigator.of(context).pushNamedAndRemoveUntil(
         routeName,
-        (route) => false,
+            (route) => false,
       );
     } else {
       return Navigator.of(context).pushNamedAndRemoveUntil(
@@ -61,7 +61,6 @@ class AppActions {
       padding: const EdgeInsets.all(twentyFiveDp),
       duration: const Duration(seconds: 3),
     );
-
     return snackBar;
   }*/
 }
