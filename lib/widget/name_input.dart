@@ -25,7 +25,7 @@ class _NameInputState extends State<NameInput> {
           readOnly: widget.hint.toString().contains(userName) ? true : false,
           controller: widget.controller,
           validator: (value) =>
-              value!.trim().isNotEmpty || value.length > 3 ? null : requireD,
+          value!.trim().isNotEmpty || value.length > 3 ? null : requireD,
           decoration: InputDecoration(
             hintText: widget.hint,
             hintStyle: TextStyle(inherit: true, color: Colors.white),

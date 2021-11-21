@@ -20,11 +20,11 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
   @override
   void initState() {
     Future.delayed(Duration(seconds: 3)).then((value) {
-      AppActions.pushReplacementNamedActivity(
-          context, ConfigPage.routeName, '');
-      /*Navigator.of(context).pushReplacement(MaterialPageRoute(
+      // AppActions.pushReplacementNamedActivity(
+      //     context, ConfigPage.routeName, '');
+      Navigator.of(context).pushReplacement(MaterialPageRoute(
         builder: (context) => ConfigPage(),
-      ));*/
+      ));
     });
     super.initState();
   }

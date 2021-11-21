@@ -6,9 +6,14 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:social_app_demo/constants/dimens.dart';
 import 'package:social_app_demo/constants/strings.dart';
 import 'package:social_app_demo/constants/theme_color.dart';
+import 'package:social_app_demo/provider/currentPage.dart';
+import 'package:social_app_demo/provider/currentPage.dart';
+import 'package:provider/provider.dart';
+
 import 'package:social_app_demo/ui/home/explore_page/explore_page.dart';
 import 'package:social_app_demo/ui/home/home_page/roundedClipper.dart';
 import 'package:social_app_demo/ui/home/main_page/main_page.dart';
+import 'package:social_app_demo/widgets/curved_nav_bar/curvedNavigationBar.dart' as curvedBar;
 import 'package:social_app_demo/ui/home/trending_page/trending_page.dart';
 import 'package:social_app_demo/ui/market_place/market_place.dart';
 import 'package:social_app_demo/widget/show_svg_icon.dart';
@@ -374,17 +379,19 @@ class _WatchState extends State<Watching> with TickerProviderStateMixin {
                       ),
                       Align(
                         alignment: Alignment.bottomCenter,
-                        child: CurvedNavigationBar(
+                        child: curvedBar.CurvedNavigationBar(
+                          source: 10,
                           key: _bottomNavigationKey,
-                          height: 50,
+                          height: 37,
                           color: Colors.white,
                           buttonBackgroundColor: Colors.transparent,
                           backgroundColor: Colors.transparent,
                           animationCurve: Curves.easeInOut,
                           animationDuration: Duration(milliseconds: 200),
-                          index: 0,
+                          index: context.watch<CurrentPage>().index,
                           onTap: (value) {
                             print("value $value");
+                            context.read<CurrentPage>().increment(value);
                             switch (value) {
                               case 0:
                                 animation = Tween<double>(begin: 125, end: 125)
@@ -440,27 +447,39 @@ class _WatchState extends State<Watching> with TickerProviderStateMixin {
                                       fontSize: 13,
                                       fontFamily: 'regular'),
                             ),
-                            Text(
-                              explore,
-                              style: index == 2
-                                  ? TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 13,
-                                      fontFamily: 'semipop')
-                                  : TextStyle(
-                                      color: Colors.black54,
-                                      fontSize: 13,
-                                      fontFamily: 'regular'),
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => MarketPlace(),
-                                ));
-                              },
-                              child: SvgPicture.asset(
-                                'assets/svg/fader.svg',
-                                color: Colors.grey,
+                            Padding(
+                              padding: const EdgeInsets.only(right: 10.0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 10),
+                                    child: Text(
+                                      explore,
+                                      style: index == 2
+                                          ? TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 13,
+                                              fontFamily: 'semipop')
+                                          : TextStyle(
+                                              color: Colors.black54,
+                                              fontSize: 13,
+                                              fontFamily: 'regular'),
+                                    ),
+                                  ),
+                                  GestureDetector(
+                                    onTap: () {
+                                      Navigator.of(context).push(MaterialPageRoute(
+                                        builder: (context) => MarketPlace(),
+                                      ));
+                                    },
+                                    child: SvgPicture.asset(
+                                      'assets/svg/fader.svg',
+                                      color: Colors.grey,
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
                           ],

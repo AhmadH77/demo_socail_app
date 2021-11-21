@@ -1,3 +1,4 @@
+import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -10,7 +11,8 @@ import 'package:social_app_demo/widgets/smallVideoItem.dart';
 // import 'package:social_app_demo/widgets/tabBar.dart' as tab;
 
 class Live extends StatefulWidget {
-  const Live({Key? key}) : super(key: key);
+   final ScrollController basePageScrollController;
+  const Live({Key? key,  required this.basePageScrollController}) : super(key: key);
 
   @override
   _LiveState createState() => _LiveState();
@@ -27,14 +29,14 @@ class _LiveState extends State<Live> {
   List<Video> videos = [
     Video(
         3,
-        '10 K',
+        '10K',
         'Göra Frihetsgudinnan i Minecraft | LIVE',
         'test Video',
         true,
         'assets/images/cover.jpg',
         ['Live', 'Music'],
         UserModel(0, 'Zombie_500', 'assets/images/rick.jpg'),
-        '1 K',
+        '1K',
         '200',
         [
           Comment(
@@ -43,14 +45,14 @@ class _LiveState extends State<Live> {
         ]),
     Video(
         0,
-        '5 K',
+        '5K',
         'Liquid vs NIP | ESL Pro League | LIVE ',
         "Everyday brings new opportunitites, so in esports. Here with the best teams will fight for their survivals in the tournament. ",
         true,
         'assets/images/live1.jpg',
         ['Live', 'Music'],
         UserModel(1, 'ESL_CSGO', 'assets/images/restaurant-5.jpg'),
-        '1 K',
+        '1K',
         '200',
         [
           Comment(
@@ -64,14 +66,14 @@ class _LiveState extends State<Live> {
         ]),
     Video(
         1,
-        '3 K',
+        '3K',
         'Video2',
         'test Video',
         true,
         'assets/images/live2.jpg',
         ['Live', 'Music'],
         UserModel(2, 'publisher2', 'assets/images/rick.jpg'),
-        '1 K',
+        '1K',
         '200',
         [
           Comment('comment',
@@ -79,14 +81,14 @@ class _LiveState extends State<Live> {
         ]),
     Video(
         2,
-        '9 K',
+        '9K',
         'Video3',
         'test Video',
         true,
         'assets/images/live3.jpg',
         ['Live', 'Music'],
         UserModel(3, 'publisher3', 'assets/images/restaurant-5.jpg'),
-        '1 K',
+        '1K',
         '200',
         [
           Comment('comment',
@@ -94,14 +96,14 @@ class _LiveState extends State<Live> {
         ]),
     Video(
         4,
-        '9 K',
+        '9K',
         'Video3',
         'test Video',
         true,
         'assets/images/live3.jpg',
         ['Live', 'Music'],
         UserModel(3, 'publisher3', 'assets/images/restaurant-5.jpg'),
-        '1 K',
+        '1K',
         '200',
         [
           Comment('comment',
@@ -121,11 +123,33 @@ class _LiveState extends State<Live> {
       if (controller.position.userScrollDirection == ScrollDirection.reverse) {
         if (_isVisible == true) {
           setState(() {
+            print('vvvvs $_isVisible');
             _isVisible = false;
           });
         }
       } else {
         if (controller.position.userScrollDirection ==
+            ScrollDirection.forward) {
+          if (_isVisible == false) {
+            setState(() {
+              print('vvvvs $_isVisible');
+
+              _isVisible = true;
+            });
+          }
+        }
+      }
+    });
+    widget.basePageScrollController.addListener(() {
+      print('offset  ${widget.basePageScrollController.offset}');
+      if (widget.basePageScrollController.position.userScrollDirection == ScrollDirection.reverse) {
+        if (_isVisible == true) {
+          setState(() {
+            _isVisible = false;
+          });
+        }
+      } else {
+        if (widget.basePageScrollController.position.userScrollDirection ==
             ScrollDirection.forward) {
           if (_isVisible == false) {
             setState(() {
@@ -143,15 +167,18 @@ class _LiveState extends State<Live> {
     return DefaultTabController(
       length: 5,
       child: Scaffold(
-        appBar: TabBar(
-          isScrollable: true,
-          indicator: BoxDecoration(color: Colors.transparent),
-          tabs: categories
-              .map((item) => Padding(
-                    padding: EdgeInsets.only(
-                        left: item == categories[0] ? 8 : 0, right: 12),
+        appBar:  PreferredSize(
+          preferredSize: Size(MediaQuery.of(context).size.width , 30),
+          child: Visibility(
+            visible: _isVisible,
+            child: TabBar(
+              padding: EdgeInsets.zero,
+              isScrollable: true,
+              indicator: BoxDecoration(color: Colors.transparent),
+              tabs: categories
+                  .map((item) => Tab(
+
                     child: Container(
-                      // width: 72,
                       height: 30,
                       padding: EdgeInsets.only(
                           left: 10, right: 10, top: 5, bottom: 5),
@@ -168,7 +195,9 @@ class _LiveState extends State<Live> {
                       )),
                     ),
                   ))
-              .toList(),
+                  .toList(),
+            ),
+          ),
         ),
         body: TabBarView(children: [
           musicPage(),
@@ -222,7 +251,7 @@ class _LiveState extends State<Live> {
               shrinkWrap: true,
               itemCount: videos.length - 1,
               itemBuilder: (context, index) {
-                return SmallVideoItem(videos[index + 1]);
+                return SmallVideoItem(index + 1,videos,source: 'watching',);
               },
             ),
           ),
@@ -238,4 +267,5 @@ class _LiveState extends State<Live> {
       ),
     );
   }
+
 }

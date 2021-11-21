@@ -167,7 +167,7 @@ class _MainPageState extends State<MainPage> {
                       style: TextStyle(
                           fontSize: fifteenDp,
                           color: Colors.black,
-                          overflow: TextOverflow.ellipsis,
+                          // overflow: TextOverflow.ellipsis,
                           fontFamily: 'semipop'),
                     ),
                   ),
@@ -496,24 +496,23 @@ class _MainPageState extends State<MainPage> {
               children: [
                 Padding(
                   padding: const EdgeInsets.only(left: 10, right: 10),
-                  child: Flexible(
-                    fit: FlexFit.loose,
+
                     child: Text.rich(
                       TextSpan(
-                        style: TextStyle(fontSize: 13),
+                        style: TextStyle(fontSize: 13,),
                         text: ownedBy,
                         children: [
                           TextSpan(
                               text: ' @${posts.ownedBy}',
                               style: TextStyle(
                                   fontFamily: "semipop",
-                                  overflow: TextOverflow.ellipsis,
+
                                   color: Colors.black)),
                         ],
                       ),
                       overflow: TextOverflow.ellipsis,
                     ),
-                  ),
+
                 ),
                 buildImage(posts.publisher.image, 14),
               ],

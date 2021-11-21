@@ -21,7 +21,7 @@ class _BigVideoItemState extends State<BigVideoItem> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 8.0,),
+      padding: const EdgeInsets.only(top: 5.0),
       child: InkWell(
         onTap: () {
           pushNewScreen(
@@ -48,7 +48,7 @@ class _BigVideoItemState extends State<BigVideoItem> {
                       image: Image.asset(widget.video.image).image,
                       fit: BoxFit.cover,
                     ),
-                    borderRadius: BorderRadius.circular(5)),
+                ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.end,
@@ -81,8 +81,9 @@ class _BigVideoItemState extends State<BigVideoItem> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 8.0,bottom: 8),
+                padding: const EdgeInsets.only(top: 8.0,bottom: 8,left: 8),
                 child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
                       padding: const EdgeInsets.only(top: 0.0, right: 8),
@@ -109,7 +110,7 @@ class _BigVideoItemState extends State<BigVideoItem> {
                               // fontFamily: 'semipop'),
                         ),
                         Container(
-                          width: MediaQuery.of(context).size.width /1.3,
+                          width: MediaQuery.of(context).size.width /1.37,
                           child: Text(
                             '${widget.video.name}',
                               maxLines: 2,

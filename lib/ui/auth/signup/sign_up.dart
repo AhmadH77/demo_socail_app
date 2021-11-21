@@ -103,7 +103,7 @@ class _SignupPageState extends State<SignupPage> {
                         Container(
                           width: selectedCountryCode.trim().isEmpty
                               ? sixtyDp
-                              : ninetyDp,
+                              : ninetyDp- 2,
                           margin: EdgeInsets.only(left: eightDp),
                           decoration: BoxDecoration(color: Colors.white),
                           child: CountryCodePicker(
@@ -119,9 +119,9 @@ class _SignupPageState extends State<SignupPage> {
                         ),
                         Container(
                             child: PhoneNumberInput(
-                          isOTP: false,
-                          controller: phoneNumberController,
-                        ))
+                              isOTP: false,
+                              controller: phoneNumberController,
+                            ))
                       ],
                     ),
                     SizedBox(
@@ -166,7 +166,7 @@ class _SignupPageState extends State<SignupPage> {
   void validateInputs() {
     if (nameController.text.isNotEmpty) {
       String userName = AppActions.getFirstWord(nameController.text);
-      generatedUserName = UsernameGen.generateWith(
+      generatedUserName = UsernameGen.gen(
           data: UsernameGenData(names: ['@$userName'], adjectives: ['']),
           seperator: '');
       userNameController.text = generatedUserName!;

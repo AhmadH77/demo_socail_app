@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
@@ -12,6 +13,7 @@ import 'package:social_app_demo/screens/watching_pages/live_pages/watchFullShort
 import 'package:social_app_demo/util/const.dart';
 import 'package:social_app_demo/widgets/bigVideoItem.dart';
 import 'package:social_app_demo/widgets/liveChatItem.dart';
+import 'package:video_player/video_player.dart';
 
 import 'landscapeFullVideo.dart';
 
@@ -38,8 +40,7 @@ class _WatchVideoState extends State<WatchVideo> with TickerProviderStateMixin {
         '1 K',
         '200',
         [
-          Comment(
-              'comment', user: UserModel(0, 'user1', 'assets/images/rick.jpg')),
+          Comment('comment', user: UserModel(0, 'user1', 'assets/images/rick.jpg')),
           Comment('comment',
               user: UserModel(1, 'user1', 'assets/images/restaurant-5.jpg')),
           Comment('comment'),
@@ -84,12 +85,19 @@ class _WatchVideoState extends State<WatchVideo> with TickerProviderStateMixin {
   ];
   int currencyTabIndex = 0, selected = 0;
   bool showDescription = false;
+  late VideoPlayerController _controller;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     tabController = TabController(length: 2, vsync: this);
+    _controller = VideoPlayerController.network(
+        'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4')
+      ..initialize().then((_) {
+        // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
+        setState(() {});
+      });
   }
 
   @override
@@ -125,221 +133,361 @@ class _WatchVideoState extends State<WatchVideo> with TickerProviderStateMixin {
     return HeroMode(
       enabled: true, //tag: 'video${widget.video.id}',
       child: Container(
-        height: 200,
-        margin: EdgeInsets.only(bottom: 8),
-        width: MediaQuery.of(context).size.width,
-        decoration: BoxDecoration(
-            image: DecorationImage(
-              image: Image.asset(widget.video.image).image,
-              fit: BoxFit.cover,
-            )),
-        child: widget.video.live
-            ? Padding(
-          padding: EdgeInsets.all(8.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              Row(
-                children: [
-                  Icon(
-                    Icons.circle,
-                    color: Colors.red,
-                    size: 15,
-                  ),
-                  Text(
-                    'Live',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 8.0),
-                    child: SvgPicture.asset(
-                      'assets/icons/Eye.svg',
-                      height: 20,
-                      width: 20,
-                      color: Colors.white,
+            height: 200,
+            margin: EdgeInsets.only(bottom: 8),
+            width: MediaQuery.of(context).size.width,
+            child: Stack(
+              children: [
+                VideoPlayer(_controller),
+                Align(
+                  alignment: Alignment.center,
+                  child: videoControls(),
+                ),
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: VideoProgressIndicator(_controller, allowScrubbing: true),
+                ),
+                widget.video.live
+                    ? Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.circle,
+                              color: Colors.red,
+                              size: 15,
+                            ),
+                            Text(
+                              'Live',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 8.0),
+                              child: SvgPicture.asset(
+                                'assets/icons/Eye.svg',
+                                height: 20,
+                                width: 20,
+                                color: Colors.white,
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(
+                                left: 5.0,
+                              ),
+                              child: Text(
+                                '${widget.video.watches} viewers',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        // Spacer(),
+                        Row(
+                          children: [
+                            InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            LandscapeFullVideo(widget.video)));
+                              },
+                              child: SvgPicture.asset(
+                                'assets/icons/ArrowsIn.svg',
+                                height: 20,
+                                width: 20,
+                                color: Colors.white,
+                              ),
+                            ),
+                            InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            WatchFullShortVideo(widget.video)));
+                              },
+                              child: SvgPicture.asset(
+                                'assets/icons/FrameCorners.svg',
+                                height: 20,
+                                width: 20,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
                   ),
-                  Padding(
-                    padding: EdgeInsets.only(
-                      left: 5.0,
-                    ),
-                    child: Text(
-                      '${widget.video.watches} viewers',
-                      style: TextStyle(
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              // Spacer(),
-              Row(
-                children: [
-                  InkWell(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  LandscapeFullVideo(widget.video)));
-                    },
-                    child: SvgPicture.asset(
-                      'assets/icons/ArrowsIn.svg',
-                      height: 20,
-                      width: 20,
-                      color: Colors.white,
-                    ),
-                  ),
-                  InkWell(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  WatchFullShortVideo(widget.video)));
-                    },
-                    child: SvgPicture.asset(
-                      'assets/icons/FrameCorners.svg',
-                      height: 20,
-                      width: 20,
-                      color: Colors.white,
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        )
-            : SizedBox(),
-      ),
+                )
+                    : SizedBox(),
+              ],
+            )
+        ),
     );
   }
 
   videoInfo() {
-    return Padding(
-      padding: const EdgeInsets.all(1.0),
-      child: Row(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(left: 8),
-            child: PhysicalModel(
-              elevation: 10,
-              color: Colors.transparent,
-              borderRadius: BorderRadius.circular(60),
-              child: Container(
-                width: 60,
-                height: 60,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(50),
-                    image: DecorationImage(
-                      image: Image.asset(widget.video.publisher.image).image,
-                      fit: BoxFit.cover,
-                    )),
-              ),
+    return Stack(
+      children: [
+        Align(
+          alignment: Alignment.topLeft,
+          child: Padding(
+            padding: const EdgeInsets.only(left: 5),
+            child: Container(
+              width: 60,
+              height: 60,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(50),
+                  image: DecorationImage(
+                    image: Image.asset(widget.video.publisher.image).image,
+                    fit: BoxFit.cover,
+                  )),
             ),
           ),
-          //
-          Padding(
-            padding: const EdgeInsets.only(left: 8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  '${widget.video.publisher.name}',
-                  style: TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: 'semipop'),
-                ),
-                Container(
-                  width: MediaQuery.of(context).size.width /2,
-                  child: Text(
-                    '${widget.video.name}',
-                    style: TextStyle(fontSize: 15, fontFamily: 'regular'),
-                  ),
-                ),
-                Container(
-                  padding: EdgeInsets.only(top: 10),
-                  height: 30,
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    scrollDirection: Axis.horizontal,
-                    physics: ScrollPhysics(),
-                    itemCount: widget.video.category.length,
-                    itemBuilder: (context, index) {
-                      return Padding(
-                        padding: const EdgeInsets.only(right: 8.0),
-                        child: Container(
-                          width: 50,
-                          height: 50,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              color: Colors.grey.shade400),
-                          child: Center(
-                              child: Text(
-                                '\#${widget.video.category[index]}',
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 10,
-                                    fontFamily: 'light'),
-                              )),
-                        ),
-                      );
-                    },
-                  ),
-                )
-              ],
-            ),
-          ),
-          //
-          Spacer(),
-          Column(
+        ),
+        Padding(
+          padding:  EdgeInsets.only(left: MediaQuery.of(context).size.width / 5.8,right: 4),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                padding: EdgeInsets.only(right: 8, left: 8, top: 3, bottom: 3),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  color: Constants.orangeDark,
-                ),
-                child: Row(
-                  children: [
-                    SvgPicture.asset(
-                      'assets/icons/LightningBlack.svg',
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    '${widget.video.publisher.name}',
+                    style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'semipop'),
+                  ),
+
+                  Container(
+                    padding: EdgeInsets.only(right: 8, left: 8, top: 3, bottom: 3),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: Constants.orangeDark,
                     ),
-                    Text(
-                      'Following',
-                      style:
-                      TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
-                    )
-                  ],
-                ),
+                    child: Row(
+                      children: [
+                        SvgPicture.asset(
+                          'assets/icons/LightningBlack.svg',
+                        ),
+                        Text(
+                          'Following',
+                          style:
+                          TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+                        )
+                      ],
+                    ),
+                  ),
+                ],
               ),
-              Padding(
-                padding: const EdgeInsets.all(2.0),
-                child: InkWell(
-                    borderRadius: BorderRadius.circular(50),
-                    onTap: () {
-                      setState(() {
-                        showDescription = !showDescription;
-                      });
-                    },
-                    child: Padding(
-                        padding: const EdgeInsets.all(8.0),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Container(
+                    width: MediaQuery.of(context).size.width /1.38,
+                    child: Text(
+                      '${widget.video.name}',
+                      style: TextStyle(fontSize: 15, fontFamily: 'regular'),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 5.0),
+                    child: InkWell(
+                        borderRadius: BorderRadius.circular(50),
+                        onTap: () {
+                          setState(() {
+                            showDescription = !showDescription;
+                          });
+                        },
                         child: showDescription
                             ? SvgPicture.asset(
-                          'assets/icons/‏‏CaretUp.svg',
+                          'assets/icons/‏‏CaretUp.svg',width: 30,height: 30,
                         )
                             : SvgPicture.asset(
-                          'assets/icons/CaretDown.svg',
-                        )
-
-                      // Icon(Icons.keyboard_arrow_down_rounded),
-                    )),
+                          'assets/icons/CaretDown.svg',width: 30,height: 30,
+                        )),
+                  ),
+                ],
               ),
+              Container(
+                padding: EdgeInsets.only(top: 10),
+                height: 30,
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  scrollDirection: Axis.horizontal,
+                  physics: ScrollPhysics(),
+                  itemCount: widget.video.category.length,
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: const EdgeInsets.only(right: 8.0),
+                      child: Container(
+                        width: 50,
+                        height: 50,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            color: Colors.grey.shade400),
+                        child: Center(
+                            child: Text(
+                              '\#${widget.video.category[index]}',
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 10,
+                                  fontFamily: 'light'),
+                            )),
+                      ),
+                    );
+                  },
+                ),
+              )
             ],
-          )
-        ],
+          ),
+        )
+      ],
+    );
+    return Padding(
+      padding: const EdgeInsets.all(1.0),
+      child: Container(
+        color: Colors.blue,
+        child: Row(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(left: 8),
+              child: PhysicalModel(
+                elevation: 10,
+                color: Colors.transparent,
+                borderRadius: BorderRadius.circular(60),
+                child: Container(
+                  width: 60,
+                  height: 60,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(50),
+                      image: DecorationImage(
+                        image: Image.asset(widget.video.publisher.image).image,
+                        fit: BoxFit.cover,
+                      )),
+                ),
+              ),
+            ),
+            //
+            Expanded(
+              child: Row(
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Text(
+                            '${widget.video.publisher.name}',
+                            style: TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold,
+                                fontFamily: 'semipop'),
+                          ),
+
+                          Container(
+                            padding: EdgeInsets.only(right: 8, left: 8, top: 3, bottom: 3),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: Constants.orangeDark,
+                            ),
+                            child: Row(
+                              children: [
+                                SvgPicture.asset(
+                                  'assets/icons/LightningBlack.svg',
+                                ),
+                                Text(
+                                  'Following',
+                                  style:
+                                  TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+                                )
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Container(
+                            width: MediaQuery.of(context).size.width /2,
+                            child: Text(
+                              '${widget.video.name}',
+                              style: TextStyle(fontSize: 15, fontFamily: 'regular'),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(2.0),
+                            child: InkWell(
+                                borderRadius: BorderRadius.circular(50),
+                                onTap: () {
+                                  setState(() {
+                                    showDescription = !showDescription;
+                                  });
+                                },
+                                child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: showDescription
+                                        ? SvgPicture.asset(
+                                      'assets/icons/‏‏CaretUp.svg',
+                                    )
+                                        : SvgPicture.asset(
+                                      'assets/icons/CaretDown.svg',
+                                    )
+
+                                  // Icon(Icons.keyboard_arrow_down_rounded),
+                                )),
+                          ),
+                        ],
+                      ),
+                      Container(
+                        padding: EdgeInsets.only(top: 10),
+                        height: 30,
+                        child: ListView.builder(
+                          shrinkWrap: true,
+                          scrollDirection: Axis.horizontal,
+                          physics: ScrollPhysics(),
+                          itemCount: widget.video.category.length,
+                          itemBuilder: (context, index) {
+                            return Padding(
+                              padding: const EdgeInsets.only(right: 8.0),
+                              child: Container(
+                                width: 50,
+                                height: 50,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20),
+                                    color: Colors.grey.shade400),
+                                child: Center(
+                                    child: Text(
+                                      '\#${widget.video.category[index]}',
+                                      style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 10,
+                                          fontFamily: 'light'),
+                                    )),
+                              ),
+                            );
+                          },
+                        ),
+                      )
+                    ],
+                  ),
+                ],
+              ),
+            ),
+
+          ],
+        ),
       ),
     );
   }
@@ -862,6 +1010,25 @@ class _WatchVideoState extends State<WatchVideo> with TickerProviderStateMixin {
           ],
         ),
       ),
+    );
+  }
+
+  videoControls() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        InkWell(
+          onTap: (){
+            setState(() {
+              _controller.value.isPlaying
+                  ? _controller.pause()
+                  : _controller.play();
+            });
+          },
+            child: Icon(
+            _controller.value.isPlaying ? Icons.pause : Icons.play_arrow,color: Colors.white,size: 30,
+    )),
+      ],
     );
   }
 

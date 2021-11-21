@@ -52,8 +52,10 @@ class _SelectInterestsState extends State<SelectInterests> {
                       borderRadius: BorderRadius.circular(twentyDp)),
                   minWidth: MediaQuery.of(context).size.width,
                   height: fiftyDp,
-                  onPressed: AppActions.pushReplacementNamedActivity(
-                      context, MainScreen.routeName, ''),
+                  onPressed: () => Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => MainScreen(index: 0,),), (route) => false),
+                  // AppActions.pushReplacementNamedActivity(
+                  //     context, MainScreen.routeName, ''),
+
                   child: Text(
                     skip,
                     style: TextStyle(

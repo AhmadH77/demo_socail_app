@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:social_app_demo/models/video.dart';
 import 'package:social_app_demo/widgets/commentItem.dart';
-import 'package:social_app_demo/widgets/liveChatItem.dart';
+import 'package:social_app_demo/widgets/tabs.dart' as tabs;
 
 class LandscapeFullVideo extends StatefulWidget {
   final Video video;
@@ -310,7 +310,7 @@ class _LandscapeFullVideoState extends State<LandscapeFullVideo>
                           border: Border.all(color: Colors.white)),
                       controller: tabController,
                       tabs: [
-                        Tab(
+                        tabs.Tab(
                           child: InkWell(
                             onTap: () {
                               setState.call(() {
@@ -351,7 +351,7 @@ class _LandscapeFullVideoState extends State<LandscapeFullVideo>
                             ),
                           ),
                         ),
-                        Tab(
+                        tabs.Tab(
                             child: InkWell(
                           onTap: () {
                             print('tttttt  $currencyTabIndex');
